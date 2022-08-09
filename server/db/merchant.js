@@ -1,7 +1,7 @@
 const client = require("./client");
 const bcrypt = require("bcrypt");
 
-async function createUser({ username, password }) {
+async function createMerchant({ username, password }) {
   const SALT_COUNT = 10;
 
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -13,7 +13,7 @@ async function createUser({ username, password }) {
       INSERT INTO users(username, password) 
       VALUES($1, $2) 
       ON CONFLICT (username) DO NOTHING 
-      RETURNING *;
+      RETURNING id, username;
     `,
       [username, hashedPassword]
     );
@@ -24,45 +24,45 @@ async function createUser({ username, password }) {
   }
 }
 
-async function getUser({ username, password }) {
-  const user = await getUserByUsername(username);
-  const hashedPassword = user.password;
+async function getMerchant({ username, password }) {
+  const seller = await getMerchantByUsername(username);
+  const hashedPassword = seller.password;
   const isValid = await bcrypt.compare(password, hashedPassword);
   if (!isValid) {
     return false;
   } else {
-    delete user.password;
+    delete seller.password;
   }
-  return user;
+  return seller;
 }
 
-async function getUserById(userId) {
+async function getMerchantById(sellerId) {
   try {
     const {
-      rows: [user],
+      rows: [seller],
     } = await client.query(`
     SELECT id, username 
-    FROM users
-    WHERE id =${userId};
+    FROM Merchants
+    WHERE id =${sellerId};
     `);
-    if (!user) {
+    if (!seller) {
       return null;
     }
 
-    return user;
+    return seller;
   } catch (error) {
     throw error;
   }
 }
 
-async function getUserByUsername(userName) {
+async function getMerchantByUsername(userName) {
   try {
     const {
       rows: [user],
     } = await client.query(
       `
     SELECT *
-    FROM users
+    FROM Merchants
     WHERE username =$1;
 
     `,
@@ -75,8 +75,8 @@ async function getUserByUsername(userName) {
 }
 
 module.exports = {
-  createUser,
-  getUser,
-  getUserById,
-  getUserByUsername,
+  createMerchant,
+  getMerchant,
+  getMerchantById,
+  getMerchantByUsername,
 };

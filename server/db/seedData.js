@@ -6,6 +6,8 @@ async function dropTables() {
       await client.query(`
      
       DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS Merchants;
+      DROP TABLE IF EXISTS Product;
       `);
       console.log("Dropping All Tables...");
     } catch (error) {
@@ -16,11 +18,31 @@ async function dropTables() {
   async function createTables() {
     try {
       console.log("Starting to build tables...");
-      await client.query(`CREATE TABLE users (
+      await client.query(`
+        CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL
         );
+        CREATE TABLE Merchants (
+          id SERIAL PRIMARY KEY,
+          name varchar(255) NOT NULL,
+          username varchar(255) UNIQUE NOT NULL,
+          password varchar(255) NOT NULL,
+          "Admin" BOOLEAN DEFAULT true
+          );
+          CREATE TABLE Product (
+            id SERIAL PRIMARY KEY,
+            "creatorId" INTEGER REFERENCES Merchants(id),
+            "countryId" INTERGER REFERENCES Countries(id),
+            name VARCHAR(255) UNIQUE NOT NULL,
+            description TEXT NOT NULL,
+            price INTERGER,
+            quantity INTERGER,
+            weight INTERGER,
+            roast VARCHAR(255) NOT NULL,
+            grind VARCHAR(255)
+          );
         `)
       }
       catch (error) {
