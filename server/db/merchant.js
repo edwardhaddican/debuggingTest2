@@ -1,7 +1,7 @@
 const client = require("./client");
 const bcrypt = require("bcrypt");
 
-async function createMerchant({ username, password }) {
+async function createMerchant({ username, password, brand, Admin }) {
   const SALT_COUNT = 10;
 
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -10,12 +10,12 @@ async function createMerchant({ username, password }) {
       rows: [user],
     } = await client.query(
       `
-      INSERT INTO users(username, password) 
-      VALUES($1, $2) 
+      INSERT INTO Merchants(username, password, brand, "Admin") 
+      VALUES($1, $2, $3, $4) 
       ON CONFLICT (username) DO NOTHING 
-      RETURNING id, username;
+      RETURNING *;
     `,
-      [username, hashedPassword]
+      [username, hashedPassword, brand, Admin]
     );
 
     return user;
@@ -58,7 +58,7 @@ async function getMerchantById(sellerId) {
 async function getMerchantByUsername(userName) {
   try {
     const {
-      rows: [user],
+      rows: [merchant],
     } = await client.query(
       `
     SELECT *
@@ -68,7 +68,7 @@ async function getMerchantByUsername(userName) {
     `,
       [userName]
     );
-    return user;
+    return merchant;
   } catch (error) {
     throw error;
   }

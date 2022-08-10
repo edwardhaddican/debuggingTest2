@@ -37,4 +37,6 @@ router.use(async (req,res,next) => {
 const usersRouter = require('./users');
 router.use('/users', usersRouter);
 
+const merchantsRouter = require('./merchants')
+router.use('/merchants', merchantsRouter)
 module.exports = router
