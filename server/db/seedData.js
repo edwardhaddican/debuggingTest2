@@ -1,5 +1,6 @@
 const client = require("./client");
 const { createUser } = require("./users");
+const {createMerchant} = require('./merchant')
 
 async function dropTables() {
   try {
@@ -20,10 +21,7 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
-      CREATE TYPE coffeeRoast AS ENUM('decaf','light', 'medium', 'dark');
-      CREATE TYPE coffeeGrind AS ENUM('Whole Beans', 'Ground', 'Instant');
-      CREATE TYPE order_status AS ENUM('pending', 'settled');
-      CREATE TYPE product_weights AS ENUM('0.5 lbs',' 1 lb', '1 Kilo', '5 Kilos');
+     
 
         CREATE TABLE users (
         id SERIAL PRIMARY KEY,
@@ -37,18 +35,7 @@ async function createTables() {
           brand varchar(255) NOT NULL,
           "Admin" BOOLEAN DEFAULT true
           );
-        CREATE TABLE Product (
-            id SERIAL PRIMARY KEY,
-            "creatorId" INTEGER REFERENCES Merchants(id),
-            "countryId" INTEGER,
-            name VARCHAR(255) UNIQUE NOT NULL,
-            description TEXT NOT NULL,
-            roast coffeeRoast NOT NULL,
-            grind coffeeGrind NOT NULL,
-            price INTEGER,
-            inventory INTEGER NOT NULL,
-            weight product_weights NOT NULL
-          );
+        
         
         `);
   } catch (error) {
@@ -75,11 +62,48 @@ async function createInitialUsers() {
   }
 }
 
+async function createInitialMerchants() {
+  console.log("starting to create merchants...");
+
+  const merchantsToCreate = [
+    {
+      username: "sammy12",
+      password: "sammy1234",
+      brand: "Sammy's Coffee",
+      Admin: true,
+    },
+    {
+      username: "johnny12",
+      password: "johnny1234",
+      brand: "Johnny's Coffee",
+      Admin: true,
+    },
+    {
+      username: "benny12",
+      password: "benny1234",
+      brand: "Benny's Coffee",
+      Admin: true,
+    },
+    {
+      username: "randy12",
+      password: "randy1234",
+      brand: "Randy's Coffee",
+      Admin: true,
+    },
+  ];
+  const merchants = await Promise.all(
+    merchantsToCreate.map((merchant) => createMerchant(merchant))
+  );
+  console.log('Merchants created', merchants);
+  console.log("Finished creating merchants.");
+}
+
 async function rebuildDB() {
   try {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialMerchants()
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
