@@ -1,19 +1,19 @@
 const client = require("./client");
 
-async function createProduct({ name, description }) {
+async function createProduct({ name, description, price, inventory, weight, roast, grind, countryId, creatorId }) {
   try {
     const {
-      rows: [activities],
+      rows: [Products],
     } = await client.query(
       `
-      INSERT INTO activities(name, description) 
-      VALUES($1, $2) 
+      INSERT INTO Product(name, description) 
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
       RETURNING *;
     `,
-      [name, description]
+      [name, description, price, inventory, weight, roast, grind, countryId, creatorId]
     );
 
-    return activities;
+    return Products;
   } catch (error) {
     throw error;
   }
@@ -71,28 +71,28 @@ async function getProductsByName(name) {
   }
 }
 
-async function addingProduct2Cart(Cart) {
-  const routinesToReturn = [...routines];
-  const binds = routines.map((_, index) => `$${index + 1}`).join(", ");
-  const routineIds = routines.map((routine) => routine.id);
-  if (!routineIds?.length) return [];
+async function addingProduct2Cart(orderCart) {
+  const ProductsToReturn = [...Cart];
+  const binds = orderCart.map((_, index) => `$${index + 1}`).join(", ");
+  const productIds = orderCart.map((Product) => Product.id);
+  if (!productIds?.length) return [];
 
   try {
-    const { rows: activities } = await client.query(
+    const { rows: products } = await client.query(
       `
-      SELECT activities.*, routine_activities.duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
-      FROM activities 
-      JOIN routine_activities ON routine_activities."activityId" = activities.id
-      WHERE routine_activities."routineId" IN (${binds});
+      SELECT products.*, order_cart.duration, order_cart.count, order_cart.id AS "orderCartId", order_cart."productId"
+      FROM Products 
+      JOIN order_cart ON order_cart."activityId" = activities.id
+      WHERE order_cart."routineId" IN (${binds});
     `,
       routineIds
     );
 
-    for (const routine of routinesToReturn) {
-      const activitiesToAdd = activities.filter(
-        (activity) => activity.routineId === routine.id
+    for (const Product of ProductsToReturn) {
+      const productsToAdd = activities.filter(
+        (activity) => activity.productId === Product.id
       );
-      routine.activities = activitiesToAdd;
+      Product.activities = productsToAdd;
     }
     return routinesToReturn;
   } catch (error) {
