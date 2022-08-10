@@ -6,7 +6,7 @@ async function createProduct({ name, description, price, inventory, weight, roas
       rows: [Products],
     } = await client.query(
       `
-      INSERT INTO Product(name, description) 
+      INSERT INTO Product(name, description, price, inventory, weight, roast, grind, countryId,) 
       VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
       RETURNING *;
     `,
@@ -71,26 +71,55 @@ async function getProductsByName(name) {
   }
 }
 
+// async function addingProduct2Cart(orderCart) {
+//   const ProductsToReturn = [...orderCart];
+//   const binds = orderCart.map((_, index) => `$${index + 1}`).join(", ");
+//   const orderCartId = orderCart.map((Product) => Product.id);
+//   if (!orderCartId?.length) return [];
+
+//   try {
+//     const { rows: products } = await client.query(
+//       `
+//       SELECT products.*, order_cart.duration, order_cart.count, order_cart.id AS "order_Id", order_cart."productId"
+//       FROM Products 
+//       JOIN order_cart ON order_cart."productId" = Products.id
+//       WHERE order_cart."orderCartId" IN (${binds});
+//     `,
+//       orderCartId
+//     );
+
+//     for (const Product of ProductsToReturn) {
+//       const productsToAdd = activities.filter(
+//         () => activity.productId === Product.id
+//       );
+//       Product.activities = productsToAdd;
+//     }
+//     return routinesToReturn;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
 async function addingProduct2Cart(orderCart) {
-  const ProductsToReturn = [...Cart];
+  const ProductsToReturn = [...orderCart];
   const binds = orderCart.map((_, index) => `$${index + 1}`).join(", ");
-  const productIds = orderCart.map((Product) => Product.id);
-  if (!productIds?.length) return [];
+  const orderCartId = orderCart.map((Product) => Product.id);
+  if (!orderCartId?.length) return [];
 
   try {
     const { rows: products } = await client.query(
       `
-      SELECT products.*, order_cart.duration, order_cart.count, order_cart.id AS "orderCartId", order_cart."productId"
+      SELECT products.*, order_cart.duration, order_cart.count, order_cart.id AS "order_Id", order_cart."productId"
       FROM Products 
-      JOIN order_cart ON order_cart."activityId" = activities.id
-      WHERE order_cart."routineId" IN (${binds});
+      JOIN order_cart ON order_cart."productId" = Products.id
+      WHERE order_cart."orderCartId" IN (${binds});
     `,
-      routineIds
+      orderCartId
     );
 
     for (const Product of ProductsToReturn) {
       const productsToAdd = activities.filter(
-        (activity) => activity.productId === Product.id
+        () => activity.productId === Product.id
       );
       Product.activities = productsToAdd;
     }
@@ -99,6 +128,8 @@ async function addingProduct2Cart(orderCart) {
     throw error;
   }
 }
+
+
 
 async function updateProduct({ id, ...fields }) {
   const setString = Object.keys(fields)
@@ -109,7 +140,7 @@ async function updateProduct({ id, ...fields }) {
     if (setString.length > 0) {
       await client.query(
         `
-        UPDATE activities
+        UPDATE Products
         SET ${setString}
         WHERE id=${id}
         RETURNING *;
