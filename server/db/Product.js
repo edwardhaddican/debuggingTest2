@@ -75,16 +75,16 @@ async function getProductsByName(name) {
     throw error;
   }
 }
-// async function attachProductsUserOrder(routines) {
-//   const routinesToReturn = [...routines];
-//   const binds = routines.map((_, index) => `$${index + 1}`).join(", ");
-//   const routineIds = routines.map((routine) => routine.id);
-//   if (!routineIds?.length) return [];
+// async function attachProductsUserOrder(userOrder) {
+//   const productsToReturn = [...userOrder];
+//   const binds = userOrder.map((_, index) => `$${index + 1}`).join(", ");
+//   const productIds = userOrder.map((product) => product.id);
+//   if (!productIds?.length) return [];
 
 //   try {
-//     const { rows: activities } = await client.query(
+//     const { rows: products } = await client.query(
 //       `
-//       SELECT activities.*, routine_activities.duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
+//       SELECT products.*, .duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
 //       FROM activities 
 //       JOIN routine_activities ON routine_activities."activityId" = activities.id
 //       WHERE routine_activities."routineId" IN (${binds});
@@ -105,30 +105,32 @@ async function getProductsByName(name) {
 // }
 
 
-// async function updateProduct({ id, ...fields }) {
-//   const setString = Object.keys(fields)
-//     .map((key, index) => `"${key}"=$${index + 1}`)
-//     .join(", ");
+async function updateProduct({ id, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
 
-//   try {
-//     if (setString.length > 0) {
-//       await client.query(
-//         `
-//         UPDATE Products
-//         SET ${setString}
-//         WHERE id=${id}
-//         RETURNING *;
-//       `,
-//         Object.values(fields)
-//       );
-//     }
-//     return await getProductById(id);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+  try {
+    if (setString.length > 0) {
+      await client.query(
+        `
+        UPDATE Products
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *;
+      `,
+        Object.values(fields)
+      );
+    }
+    return await getProductById(id);
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   createProduct,
-  getAllProducts
+  getAllProducts,
+  getProductsByName,
+  updateProduct,
 };
