@@ -19,32 +19,37 @@ async function createProduct({ creatorId, countryId, name, description, price, i
   }
 }
 
-async function getAllProduct() {
-  try {
-    const { rows } = await client.query(`
-      SELECT *
-      FROM Product;
-    `);
 
-    return rows;
-  } catch (error) {
-    throw error;
-  }
-}
 
-async function getProductById(id) {
+async function getProductById(productId) {
   try {
     const {
       rows: [Products],
     } = await client.query(`
     SELECT id, name, description
     FROM Products
-    WHERE id =${id};
+    WHERE id =${productId};
     `);
     if (!Products) {
       return null;
     }
     return Products;
+  } catch (error) {
+    throw error;
+  }
+}
+async function getAllProducts() {
+  try {
+    const { rows: productId } = await client.query(`
+      SELECT id
+      FROM Product;
+    `);
+
+    const products = await Promise.all(productId.map(
+      product => getProductById( product.id )
+    ));
+
+    return products
   } catch (error) {
     throw error;
   }
@@ -125,4 +130,5 @@ async function updateProduct({ id, ...fields }) {
 
 module.exports = {
   createProduct,
+  getAllProducts
 };
