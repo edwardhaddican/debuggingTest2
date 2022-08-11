@@ -33,4 +33,8 @@ app.use((error, req, res, next) => {
   res.send({error: error.message, name: error.name, message: error.message});
 });
 
+app.listen(3001,async () => {
+  console.log("Server is listening on 3001")
+} )
+
 module.exports = app;
