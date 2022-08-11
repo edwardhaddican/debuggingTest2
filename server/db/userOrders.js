@@ -5,16 +5,16 @@ const { getUserByUsername } = require("./users");
 async function createUsersOrders({userId, productId, price, weight, quantity}) {
   try {
     const {
-      rows: [routine],
+      rows: [orders],
     } = await client.query(
       `
-      INSERT INTO routines("userId", "productId", price, weight, quantity) 
+      INSERT INTO usersOrders("userId", "productId", price, weight, quantity) 
       VALUES($1, $2, $3, $4, $5)
       RETURNING *;
     `,
       [userId, productId, price, weight, quantity]
     );
-    return routine;
+    return orders;
   } catch (error) {
     throw error;
   }
@@ -126,6 +126,7 @@ async function updateUsersOrders({ id, ...fields }) {
 // }
 
 module.exports = {
+    createUsersOrders,
     updateUsersOrders,
   getUserByUsername,
   getUsersOrdersById,

@@ -2,6 +2,7 @@ const client = require("./client");
 const { createUser } = require("./users");
 const { createMerchant } = require("./merchant");
 const { createProduct } = require("./Product");
+const { createUsersOrders } = require("./userOrders");
 
 async function dropTables() {
   try {
@@ -187,6 +188,44 @@ async function createInitialProducts() {
   console.log("Finished creating PRODUCTS");
 }
 
+
+async function createInitialuserOrder() {
+  console.log("Starting to create USERSORDERS");
+
+  const userOrderstoCreate = [
+    {
+      userId: 1,
+      productId: 1,
+      price: 5,
+      weight: 1,
+      quantity: 5
+    },
+    {
+      userId: 1,
+      productId: 2,
+      price: 55,
+      weight: 1,
+      quantity: 1
+    },
+    {
+      userId: 1,
+      productId: 3,
+      price: 56,
+      weight: 11,
+      quantity: 2
+    },
+  
+  ];
+    const userOrder = await Promise.all(
+      userOrderstoCreate.map((product) => createUsersOrders(product))
+    );
+  
+    console.log("PRODUCT created:");
+    console.log(userOrder);
+  
+    console.log("Finished creating PRODUCTS");
+  }
+
 async function rebuildDB() {
   try {
     await dropTables();
@@ -194,6 +233,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialMerchants();
     await createInitialProducts();
+    await createInitialuserOrder();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
