@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { getProducts } from "../apiAdapter";
+import { NavLink } from "react-router-dom";
 
 const Products = ({productsList, setProductsList}) => {
 
@@ -24,6 +25,7 @@ const Products = ({productsList, setProductsList}) => {
                 <div className="ProductsHeader">
                     Products
                 </div>
+                <NavLink to='/CreateProduct'>Create Product</NavLink>
                 <div>
                     {displayProducts}
                 </div>

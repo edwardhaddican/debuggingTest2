@@ -7,7 +7,9 @@ import { App } from "./components";
 const root = ReactDOM.createRoot(document.getElementById("app"));
 
 root.render(
- 
-    <App />
+ <BrowserRouter>
+  <App />
+ </BrowserRouter>
+   
  
 );
