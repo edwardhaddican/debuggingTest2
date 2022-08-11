@@ -1,18 +1,18 @@
 const client = require("./client");
 
-async function createProduct({ name, description, price, inventory, weight, roast, grind, countryId, creatorId }) {
+async function createProduct({ creatorId, countryId, name, description, price, inventory, weight, roast, grind }) {
   try {
     const {
       rows: [Products],
     } = await client.query(
       `
-      INSERT INTO Product(name, description, price, inventory, weight, roast, grind, countryId,) 
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
+      INSERT INTO Product("creatorId", countryId, name, description, price, inventory, weight, roast, grind) 
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
       RETURNING *;
     `,
-      [name, description, price, inventory, weight, roast, grind, countryId, creatorId]
+      [creatorId, countryId, name, description, price, inventory, weight, roast, grind]
     );
-
+    creatorId, countryId, name, description, price, inventory, weight, roast, grind
     return Products;
   } catch (error) {
     throw error;
@@ -70,65 +70,34 @@ async function getProductsByName(name) {
     throw error;
   }
 }
-
-// async function addingProduct2Cart(orderCart) {
-//   const ProductsToReturn = [...orderCart];
-//   const binds = orderCart.map((_, index) => `$${index + 1}`).join(", ");
-//   const orderCartId = orderCart.map((Product) => Product.id);
-//   if (!orderCartId?.length) return [];
-
-//   try {
-//     const { rows: products } = await client.query(
-//       `
-//       SELECT products.*, order_cart.duration, order_cart.count, order_cart.id AS "order_Id", order_cart."productId"
-//       FROM Products 
-//       JOIN order_cart ON order_cart."productId" = Products.id
-//       WHERE order_cart."orderCartId" IN (${binds});
-//     `,
-//       orderCartId
-//     );
-
-//     for (const Product of ProductsToReturn) {
-//       const productsToAdd = activities.filter(
-//         () => activity.productId === Product.id
-//       );
-//       Product.activities = productsToAdd;
-//     }
-//     return routinesToReturn;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-
-async function addingProduct2Cart(orderCart) {
-  const ProductsToReturn = [...orderCart];
-  const binds = orderCart.map((_, index) => `$${index + 1}`).join(", ");
-  const orderCartId = orderCart.map((Product) => Product.id);
-  if (!orderCartId?.length) return [];
+async function attachProductsUserOrder(routines) {
+  const routinesToReturn = [...routines];
+  const binds = routines.map((_, index) => `$${index + 1}`).join(", ");
+  const routineIds = routines.map((routine) => routine.id);
+  if (!routineIds?.length) return [];
 
   try {
-    const { rows: products } = await client.query(
+    const { rows: activities } = await client.query(
       `
-      SELECT products.*, order_cart.duration, order_cart.count, order_cart.id AS "order_Id", order_cart."productId"
-      FROM Products 
-      JOIN order_cart ON order_cart."productId" = Products.id
-      WHERE order_cart."orderCartId" IN (${binds});
+      SELECT activities.*, routine_activities.duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
+      FROM activities 
+      JOIN routine_activities ON routine_activities."activityId" = activities.id
+      WHERE routine_activities."routineId" IN (${binds});
     `,
-      orderCartId
+      routineIds
     );
 
-    for (const Product of ProductsToReturn) {
-      const productsToAdd = activities.filter(
-        () => activity.productId === Product.id
+    for (const routine of routinesToReturn) {
+      const activitiesToAdd = activities.filter(
+        (activity) => activity.routineId === routine.id
       );
-      Product.activities = productsToAdd;
+      routine.activities = activitiesToAdd;
     }
     return routinesToReturn;
   } catch (error) {
     throw error;
   }
 }
-
 
 
 async function updateProduct({ id, ...fields }) {
@@ -155,10 +124,5 @@ async function updateProduct({ id, ...fields }) {
 }
 
 module.exports = {
-  getAllActivities,
-  getActivityById,
-  getActivityByName,
-  attachActivitiesToRoutines,
-  createActivity,
-  updateActivity,
+  createProduct,
 };
