@@ -41,3 +41,18 @@ export const userLogin = async (username, password) => {
     const token = result.token;
     return token;
   };
+
+  export const getProducts = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/products`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+      console.log(result, "asdfasdfadfadsf")
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  };

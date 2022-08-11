@@ -26,8 +26,8 @@ async function getProductById(productId) {
     const {
       rows: [Products],
     } = await client.query(`
-    SELECT id, name, description
-    FROM Products
+    SELECT *
+    FROM Product
     WHERE id =${productId};
     `);
     if (!Products) {
@@ -62,7 +62,7 @@ async function getProductsByName(name) {
     } = await client.query(
       `
     SELECT *
-    FROM Products
+    FROM Product
     WHERE name=$1;
     `,
       [name]
@@ -75,58 +75,58 @@ async function getProductsByName(name) {
     throw error;
   }
 }
-async function attachProductsUserOrder(routines) {
-  const routinesToReturn = [...routines];
-  const binds = routines.map((_, index) => `$${index + 1}`).join(", ");
-  const routineIds = routines.map((routine) => routine.id);
-  if (!routineIds?.length) return [];
+// async function attachProductsUserOrder(routines) {
+//   const routinesToReturn = [...routines];
+//   const binds = routines.map((_, index) => `$${index + 1}`).join(", ");
+//   const routineIds = routines.map((routine) => routine.id);
+//   if (!routineIds?.length) return [];
 
-  try {
-    const { rows: activities } = await client.query(
-      `
-      SELECT activities.*, routine_activities.duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
-      FROM activities 
-      JOIN routine_activities ON routine_activities."activityId" = activities.id
-      WHERE routine_activities."routineId" IN (${binds});
-    `,
-      routineIds
-    );
+//   try {
+//     const { rows: activities } = await client.query(
+//       `
+//       SELECT activities.*, routine_activities.duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
+//       FROM activities 
+//       JOIN routine_activities ON routine_activities."activityId" = activities.id
+//       WHERE routine_activities."routineId" IN (${binds});
+//     `,
+//       routineIds
+//     );
 
-    for (const routine of routinesToReturn) {
-      const activitiesToAdd = activities.filter(
-        (activity) => activity.routineId === routine.id
-      );
-      routine.activities = activitiesToAdd;
-    }
-    return routinesToReturn;
-  } catch (error) {
-    throw error;
-  }
-}
+//     for (const routine of routinesToReturn) {
+//       const activitiesToAdd = activities.filter(
+//         (activity) => activity.routineId === routine.id
+//       );
+//       routine.activities = activitiesToAdd;
+//     }
+//     return routinesToReturn;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 
-async function updateProduct({ id, ...fields }) {
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
+// async function updateProduct({ id, ...fields }) {
+//   const setString = Object.keys(fields)
+//     .map((key, index) => `"${key}"=$${index + 1}`)
+//     .join(", ");
 
-  try {
-    if (setString.length > 0) {
-      await client.query(
-        `
-        UPDATE Products
-        SET ${setString}
-        WHERE id=${id}
-        RETURNING *;
-      `,
-        Object.values(fields)
-      );
-    }
-    return await getProductById(id);
-  } catch (error) {
-    throw error;
-  }
-}
+//   try {
+//     if (setString.length > 0) {
+//       await client.query(
+//         `
+//         UPDATE Products
+//         SET ${setString}
+//         WHERE id=${id}
+//         RETURNING *;
+//       `,
+//         Object.values(fields)
+//       );
+//     }
+//     return await getProductById(id);
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 module.exports = {
   createProduct,
