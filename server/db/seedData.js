@@ -1,15 +1,16 @@
 const client = require("./client");
 const { createUser } = require("./users");
-const {createMerchant} = require('./merchant')
+const { createMerchant } = require("./merchant");
+const { createProduct } = require("./Product");
 
 async function dropTables() {
   try {
     await client.query(`
-     
-      DROP TABLE IF EXISTS users;
-      DROP TABLE IF EXISTS Product;
+
+     DROP TABLE IF EXISTS Product;
       DROP TABLE IF EXISTS Merchants;
-      
+       DROP TABLE IF EXISTS users;
+
       `);
     console.log("Dropping All Tables...");
   } catch (error) {
@@ -21,8 +22,6 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
-     
-
         CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
@@ -35,7 +34,18 @@ async function createTables() {
           brand varchar(255) NOT NULL,
           "Admin" BOOLEAN DEFAULT true
           );
-        
+          CREATE TABLE Product (
+            id SERIAL PRIMARY KEY,
+            "creatorId" INTEGER REFERENCES Merchants(id),
+            countryId INTEGER,
+            name VARCHAR(255) NOT NULL,
+            description TEXT NOT NULL,
+            price INTEGER,
+            inventory INTEGER NOT NULL,
+            weight INTEGER,
+            roast varchar(255) NOT NULL,
+            grind varchar(255)          
+          );
         
         `);
   } catch (error) {
@@ -94,8 +104,67 @@ async function createInitialMerchants() {
   const merchants = await Promise.all(
     merchantsToCreate.map((merchant) => createMerchant(merchant))
   );
-  console.log('Merchants created', merchants);
+  console.log("Merchants created", merchants);
   console.log("Finished creating merchants.");
+}
+
+async function createInitialProducts() {
+  console.log("Starting to create PRODUCTS LINE 112");
+
+  const productsToCreate = [
+    {
+      creatorId: 1,
+      countryId: 1,
+      name: "Coffee#1",
+      description: "coffee stuff description 1",
+      price: 20,
+      inventory: 78,
+      weight: 5,
+      roast: "medium",
+      grind: "ground",
+    },
+    {
+      creatorId: 1,
+      countryId: 2,
+      name: "Coffee#2",
+      description: "coffee stuff description 2",
+      price: 55,
+      inventory: 99,
+      weight: 2,
+      roast: "dark",
+      grind: "ground",
+    },
+    {
+      creatorId: 2,
+      countryId: 2,
+      name: "Coffee#3",
+      description: "coffee stuff description 3",
+      price: 15,
+      inventory: 50,
+      weight: 1,
+      roast: "light",
+      grind: "Whole Beans",
+    },
+    {
+      creatorId: 3,
+      countryId: 1,
+      name: "Coffee#4",
+      description: "coffee stuff description 4",
+      price: 10,
+      inventory: 2,
+      weight: 10,
+      roast: "dark",
+      grind: "instant",
+    },
+  ];
+  const products = await Promise.all(
+    productsToCreate.map((product) => createProduct(product))
+  );
+
+  console.log("PRODUCT created:");
+  console.log(products);
+
+  console.log("Finished creating PRODUCTS");
 }
 
 async function rebuildDB() {
@@ -103,7 +172,8 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await createInitialUsers();
-    await createInitialMerchants()
+    await createInitialMerchants();
+    await createInitialProducts();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
