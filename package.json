@@ -2,13 +2,11 @@
   "name": "graceshopper",
   "version": "1.0.0",
   "description": "capstone project for FSA",
-  "main": "index.js",
   "scripts": {
     "test": "test",
     "seed:dev": "nodemon ./server/db/seed.js",
     "seed": "node ./server/db/seed.js",
     "start:dev": "nodemon ./server/server.js",
-    "start-dev": "NODE_ENV='development' react-scripts start",
     "start": "react-scripts start",
     "build": "NODE_ENV=production npm run compile-env && react-scripts build"
   },
@@ -25,9 +23,7 @@
     "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0"
-  },
-  "devDependencies": {
+    "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1"
   },
   "browserslist": {
@@ -41,14 +37,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/2206-GraceShopper-capstone/GraceShopper-Warp.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/2206-GraceShopper-capstone/GraceShopper-Warp/issues"
-  },
-  "homepage": "https://github.com/2206-GraceShopper-capstone/GraceShopper-Warp#readme"
+  }
 }
