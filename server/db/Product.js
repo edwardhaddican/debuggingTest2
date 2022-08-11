@@ -1,6 +1,17 @@
 const client = require("./client");
+const { getMerchantByUsername } = require("./merchant");
 
-async function createProduct({ creatorId, countryId, name, description, price, inventory, weight, roast, grind }) {
+async function createProduct({
+  creatorId,
+  countryId,
+  name,
+  description,
+  price,
+  inventory,
+  weight,
+  roast,
+  grind,
+}) {
   try {
     const {
       rows: [Products],
@@ -10,16 +21,32 @@ async function createProduct({ creatorId, countryId, name, description, price, i
       VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
       RETURNING *;
     `,
-      [creatorId, countryId, name, description, price, inventory, weight, roast, grind]
+      [
+        creatorId,
+        countryId,
+        name,
+        description,
+        price,
+        inventory,
+        weight,
+        roast,
+        grind,
+      ]
     );
-    creatorId, countryId, name, description, price, inventory, weight, roast, grind
+    creatorId,
+      countryId,
+      name,
+      description,
+      price,
+      inventory,
+      weight,
+      roast,
+      grind;
     return Products;
   } catch (error) {
     throw error;
   }
 }
-
-
 
 async function getProductById(productId) {
   try {
@@ -45,11 +72,11 @@ async function getAllProducts() {
       FROM Product;
     `);
 
-    const products = await Promise.all(productId.map(
-      product => getProductById( product.id )
-    ));
+    const products = await Promise.all(
+      productId.map((product) => getProductById(product.id))
+    );
 
-    return products
+    return products;
   } catch (error) {
     throw error;
   }
@@ -75,6 +102,46 @@ async function getProductsByName(name) {
     throw error;
   }
 }
+
+async function getProductsByBrand({ username }) {
+  try {
+    const seller = await getMerchantByUsername(username);
+    const { rows: [Products]} = await client.query(
+      `
+    SELECT Product.*, merchant.username AS "creatorId"
+    FROM Product
+    WHERE "creatorId" =$1;
+    `,
+      [brand]
+    );
+    if (!Products) {
+      return null;
+    }
+    console.log(Products,"GETTING PRODUCTS BY BRAND")
+    return Products;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function destroyProduct(id) {
+  try {
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+    DELETE FROM Product
+    WHERE id = $1
+    RETURNING *;
+    `,
+      [id]
+    );
+    console.log(product, "DELETING PRODUCT");
+    return product;
+  } catch (error) {
+    throw error;
+  }
+}
 // async function attachProductsUserOrder(userOrder) {
 //   const productsToReturn = [...userOrder];
 //   const binds = userOrder.map((_, index) => `$${index + 1}`).join(", ");
@@ -85,7 +152,7 @@ async function getProductsByName(name) {
 //     const { rows: products } = await client.query(
 //       `
 //       SELECT products.*, .duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
-//       FROM activities 
+//       FROM activities
 //       JOIN routine_activities ON routine_activities."activityId" = activities.id
 //       WHERE routine_activities."routineId" IN (${binds});
 //     `,
@@ -103,7 +170,6 @@ async function getProductsByName(name) {
 //     throw error;
 //   }
 // }
-
 
 async function updateProduct({ id, ...fields }) {
   const setString = Object.keys(fields)
@@ -133,4 +199,6 @@ module.exports = {
   getAllProducts,
   getProductsByName,
   updateProduct,
+  destroyProduct,
+  getProductsByBrand
 };

@@ -15,6 +15,7 @@ async function dropTables() {
        DROP TYPE IF EXISTS coffeeRoast;
        DROP TYPE IF EXISTS coffeeGrind;
        DROP TYPE IF EXISTS order_status;
+       DROP TYPE IF EXISTS coffeeCountry;
       `);
     console.log("Dropping All Tables...");
   } catch (error) {
@@ -29,6 +30,7 @@ async function createTables() {
        CREATE TYPE coffeeRoast AS ENUM('Decaf','Mild', 'Medium', 'Dark');
        CREATE TYPE coffeeGrind AS ENUM('Whole Beans', 'Ground', 'Instant');
        CREATE TYPE order_status AS ENUM('pending', 'settled');
+       CREATE TYPE coffeeCountry AS ENUM('Brazil','Vietnam','Colombia','Indonesia','Ethiopia','Honduras','India','Uganda');
 
         CREATE TABLE users (
         id SERIAL PRIMARY KEY,
@@ -45,8 +47,8 @@ async function createTables() {
           CREATE TABLE Product (
             id SERIAL PRIMARY KEY,
             "creatorId" INTEGER REFERENCES Merchants(id),
-            countryId INTEGER,
-            name VARCHAR(255) NOT NULL,
+            countryId coffeeCountry,
+            brand VARCHAR(255) NOT NULL,
             description TEXT NOT NULL,
             price INTEGER,
             inventory INTEGER NOT NULL,
@@ -66,7 +68,8 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id),
             "orderId" INTEGER REFERENCES usersOrders(id),
-            quantity INTEGER
+            quantity INTEGER,
+            UNIQUE("userId","orderId")
             );
         `);
   } catch (error) {
@@ -135,7 +138,7 @@ async function createInitialProducts() {
   const productsToCreate = [
     {
       creatorId: 1,
-      countryId: 1,
+      countryId: "Brazil",
       name: "Coffee#1",
       description: "coffee stuff description 1",
       price: 20,
@@ -146,7 +149,7 @@ async function createInitialProducts() {
     },
     {
       creatorId: 1,
-      countryId: 2,
+      countryId: "Vietnam",
       name: "Coffee#2",
       description: "coffee stuff description 2",
       price: 55,
@@ -157,7 +160,7 @@ async function createInitialProducts() {
     },
     {
       creatorId: 2,
-      countryId: 2,
+      countryId: "Colombia",
       name: "Coffee#3",
       description: "coffee stuff description 3",
       price: 15,
@@ -168,7 +171,7 @@ async function createInitialProducts() {
     },
     {
       creatorId: 3,
-      countryId: 1,
+      countryId: "Ethiopia",
       name: "Coffee#4",
       description: "coffee stuff description 4",
       price: 10,
@@ -226,6 +229,35 @@ async function createInitialuserOrder() {
     console.log("Finished creating PRODUCTS");
   }
 
+  // async function createInitialFinalOrder() {
+  //   console.log("Starting to create FINAL ORDER");
+  
+  //   const finalOrderstoCreate = [
+  //     {
+  //       userId: 1,
+  //       orderId: 1,
+  //       quantity: 5
+  //     },
+  //     {
+  //       userId: 1,
+  //       orderId: 2,
+  //       quantity: 5
+  //     },
+  //     {
+  //       userId: 1,
+  //       orderId: 1,
+  //       quantity: 5
+  //     },
+  //   ];
+  //   const finalOrder = await Promise.all(
+  //     finalOrderstoCreate.map((product) => createFinalOrder(product))
+  //   );
+  
+  //   console.log("PRODUCT created:");
+  //   console.log(finalOrder);
+  
+  //   console.log("Finished creating PRODUCTS");
+  // }
 async function rebuildDB() {
   try {
     await dropTables();
