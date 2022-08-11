@@ -48,7 +48,7 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
             "creatorId" INTEGER REFERENCES Merchants(id),
             countryId coffeeCountry,
-            name VARCHAR(255) NOT NULL,
+            brand VARCHAR(255) NOT NULL,
             description TEXT NOT NULL,
             price INTEGER,
             inventory INTEGER NOT NULL,
