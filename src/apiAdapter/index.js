@@ -16,8 +16,7 @@ export const userLogin = async (username, password) => {
       });
       const result = await response.json();
       console.log(result);
-      const token = result.token;
-      return token;
+      return result
     } catch (error) {
       console.log(error);
     }
@@ -55,4 +54,26 @@ export const userLogin = async (username, password) => {
     } catch (error) {
       throw error;
     }
+  };
+
+  export const createNewProduct = async (token, nameProduct,description, price, weight, roast, grind, inventory ) => {
+    const response = await fetch(`${BASE_URL}/products`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: nameProduct,
+         description,
+          price, 
+           weight,
+            roast, 
+            grind, 
+            inventory
+      }),
+    });
+    const result = await response.json();
+  console.log(result)
+    return result;
   };

@@ -1,22 +1,30 @@
 import { userLogin } from "../apiAdapter";
 import React, { useState } from "react";
 
- const Login = () => {
+ const Login = ({setIsLoggedIn}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-  
-    const handleSubmit = async (event) => {
-      try {
-        event.preventDefault();
-        const token = await userLogin(username, password);
-        localStorage.setItem("token", token);
-        console.log(token);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const [error, setError] = useState(null);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const result = await userLogin(username, password);
+
+    const token = result.token;
+    if (result.error) {
+      setError(result);
+      setIsLoggedIn(false);
+    } else if (token) {
+      setError(null);
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
+      setUsername(username);
+      setIsLoggedIn(true);
+    
+  };
+}
     return (
       <div>
+        {error && error.message ? <h3>{error.message}</h3> : null}
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
             <input
@@ -42,4 +50,5 @@ import React, { useState } from "react";
       </div>
     );
   };
+
 export default Login
