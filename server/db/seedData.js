@@ -2,15 +2,19 @@ const client = require("./client");
 const { createUser } = require("./users");
 const { createMerchant } = require("./merchant");
 const { createProduct } = require("./Product");
+const { createUsersOrders } = require("./userOrders");
 
 async function dropTables() {
   try {
     await client.query(`
-
-     DROP TABLE IF EXISTS Product;
+    DROP TABLE IF EXISTS finalOrder;
+      DROP TABLE IF EXISTS usersOrders;
+       DROP TABLE IF EXISTS Product;
       DROP TABLE IF EXISTS Merchants;
        DROP TABLE IF EXISTS users;
-
+       DROP TYPE IF EXISTS coffeeRoast;
+       DROP TYPE IF EXISTS coffeeGrind;
+       DROP TYPE IF EXISTS order_status;
       `);
     console.log("Dropping All Tables...");
   } catch (error) {
@@ -22,6 +26,10 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
+       CREATE TYPE coffeeRoast AS ENUM('Decaf','Mild', 'Medium', 'Dark');
+       CREATE TYPE coffeeGrind AS ENUM('Whole Beans', 'Ground', 'Instant');
+       CREATE TYPE order_status AS ENUM('pending', 'settled');
+
         CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
@@ -43,10 +51,23 @@ async function createTables() {
             price INTEGER,
             inventory INTEGER NOT NULL,
             weight INTEGER,
-            roast varchar(255) NOT NULL,
-            grind varchar(255)          
+            roast coffeeRoast NOT NULL,
+            grind coffeeGrind      
           );
-        
+          CREATE TABLE usersOrders (
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
+            "productId" INTEGER REFERENCES Product(id),
+            price INTEGER,
+            weight INTEGER,
+            quantity INTEGER
+          );
+          CREATE TABLE finalOrder (
+            id SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users(id),
+            "orderId" INTEGER REFERENCES usersOrders(id),
+            quantity INTEGER
+            );
         `);
   } catch (error) {
     throw error;
@@ -120,8 +141,8 @@ async function createInitialProducts() {
       price: 20,
       inventory: 78,
       weight: 5,
-      roast: "medium",
-      grind: "ground",
+      roast: "Medium",
+      grind: "Ground",
     },
     {
       creatorId: 1,
@@ -131,8 +152,8 @@ async function createInitialProducts() {
       price: 55,
       inventory: 99,
       weight: 2,
-      roast: "dark",
-      grind: "ground",
+      roast: "Dark",
+      grind: "Ground",
     },
     {
       creatorId: 2,
@@ -142,7 +163,7 @@ async function createInitialProducts() {
       price: 15,
       inventory: 50,
       weight: 1,
-      roast: "light",
+      roast: "Mild",
       grind: "Whole Beans",
     },
     {
@@ -153,8 +174,8 @@ async function createInitialProducts() {
       price: 10,
       inventory: 2,
       weight: 10,
-      roast: "dark",
-      grind: "instant",
+      roast: "Decaf",
+      grind: "Instant",
     },
   ];
   const products = await Promise.all(
@@ -167,6 +188,44 @@ async function createInitialProducts() {
   console.log("Finished creating PRODUCTS");
 }
 
+
+async function createInitialuserOrder() {
+  console.log("Starting to create USERSORDERS");
+
+  const userOrderstoCreate = [
+    {
+      userId: 1,
+      productId: 1,
+      price: 5,
+      weight: 1,
+      quantity: 5
+    },
+    {
+      userId: 1,
+      productId: 2,
+      price: 55,
+      weight: 1,
+      quantity: 1
+    },
+    {
+      userId: 1,
+      productId: 3,
+      price: 56,
+      weight: 11,
+      quantity: 2
+    },
+  
+  ];
+    const userOrder = await Promise.all(
+      userOrderstoCreate.map((product) => createUsersOrders(product))
+    );
+  
+    console.log("PRODUCT created:");
+    console.log(userOrder);
+  
+    console.log("Finished creating PRODUCTS");
+  }
+
 async function rebuildDB() {
   try {
     await dropTables();
@@ -174,6 +233,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialMerchants();
     await createInitialProducts();
+    await createInitialuserOrder();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
