@@ -6,7 +6,7 @@ import {Login} from '.'
 const App = () => {
   return (
     <div>
-      <h1>"Hello"</h1> 
+      <Login />
     </div>
   );
 };

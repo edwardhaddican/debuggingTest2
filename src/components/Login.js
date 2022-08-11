@@ -1,4 +1,4 @@
-import { userLogin } from "../api";
+import { userLogin } from "../apiAdapter";
 import React, { useState } from "react";
 
  const Login = () => {

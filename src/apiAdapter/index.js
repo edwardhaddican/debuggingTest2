@@ -1,8 +1,8 @@
-const BASE_URL = "https://localhost:5432/grace-shopper-warp";
+const BASE_URL = "http://localhost:3001/";
 
 export const userLogin = async (username, password) => {
     try {
-      const response = await fetch(`${BASE_URL}/users/login`, {
+      const response = await fetch(`${BASE_URL}api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -15,8 +15,8 @@ export const userLogin = async (username, password) => {
         }),
       });
       const result = await response.json();
-      const token = result.data.token;
-      console.log(token, "THIS IS YOUR TOKEN");
+      console.log(result);
+      const token = result.token;
       return token;
     } catch (error) {
       console.log(error);
