@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
 import { getProducts } from "../apiAdapter";
 import '../input.css';
+import CreateProduct from "./CreateProduct";
 
 
 
 const Products = ({productsList, setProductsList}) => {
-
+  const [isShown,setIsShown] = useState(false)
+    
+        async function btnClick () {
+          setIsShown((current)=>!current)
+        }
+   
+    
     useEffect(() => {
         getProducts().then((results) => {
             setProductsList(results)
@@ -37,6 +44,8 @@ const Products = ({productsList, setProductsList}) => {
                   
                 </a>
               ))}
+              <button onClick={btnClick}>Create Product</button>
+              {isShown && (<CreateProduct />)}
             </div>
           </div>
         </div>

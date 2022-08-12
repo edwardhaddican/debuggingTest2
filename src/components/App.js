@@ -1,7 +1,7 @@
 
 import React, {useState,useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
-import {Login,Register, Product,Navbar,Cart} from '.'
+import {Login,Register, Product,Navbar,Cart,CreateProduct} from '.'
 
 
 const App = () => {
@@ -24,6 +24,8 @@ const App = () => {
        <Route path='/homePage' element={<Product productsList={productsList}
         setProductsList={setProductsList}/>}/>
         <Route path='/cart' element={<Cart />}/>
+        <Route path='/createProduct' element={<CreateProduct productsList={productsList}
+        setProductsList={setProductsList} />}/>
     </Routes>
 
     </div>
