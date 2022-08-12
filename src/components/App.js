@@ -1,5 +1,5 @@
 
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import {Login,Register, Product,Navbar,Cart} from '.'
 
@@ -19,7 +19,7 @@ const App = () => {
       <Navbar />
     </div>
     <Routes>
-       <Route path='/login' element={<Login />}/>
+       <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
        <Route path='/register' element={<Register />}/>
        <Route path='/homePage' element={<Product productsList={productsList}
         setProductsList={setProductsList}/>}/>

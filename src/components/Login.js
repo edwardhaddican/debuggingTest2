@@ -7,15 +7,23 @@ import '../input.css';
  const Login = ({setIsLoggedIn}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error,setError] = useState(null)
     const navigate = useNavigate()
     const handleSubmit = async (event) => {
       try {
         event.preventDefault();
-        const token = await userLogin(username, password);
-        localStorage.setItem("token", token);
-        if(token){
+        const result = await userLogin(username, password);
+        const token =result.token
+        
+        if(result.error){
+          setError(result)
+          setIsLoggedIn(false)
+        }else if(token){ 
+          setError(null)
+          localStorage.setItem("token", token);
+          setIsLoggedIn(true)
           navigate('../homePage')
-        }else{ null}
+        }
       } catch (error) {
         console.log(error);
       }
@@ -71,6 +79,7 @@ import '../input.css';
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-lg"
                   placeholder="Password"
                 />
+                {error && error.message ? <h3>{error.message}</h3> : null}
               </div>
             </div>
 
@@ -88,6 +97,7 @@ import '../input.css';
                 </span>
                 Sign in
               </button>
+              
             </div>
           </form>
         </div>

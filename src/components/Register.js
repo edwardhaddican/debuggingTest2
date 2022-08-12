@@ -3,25 +3,30 @@ import React, { useState,useRef } from "react";
 import { Link} from "react-router-dom";
 import { LockClosedIcon } from '@heroicons/react/solid';
 import '../input.css';
+import { Result } from 'postcss';
 
 
 
 const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error,setError] = useState(null)
+   const [myResult, setMyResult] = useState(null)
+   const [confirmPassword,setConfirmPassword] = useState('')
     
     const usernameRef = useRef();
   
     const handleSubmit = async (event) => {
       try {
-        if(username || password !== '', password.length > 7) {
-          event.preventDefault();
-          alert(`Thanks for signing up ${usernameRef.current.value}!`);
-        const token = await registerUser(username, password);
-        localStorage.setItem("token", token);
-        
-        }else {
-          alert("Please enter a Username and Password!")
+        const result = await registerUser(username, password);
+        const token = result.token
+        if(result.error) {
+          setError(result)
+          setMyResult(null)
+        }else if (token) {
+          setError(null)
+          setMyResult(result)
+          localStorage.setItem(username,"username");
         }
        } catch (error) {
         alert(error);
@@ -84,6 +89,8 @@ const Register = () => {
                   id="password"
                   name="password"
                   type="password"
+                  value={password}
+                  onChange={(event)=>{setPassword(event.target.value)}}
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md rounded-t-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-md"
                   placeholder="Password"
@@ -97,6 +104,8 @@ const Register = () => {
                   id="confirm_password"
                   name="confirm_password"
                   type="password"
+                  value={confirmPassword}
+                  onChange={(event)=>{setConfirmPassword(event.target.value)}}
                   required
                   className="mt-8 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md rounded-t-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-md"
                   placeholder="Confirm Password"
@@ -105,6 +114,8 @@ const Register = () => {
     
             </div>
             <div>
+            {error && error.message ? <h3>{error.message}</h3> : null}
+        {myResult && myResult.message ? <h3>{myResult.message}</h3> : null}
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-rose-900 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-900 shadow-gray-700 shadow-lg"
