@@ -7,7 +7,7 @@ import { App } from "./components";
 const root = ReactDOM.createRoot(document.getElementById("app"));
 
 root.render(
- 
+  <BrowserRouter>
     <App />
- 
+</BrowserRouter>
 );

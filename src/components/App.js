@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {Login,Register, Product} from '.'
+import { Routes, Route } from "react-router-dom";
+import {Login,Register, Product,Navbar,Cart} from '.'
 
 
 
@@ -7,13 +8,19 @@ const App = () => {
   const [productsList, setProductsList] = useState([])
   return (
     <div>
-      <Login />
-      <Register />
-      <Product
-       productsList={productsList}
-        setProductsList={setProductsList} />
+    <div>
+      <Navbar />
+    </div>
+    <Routes>
+       <Route path='/login' element={<Login />}/>
+       <Route path='/register' element={<Register />}/>
+       <Route path='/homePage' element={<Product productsList={productsList}
+        setProductsList={setProductsList}/>}/>
+        <Route path='/cart' element={<Cart />}/>
+    </Routes>
     </div>
   );
 };
 
 export default App;
+
