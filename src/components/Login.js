@@ -4,7 +4,7 @@ import { Link,useNavigate} from "react-router-dom";
 import { LockClosedIcon } from '@heroicons/react/solid';
 import '../input.css';
 
- const Login = () => {
+ const Login = ({setIsLoggedIn}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
@@ -29,6 +29,7 @@ import '../input.css';
               className="mx-auto h-29 w-auto rounded-lg shadow-gray-700 shadow-md select-none "
               src={require('../components/Logo/coffee.png')}
               alt="Workflow"
+
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 select-none">Sign in </h2>
             <p className="mt-2 text-center text-md text-gray-900">
@@ -94,4 +95,5 @@ import '../input.css';
     </div>
     );
   };
+
 export default Login
