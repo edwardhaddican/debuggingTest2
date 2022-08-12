@@ -59,7 +59,7 @@ async function createTables() {
           );
           CREATE TABLE usersOrders (
             id SERIAL PRIMARY KEY,
-            "userId" INTEGER REFERENCES users(id),
+            "userId" INTEGER REFERENCES users(id)
           
           );
           CREATE TABLE cartOrder (
@@ -209,24 +209,15 @@ async function createInitialuserOrder() {
   const userOrderstoCreate = [
     {
       userId: 1,
-      productId: 1,
-      price: 5,
-      weight: 1,
-      quantity: 5
+      
     },
     {
       userId: 1,
-      productId: 2,
-      price: 55,
-      weight: 1,
-      quantity: 1
+      
     },
     {
       userId: 1,
-      productId: 3,
-      price: 56,
-      weight: 11,
-      quantity: 2
+     
     },
   
   ];
@@ -244,27 +235,25 @@ async function createInitialuserOrder() {
     console.log("Starting to create CART ORDER");
     const [order1, order2, order3] = await getUsersOrders();
   console.log(order1,"Finsihed getting UsersOrders")
-  // let userAlbert = "albert" 
-  //   await getUserByUsername(userAlbert);
-  //   console.log(getUserByUsername(userAlbert), "GETTING ALBERT")
-  // console.log("Finished getAllActivities");
+  const [product1, product2, product3, product4, product5] = await getAllProducts();
+  
   
     const cartOrderstoCreate = [
       {
-        userId: 1,
+        productId: product1.id,
         orderId: order1.id,
         quantity: 5,
         price: 20
       },
       {
-        userId: 1,
+        productId: product2.id,
         orderId: order2.id,
         quantity: 5,
         price: 3
       },
       {
-        userId: 1,
-        orderId: order3.id,
+        productId: product3.id,
+        orderId: order1.id,
         quantity: 5,
         price: 100
       },
