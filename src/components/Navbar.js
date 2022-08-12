@@ -1,7 +1,18 @@
 import React from "react";
-import { NavLink,Link} from "react-router-dom";
+import { NavLink,Link,useNavigate} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({setIsLoggedIn,setIsAdmin}) => {
+const navigate = useNavigate()
+   function handleLogout (){
+    localStorage.removeItem("token")
+    localStorage.removeItem("username")
+    setIsLoggedIn(false)
+    setIsAdmin(false)
+    navigate('/')
+   }
+
+
+
     return (
        
 <nav className="bg-rose-900 select-none">
@@ -30,6 +41,7 @@ const Navbar = () => {
         </NavLink>
         <NavLink to="/register" className="my-1 text-3xl text-gray-200 font-medium hover:text-yellow-600 hover:scale-125  transition duration-400 md:mx-4 md:my-0" href="#">Register
         </NavLink>
+        <button onClick={handleLogout} className="border-t-yellow-600 border-solid border-2 "> Log Out</button>
       </div>
 
         {/* This is the cart icon */}

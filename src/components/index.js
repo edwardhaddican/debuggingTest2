@@ -5,3 +5,5 @@ export {default as Product} from './Product';
 export {default as Navbar} from './Navbar'
 export {default as Cart} from './Cart'
 export {default as CreateProduct} from './CreateProduct'
+export {default as MerchantLogin} from './MerchantLogin'
+export {default as MerchantRegister} from './MerchantRegister'

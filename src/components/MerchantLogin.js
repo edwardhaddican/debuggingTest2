@@ -1,18 +1,20 @@
-import { userLogin } from "../apiAdapter";
+import { merchantLogin } from "../apiAdapter";
 import React, { useState } from "react";
 import { Link,useNavigate} from "react-router-dom";
 import { LockClosedIcon } from '@heroicons/react/solid';
 import '../input.css';
+import Login from "./Login";
 
- const Login = ({setIsLoggedIn}) => {
+ const MerchantLogin = ({setIsLoggedIn,setIsAdmin}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error,setError] = useState(null)
     const navigate = useNavigate()
+
     const handleSubmit = async (event) => {
       try {
         event.preventDefault();
-        const result = await userLogin(username, password);
+        const result = await merchantLogin(username, password);
         const token =result.token
         
         if(result.error){
@@ -20,10 +22,9 @@ import '../input.css';
           setIsLoggedIn(false)
         }else if(token){ 
           setError(null)
-          const username = result.user.username
-          localStorage.setItem(username,"username");
           localStorage.setItem("token", token);
           setIsLoggedIn(true)
+          setIsAdmin(true)
           navigate('../')
         }
       } catch (error) {
@@ -41,11 +42,11 @@ import '../input.css';
               alt="Workflow"
 
             />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 select-none">Sign in </h2>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 select-none">Admin Sign in </h2>
             <p className="mt-2 text-center text-md text-gray-900">
               Or{' '}
-              <Link to={'/register'} className="font-medium text-rose-900 hover:text-yellow-600">
-                Click here to Register
+              <Link to={'/adminRegister'} className="font-medium text-rose-900 hover:text-yellow-600">
+                Click here to Register as an Admin 
               </Link>
             </p>
           </div>
@@ -81,7 +82,6 @@ import '../input.css';
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-lg"
                   placeholder="Password"
                 />
-                <Link to={'/adminLogin'}><h3>Admin?</h3></Link>
                 {error && error.message ? <h3>{error.message}</h3> : null}
               </div>
             </div>
@@ -109,4 +109,4 @@ import '../input.css';
     );
   };
 
-export default Login
+export default MerchantLogin

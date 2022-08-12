@@ -6,7 +6,7 @@ import CreateProduct from "./CreateProduct";
 
 
 
-const Products = ({productsList, setProductsList}) => {
+const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
   const [isShown,setIsShown] = useState(false)
     
         async function btnClick () {
@@ -44,8 +44,10 @@ const Products = ({productsList, setProductsList}) => {
                   
                 </a>
               ))}
+               {isLoggedIn && isAdmin ? 
               <button onClick={btnClick}>Create Product</button>
-              {isShown && (<CreateProduct />)}
+               : null}
+               {isShown && (<CreateProduct />)} 
             </div>
           </div>
         </div>

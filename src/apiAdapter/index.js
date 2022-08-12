@@ -37,8 +37,7 @@ export const userLogin = async (username, password) => {
     });
     const result = await response.json();
     console.log(result)
-    const token = result.token;
-    return token;
+    return result;
   };
 
   export const getProducts = async () => {
@@ -49,7 +48,6 @@ export const userLogin = async (username, password) => {
         },
       });
       const result = await response.json();
-      console.log(result, "asdfasdfadfadsf")
       return result;
     } catch (error) {
       throw error;
@@ -75,5 +73,46 @@ export const userLogin = async (username, password) => {
     });
     const result = await response.json();
   console.log(result)
+    return result;
+  };
+
+  export const merchantLogin = async (username, password) => {
+    try {
+      const response = await fetch(`${BASE_URL}/merchants/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          merchant: {
+            username: username,
+            password: password,
+          },
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  export const registerMerchant = async (username, password,brand) => {
+    const response = await fetch(`${BASE_URL}/merchants/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        
+          username: username,
+          password: password,
+          brand,
+        
+      }),
+    });
+    const result = await response.json();
+    console.log(result)
     return result;
   };

@@ -856,6 +856,10 @@ select {
   margin-left: 7rem;
 }
 
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -938,6 +942,10 @@ select {
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .max-w-screen-2xl {
@@ -1152,6 +1160,11 @@ select {
 .border-zinc-900 {
   --tw-border-opacity: 1;
   border-color: rgb(24 24 27 / var(--tw-border-opacity));
+}
+
+.border-t-yellow-600 {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(202 138 4 / var(--tw-border-opacity));
 }
 
 .bg-gray-50 {

@@ -6,6 +6,7 @@ const { JWT_SECRET } = process.env;
 
 router.post('/register', async (req,res,next)=> {
     const {username, password, brand, Admin} = req.body
+    console.log(username)
     if (!username || !password) {
         next({
             name: 'MissingCredentialError',
@@ -52,7 +53,7 @@ router.post('/register', async (req,res,next)=> {
 })
 
 router.post('/login', async (req,res,next)=> {
-    const {username, password} = req.body
+    const {username, password} = req.body.merchant
     if (!username || !password) {
         next({
             name: 'MissingCredentialsError',
