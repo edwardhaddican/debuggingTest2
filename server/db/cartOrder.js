@@ -2,8 +2,8 @@ const client = require("./client");
 
 //
 async function addProductToCart({
-  userId,
   productId,
+  orderId,
   quantity,
   price,
 }) {
@@ -12,12 +12,12 @@ async function addProductToCart({
       rows: [Order],
     } = await client.query(
       `
-      INSERT INTO cartOrder("userId", "orderId", quantity, price) 
+      INSERT INTO cartOrder("productId", "orderId", quantity, price) 
       VALUES($1, $2, $3, $4) 
       RETURNING *;
     `,
-      [userId,
-        productId,
+      [productId,
+        orderId,
         quantity,
         price,]
     );
@@ -28,23 +28,23 @@ async function addProductToCart({
   }
 }
 
-async function getFinalOrderById(id) {
-  try {
-    const {
-      rows: [routineactivity],
-    } = await client.query(`
-    SELECT id, "routineId", "activityId", count, duration
-    FROM routine_activities
-    WHERE id =${id};
-    `);
-    if (!routineactivity) {
-      return null;
-    }
-    return routineactivity;
-  } catch (error) {
-    throw error;
-  }
-}
+// async function getFinalOrderById(id) {
+//   try {
+//     const {
+//       rows: [routineactivity],
+//     } = await client.query(`
+//     SELECT id, "routineId", "activityId", count, duration
+//     FROM routine_activities
+//     WHERE id =${id};
+//     `);
+//     if (!routineactivity) {
+//       return null;
+//     }
+//     return routineactivity;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 // async function getOrdersbyOrderI({ id }) {
 //   try {

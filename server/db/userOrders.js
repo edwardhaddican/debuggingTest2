@@ -2,17 +2,17 @@ const { attachProductsUsersOrders } = require("./Product");
 const client = require("./client");
 const { getUserByUsername } = require("./users");
 
-async function createUsersOrders({userId, productId, price, weight, quantity}) {
+async function createUsersOrders({userId}) {
   try {
     const {
       rows: [orders],
     } = await client.query(
       `
-      INSERT INTO usersOrders("userId", "productId", price, weight, quantity) 
-      VALUES($1, $2, $3, $4, $5)
+      INSERT INTO usersOrders("userId") 
+      VALUES($1)
       RETURNING *;
     `,
-      [userId, productId, price, weight, quantity]
+      [userId]
     );
     return orders;
   } catch (error) {
@@ -25,7 +25,7 @@ async function getUsersOrdersById(id) {
     const {
       rows: [userOrder],
     } = await client.query(`
-    SELECT id, "userId", "productId", price, weight, quantity
+    SELECT id, "userId"
     FROM usersOrders
     WHERE id =${id};
     `);
