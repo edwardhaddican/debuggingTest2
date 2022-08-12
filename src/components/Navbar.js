@@ -24,7 +24,7 @@ const Navbar = () => {
      {/* Here is were we can add more links to the navbar */}
     <div className="md:flex items-center justify-center w-screen  ">
       <div className="flex flex-col md:flex-row md:mx-6 gap-x-60  ">
-        <NavLink to="/homepage" className="my-1 text-3xl text-gray-200 font-medium md:mx-4 hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" href="#">Home
+        <NavLink to="/" className="my-1 text-3xl text-gray-200 font-medium md:mx-4 hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" href="#">Home
         </NavLink>
         <NavLink to="/login" className="my-1 text-3xl text-gray-200 font-medium hover:text-yellow-600 hover:scale-125  transition duration-400 md:mx-4 md:my-0" href="#">Log In
         </NavLink>
