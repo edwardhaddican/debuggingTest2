@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {Login,Register, Product} from '.'
-import CreateProduct from "./CreateProduct";
 
+import React, {useState} from "react";
+import { Routes, Route } from "react-router-dom";
+import {Login,Register, Product,Navbar,Cart} from '.'
 
 
 const App = () => {
@@ -16,18 +15,20 @@ const App = () => {
   }, []);
   return (
     <div>
-      
-      <Login setIsLoggedIn={setIsLoggedIn}/>
-      <Register />
-      <Product
-       productsList={productsList}
-        setProductsList={setProductsList}/>
-      <Routes>
-        <Route path='/CreateProduct'
-        element={<CreateProduct productsList={productsList} setProductsList={setProductsList}/>}/>
-        </Routes>
+    <div>
+      <Navbar />
+    </div>
+    <Routes>
+       <Route path='/login' element={<Login />}/>
+       <Route path='/register' element={<Register />}/>
+       <Route path='/homePage' element={<Product productsList={productsList}
+        setProductsList={setProductsList}/>}/>
+        <Route path='/cart' element={<Cart />}/>
+    </Routes>
+
     </div>
   );
 };
 
 export default App;
+
