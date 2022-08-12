@@ -59,6 +59,23 @@ async function updateUsersOrders({ id, ...fields }) {
     throw error;
   }
 }
+
+async function getUsersOrders() {
+  try {
+    const { rows } = await client.query(`
+    SELECT *
+    FROM usersOrders;
+    `);
+    if (!rows) {
+      return null;
+    }
+    console.log(rows,"Getting usersOrders in UsersOrders.js")
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // async function getAllRoutinesByUser({ username }) {
 //   try {
 //     const user = await getUserByUsername(username);
@@ -78,25 +95,6 @@ async function updateUsersOrders({ id, ...fields }) {
 //   }
 // }
 
-// async function getPublicRoutinesByUser({ username }) {
-//   try {
-//     const user = await getUserByUsername(username);
-//     const { rows: routines } = await client.query(
-//       `
-//     SELECT routines.*, users.username AS "creatorName"
-//     FROM routines
-//     JOIN users ON routines."creatorId" = users.id 
-//     WHERE "creatorId" = $1
-//     AND "isPublic" = true;
-//     `,
-//       [user.id]
-//     );
-//     const allRoutines = attachActivitiesToRoutines(routines);
-//     return allRoutines;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 
 
 
@@ -130,4 +128,5 @@ module.exports = {
     updateUsersOrders,
   getUserByUsername,
   getUsersOrdersById,
+  getUsersOrders,
 };

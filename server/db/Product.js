@@ -108,7 +108,7 @@ async function getProductsByBrand({ username }) {
     const seller = await getMerchantByUsername(username);
     const { rows: [Products]} = await client.query(
       `
-    SELECT Product.*, merchant.username AS "creatorId"
+    SELECT Product.*, merchants.username AS "creatorId"
     FROM Product
     WHERE "creatorId" =$1;
     `,
@@ -142,34 +142,34 @@ async function destroyProduct(id) {
     throw error;
   }
 }
-// async function attachProductsUserOrder(userOrder) {
-//   const productsToReturn = [...userOrder];
-//   const binds = userOrder.map((_, index) => `$${index + 1}`).join(", ");
-//   const productIds = userOrder.map((product) => product.id);
-//   if (!productIds?.length) return [];
+async function attachProductsUserOrder(usersOrders) {
+  const ordersToReturn = [...usersOrders];
+  const binds = usersOrders.map((_, index) => `$${index + 1}`).join(", ");
+  const orderIds = usersOrders.map((userOrder) => userOrder.id);
+  if (!orderIds?.length) return [];
 
-//   try {
-//     const { rows: products } = await client.query(
-//       `
-//       SELECT products.*, .duration, routine_activities.count, routine_activities.id AS "routineActivityId", routine_activities."routineId"
-//       FROM activities
-//       JOIN routine_activities ON routine_activities."activityId" = activities.id
-//       WHERE routine_activities."routineId" IN (${binds});
-//     `,
-//       routineIds
-//     );
+  try {
+    const { rows: products } = await client.query(
+      `
+      SELECT Product.*, cartOrder.quantity, cartOrder.price, cartOrder.id AS "cartOrderId", cartOrder."orderId"
+      FROM Product
+      JOIN cartOrder ON cartOrder."productId" = Product.id
+      WHERE cartOrder."orderId" IN (${binds});
+    `,
+      orderIds
+    );
 
-//     for (const routine of routinesToReturn) {
-//       const activitiesToAdd = activities.filter(
-//         (activity) => activity.routineId === routine.id
-//       );
-//       routine.activities = activitiesToAdd;
-//     }
-//     return routinesToReturn;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+    for (const order of ordersToReturn) {
+      const productsToAdd = products.filter(
+        (product) => product.orderId === order.id
+      );
+      order.products = productsToAdd;
+    }
+    return ordersToReturn;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function updateProduct({ id, ...fields }) {
   const setString = Object.keys(fields)
@@ -180,7 +180,7 @@ async function updateProduct({ id, ...fields }) {
     if (setString.length > 0) {
       await client.query(
         `
-        UPDATE Products
+        UPDATE Product
         SET ${setString}
         WHERE id=${id}
         RETURNING *;
