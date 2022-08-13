@@ -15,10 +15,10 @@ const navigate = useNavigate()
 
     return (
        
-<nav className="bg-rose-900 select-none">
-  <div className="container mx-auto py-3 md:flex md:justify-between md:items-center">
-    <div className="flex justify-between items-center">
-        <img src={require('../components/Logo/coffee.png')} className="bg-lime-400 text- text-gray-200 text-2xl font-bold  hover:text-yellow-600 transition duration-400" href="#"/>
+<nav className="bg-rose-900 select-none ">
+  <div className="container  py-4  md:flex md:justify-between md:items-center lg:items-center lg:justify-center bg-slate-900 ">
+    <div className="flex justify-between items-center ">
+        <img src={require('../components/Logo/coffee.png')} className="w-36" href="#"/>
       
 
     
@@ -32,7 +32,7 @@ const navigate = useNavigate()
     </div>
 
      {/* Here is were we can add more links to the navbar */}
-    <div className="md:flex items-center justify-center w-screen bg-stone-700 ">
+    <div className="md:flex items-center justify-center w-screen  bg-stone-500 flex-">
       <div className="flex flex-col md:flex-row md:mx-6 gap-x-60 sm:gap-x-5 xl:gap-x-40  ">
         <NavLink to="/" className="my-1 text-3xl text-gray-200 font-medium md:mx-4 hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" href="#">Home
         </NavLink>
