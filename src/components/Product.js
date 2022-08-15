@@ -3,6 +3,7 @@ import { Link} from "react-router-dom";
 import { getProducts } from "../apiAdapter";
 import '../input.css';
 import CreateProduct from "./CreateProduct";
+import DeleteProduct from "./DeleteProduct";
 
 
 
@@ -14,12 +15,12 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
         }
    
     
-    useEffect(() => {
+    useEffect(()   => {
         getProducts().then((results) => {
             setProductsList(results)
         })
     }, [])
-    
+ 
     return (
         <div className="bg-gradient-to-t from-rose-300 to-yellow-600 h-screen  flex justify-center items-center overflow-scroll xl:overflow-hidden ">
           <div className=" mx-0 py-16 px-4 sm:py-24 sm:px-12 lg:max-w-full lg:max-h-full lg:px-9  sm:max-h-full  ">
@@ -42,6 +43,10 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
                   <h3 className=" text-center mt-2 text-2xl  text-gray-700 justify-center">{element.name}</h3> 
                   <p className="text-center mt-1 text-xl font-medium text-gray-900 ">${element.price}</p>
                   <button className="container font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500">Details</button>
+                  { localStorage.getItem("token") && element.username === localStorage.getItem("username") ? 
+                  <DeleteProduct setProductsList={setProductsList} productsList={productsList} productId={element.id}/>
+                  : null
+                }
                   
                 </a>
               ))}
@@ -53,7 +58,6 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
           </div>
         </div>
       )
-     
     }
 
 export default Products;

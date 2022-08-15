@@ -48,6 +48,7 @@ export const userLogin = async (username, password) => {
         },
       });
       const result = await response.json();
+      
       return result;
     } catch (error) {
       throw error;
@@ -114,5 +115,17 @@ export const userLogin = async (username, password) => {
     });
     const result = await response.json();
     console.log(result)
+    return result;
+  };
+
+  export const removeProduct = async (token, productId) => {
+    const response = await fetch(`${BASE_URL}/products/${productId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
     return result;
   };
