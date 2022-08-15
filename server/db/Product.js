@@ -200,5 +200,6 @@ module.exports = {
   getProductsByName,
   updateProduct,
   destroyProduct,
-  getProductsByBrand
+  getProductsByBrand,
+  getProductById
 };
