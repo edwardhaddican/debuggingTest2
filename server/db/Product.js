@@ -194,7 +194,7 @@ async function updateProduct({ id, ...fields }) {
   }
 }
 
-async function getProductsByMerchant({ username }) {
+async function getProductsByMerchant( username ) {
   try {
     const { rows: products } = await client.query(
       `
