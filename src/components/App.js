@@ -20,7 +20,7 @@ const App = () => {
   return (
     <div>
     <div>
-      <Navbar setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} isLoggedIn={isLoggedIn} />
+      <Navbar setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
     </div>
     {isLoggedIn && isAdmin ? (
       <Routes> 
