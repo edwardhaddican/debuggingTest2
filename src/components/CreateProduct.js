@@ -19,17 +19,17 @@ const CreateProduct = ({productsList, setProductsList})=> {
             setError(freshProduct)
         } else {
             setError(null)
-            setProductsList([...productsList, freshProduct])
+           await setProductsList([freshProduct, ...productsList ])
         }
     }
 
     return (
-      <div>
+      <div className='flex flex-col absolute  bg-white'>
           <h1 id="addRoutineTitle">Add A Product</h1>
       {error && error.message ? (
         <h3>{error.message}</h3>
       ) : null}
-      <form onSubmit={handleSubmit}>
+      <form className='flex flex-row' onSubmit={handleSubmit}>
           <label>
               Name: 
               <input type='text' value={name} placeholder='Add Name' onChange={(event)=> {setName(event.target.value)}}/>

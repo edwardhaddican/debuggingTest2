@@ -53,7 +53,7 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
                {isLoggedIn && isAdmin ? 
               <button onClick={btnClick}>Create Product</button>
                : null}
-               {isShown && (<CreateProduct />)} 
+               {isShown && (<CreateProduct productsList={productsList} setProductsList={setProductsList} />)} 
             </div>
           </div>
         </div>
