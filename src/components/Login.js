@@ -21,7 +21,7 @@ import '../input.css';
         }else if(token){ 
           setError(null)
           const username = result.user.username
-          localStorage.setItem(username,"username");
+          localStorage.setItem("username",username);
           localStorage.setItem("token", token);
           setIsLoggedIn(true)
           navigate('../')
@@ -36,7 +36,7 @@ import '../input.css';
         <div >
           <div>
             <img
-              className="mx-auto h-29 w-auto rounded-lg shadow-gray-700 shadow-md select-none "
+              className="mx-auto h-24 w-auto rounded-lg shadow-gray-700 shadow-md select-none "
               src={require('../components/Logo/coffee.png')}
               alt="Workflow"
 
@@ -81,9 +81,9 @@ import '../input.css';
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-lg"
                   placeholder="Password"
                 />
-                <Link to={'/adminLogin'}><h3>Admin?</h3></Link>
-                {error && error.message ? <h3>{error.message}</h3> : null}
               </div>
+              <Link to={'/adminLogin'}><h3>Admin?</h3></Link>
+                {error && error.message ? <h3>{error.message}</h3> : null}
             </div>
 
             <div className="flex items-center justify-between">

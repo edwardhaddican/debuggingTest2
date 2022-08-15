@@ -22,7 +22,11 @@ import Login from "./Login";
           setIsLoggedIn(false)
         }else if(token){ 
           setError(null)
+          const username = result.merchant.username
+          const admin = result.merchant.Admin
           localStorage.setItem("token", token);
+          localStorage.setItem("username",username);
+          localStorage.setItem("admin",admin);
           setIsLoggedIn(true)
           setIsAdmin(true)
           navigate('../')

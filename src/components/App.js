@@ -12,6 +12,9 @@ const App = () => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setIsLoggedIn(true);
+    } 
+    if (localStorage.getItem("admin")){
+      setIsAdmin(true)
     }
   }, []);
   return (
