@@ -129,3 +129,26 @@ export const userLogin = async (username, password) => {
     const result = await response.json();
     return result;
   };
+
+  export async function getProductsByAdmin(username) {
+    const response = await fetch(`${BASE_URL}/users/${username}/products`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+  
+    return result;
+  }
+
+  export async function getUsersMe(token) {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+  
+    return result;
+  }
