@@ -6,6 +6,7 @@ const navigate = useNavigate()
    function handleLogout (){
     localStorage.removeItem("token")
     localStorage.removeItem("username")
+    localStorage.removeItem("admin")
     setIsLoggedIn(false)
     setIsAdmin(false)
     navigate('/')
@@ -27,6 +28,8 @@ const navigate = useNavigate()
     </NavLink>
       {isAdmin ? (<div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-40 sm:flex-row justify-center sm:gap-x-20 ">
       <NavLink to='/createProduct' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >Create Product
+      </NavLink>
+      <NavLink to='/merchantproduct' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
       </NavLink>
       {/* <NavLink to='/sellerProducts' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
       </NavLink>  */}
