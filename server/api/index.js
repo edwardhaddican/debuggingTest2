@@ -43,4 +43,7 @@ router.use('/merchants', merchantsRouter)
 const productsRouter = require('./products')
 router.use('/products', productsRouter)
 
+const cartOrderRouter = require('./cartOrder')
+router.use('/cartOrder', cartOrderRouter)
+
 module.exports = router

@@ -20,7 +20,7 @@ cartOrderRouter.patch('/:cartOrderId', requireUser, async (req, res, next) => {
             res.status(403)
             next ({
                 name: "User is not found",
-                message: `User ${username} is not allowed to update In the evening`
+                message: `User ${username} is not allowed to do update this cart`
             })
         } else {
             const upToDateCartOrder = await updateCartOrder({ id: cartOrderId, quantity, price });
@@ -40,10 +40,10 @@ cartOrderRouter.delete('/:cartOrderId', requireUser, async (req,res,next)=>{
             res.status(403)
             next ({
                 name: "User is not found",
-                message: `User ${username} is not allowed to delete In the afternoon`
+                message: `User ${username} is not allowed to delete this cart`
             })
         } else {
-            const deleteProducts = await destroyCartOrder(req.params.routineActivityId)
+            const deleteProducts = await destroyCartOrder(req.params.cartOrderId)
 
             res.send(deleteProducts)
         }

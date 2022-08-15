@@ -1,7 +1,7 @@
 const client = require("./client");
 const { createUser, getUserByUsername } = require("./users");
-const { createMerchant } = require("./merchant");
-const { createProduct, getAllProducts } = require("./Product");
+const { createMerchant, getMerchantByUsername } = require("./merchant");
+const { createProduct, getAllProducts, getProductsByBrand } = require("./Product");
 const { createUsersOrders, getUsersOrders } = require("./userOrders");
 const { addProductToCart } = require("./cartOrder");
 
@@ -28,7 +28,7 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
-       CREATE TYPE coffeeRoast AS ENUM('Decaf','Mild', 'Medium', 'Dark');
+       CREATE TYPE coffeeRoast AS ENUM('Light','Mild', 'Medium', 'Dark');
        CREATE TYPE coffeeGrind AS ENUM('Whole Beans', 'Ground', 'Instant');
        CREATE TYPE order_status AS ENUM('pending', 'settled');
        CREATE TYPE coffeeCountry AS ENUM('Brazil','Vietnam','Colombia','Indonesia','Ethiopia','Honduras','India','Uganda');
@@ -176,7 +176,7 @@ async function createInitialProducts() {
       price: 10,
       inventory: 2,
       weight: 10,
-      roast: "Decaf",
+      roast: "Light",
       grind: "Instant",
     },
     {
@@ -232,10 +232,12 @@ async function createInitialuserOrder() {
   }
 
   async function createInitialCartOrder() {
+    const selleruser = await getMerchantByUsername(`benny12`);
     console.log("Starting to create CART ORDER");
     const [order1, order2, order3] = await getUsersOrders();
   console.log(order1,"Finsihed getting UsersOrders")
   const [product1, product2, product3, product4, product5] = await getAllProducts();
+   console.log(await getProductsByBrand(selleruser), "PLEASE HELP ME")
   
   
     const cartOrderstoCreate = [
@@ -252,7 +254,7 @@ async function createInitialuserOrder() {
         price: 3
       },
       {
-        productId: product3.id,
+        productId: product4.id,
         orderId: order1.id,
         quantity: 5,
         price: 100
@@ -266,6 +268,8 @@ async function createInitialuserOrder() {
   
     console.log("Finished creating CART");
   }
+
+  
 async function rebuildDB() {
   try {
     await dropTables();
