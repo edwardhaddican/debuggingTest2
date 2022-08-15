@@ -12,6 +12,9 @@ const App = () => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setIsLoggedIn(true);
+    } 
+    if (localStorage.getItem("admin")){
+      setIsAdmin(true)
     }
   }, []);
   return (
@@ -23,7 +26,6 @@ const App = () => {
       <Routes> 
           <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>} />
           <Route path='/cart' element={<Cart />}/> 
-          <Route path='/createProduct' element={<CreateProduct productsList={productsList} setProductsList={setProductsList} />}/>
        </Routes> ) : 
        !isAdmin && isLoggedIn ? (
         <Routes>  
@@ -35,7 +37,6 @@ const App = () => {
             <Route path='/register' element={<Register />}/>
             <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>}/>
             <Route path='/cart' element={<Cart />}/>
-            <Route path='/createProduct' element={<CreateProduct productsList={productsList} setProductsList={setProductsList} />}/>
             <Route path='/adminLogin' element={<MerchantLogin setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />}/>
             <Route path='/adminRegister' element={<MerchantRegister setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin}/>}/>
         </Routes>) 
