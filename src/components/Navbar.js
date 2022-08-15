@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink,Link,useNavigate} from "react-router-dom";
 
-const Navbar = ({setIsLoggedIn,setIsAdmin,isLoggedIn}) => {
+const Navbar = ({setIsLoggedIn,setIsAdmin,isLoggedIn,isAdmin}) => {
 const navigate = useNavigate()
    function handleLogout (){
     localStorage.removeItem("token")
@@ -23,14 +23,22 @@ const navigate = useNavigate()
 
      {/* Here is were we can add more links to the navbar */}
     <div className="flex items-center justify-center w-screen ">
+    <NavLink to="/" className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >Home
+    </NavLink>
+      {isAdmin ? (<div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-40 sm:flex-row justify-center sm:gap-x-20 ">
+      <NavLink to='/createProduct' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >Create Product
+      </NavLink>
+      {/* <NavLink to='/sellerProducts' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
+      </NavLink>  */}
+      <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1"> "Log Out"</button>
+      </div>): !isAdmin && isLoggedIn ? (null): 
+
       <div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-40 sm:flex-row justify-center sm:gap-x-20 ">
-        <NavLink to="/" className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >Home
-        </NavLink>
         <NavLink to="/login" className="my-1 text-3xl text-gray-200 font-medium text- hover:text-yellow-600 hover:scale-125  transition duration-400  md:my-0 ">Log In
         </NavLink>
         <NavLink to="/register" className="my-1 text-3xl text-gray-200 font-medium hover:text-yellow-600 hover:scale-125  transition duration-400  md:my-0" >Register
         </NavLink>
-      </div>
+      </div>}
           <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1"> {isLoggedIn ? "Log Out":"Sign up"}</button>
         {/* This is the cart icon */}
       <div className="inline-flex justify-center relative sm:left-28 lg:left-26 xl:left-32 2xl:left-60  ">
