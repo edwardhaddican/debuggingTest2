@@ -8,9 +8,9 @@ import React from 'react'
     <section className=' flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 '>
   <h1 className="sr-only">Checkout</h1>
 
-  <div className="relative w-full max-w-screen-2xl ">
+  <div className="relative w-full max-w-screen-2xl shadow-2xl  ">
     <div className="grid grid-cols-1 md:grid-cols-2 ">
-      <div className="py-12 bg-gray-50 md:py-24 rounded-l-lg">
+      <div className="py-12 bg-gray-100 bg-opacity-80 md:py-24 rounded-l-lg  ">
         <div className="max-w-lg px-4 mx-auto lg:px-8 ">
           <div className="flex items-center">
             <img src={require('../components/Logo/coffee.png')} className="w-20 h-20 rounded-full"/>
@@ -25,7 +25,7 @@ import React from 'react'
 
           <div className="mt-12">
             <div className="flow-root">
-              <ul className="-my-4 divide-y divide-gray-200 ">
+              <ul className="-my-4 divide-y divide-gray-500 ">
                 <li className="flex items-center justify-between py-4">
                   <div className="flex items-start">
                     <img
@@ -52,7 +52,7 @@ import React from 'react'
                   </div>
 
                   <div>
-                    <p className="text-xl">
+                    <p className="text-xl font-medium">
                       $49.99
                       <small className="text-gray-500 text-xl ml-5">x1</small>
                     </p>
@@ -63,7 +63,7 @@ import React from 'react'
                   <div className="flex items-start">
                     <img
                       className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
-                      src="https://images.unsplash.com/photo-1588099768531-a72d4a198538?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2xvdGhpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+                      src={require('./Logo/coffeeBag.jpg')}
                       alt=""
                     />
 
@@ -85,7 +85,7 @@ import React from 'react'
                   </div>
 
                   <div>
-                    <p className="text-xl">
+                    <p className="text-xl font-medium">
                       $25
                       <small className="text-gray-500 text-xl ml-5">x2</small>
                     </p>
@@ -97,7 +97,7 @@ import React from 'react'
         </div>
       </div>
 
-      <div className="py-12 bg-white md:py-24 rounded-r-lg">
+      <div className="py-12 bg-white bg-opacity-80 md:py-24 rounded-r-lg">
         <div className="max-w-lg px-4 mx-auto lg:px-8">
           <form className="grid grid-cols-6 gap-4">
             <div className="col-span-3">
