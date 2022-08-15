@@ -26,9 +26,10 @@ const App = () => {
     </div>
     {isLoggedIn && isAdmin ? (
       <Routes> 
-      <Route path ='/merchantproduct' element ={<MerchantProducts />}/>
+          <Route path ='/merchantproduct' element ={<MerchantProducts />}/>
           <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>} />
           <Route path='/cart' element={<Cart />}/> 
+          <Route path='/createProduct' element={<CreateProduct />} />
        </Routes> ) : 
        !isAdmin && isLoggedIn ? (
         <Routes>  

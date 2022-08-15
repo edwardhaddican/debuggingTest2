@@ -23,7 +23,7 @@ const navigate = useNavigate()
     </div>
 
      {/* Here is were we can add more links to the navbar */}
-    <div className="flex items-center justify-center w-screen ">
+    <div className="flex items-center justify-center w-screen bg-lime-600 ">
     <NavLink to="/" className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >Home
     </NavLink>
       {isAdmin ? (<div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-40 sm:flex-row justify-center sm:gap-x-20 ">
@@ -33,7 +33,7 @@ const navigate = useNavigate()
       </NavLink>
       {/* <NavLink to='/sellerProducts' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
       </NavLink>  */}
-      <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1"> "Log Out"</button>
+      {/* <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1"> "Log Out"</button> */}
       </div>): !isAdmin && isLoggedIn ? (null): 
 
       <div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-40 sm:flex-row justify-center sm:gap-x-20 ">
