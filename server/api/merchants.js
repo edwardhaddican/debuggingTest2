@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const jwt = require("jsonwebtoken");
 const { getMerchantByUsername, createMerchant } = require('../db/merchant');
-const { getProductsByMerchant } = require('../db/Product');
+const { getProductsByMerchant} = require('../db/Product');
 const { JWT_SECRET } = process.env;
-const {requireUser} = require('./utils')
+const {requireMerchant} = require('./utils')
 
 router.post('/register', async (req,res,next)=> {
     const {username, password, brand, Admin} = req.body
@@ -82,7 +82,7 @@ router.post('/login', async (req,res,next)=> {
 })
 
 
-router.get("/me", requireUser, async (req, res, next) => {
+router.get("/me", requireMerchant, async (req, res, next) => {
     try {
       res.send(req.merchant);
     } catch (error) {
@@ -93,11 +93,12 @@ router.get("/me", requireUser, async (req, res, next) => {
 
   router.get("/:username/products", async (req, res, next) => {
     const {username} = req.params
-    const {merchant} = req.merchant
-    console.log(merchant, "this is merchant")
+   
+  
+   
     try {
         const productUser = await getProductsByMerchant(username)
-       if (username === merchant.username && productUser.length) {
+       if (username) {
           console.log(productUser, "THIS IS PRODUCT USER")
            res.send(productUser)
        } else {
