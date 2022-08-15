@@ -1,7 +1,8 @@
 
 import React, {useState,useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
-import {Login,Register, Product,Navbar,Cart,CreateProduct,MerchantLogin,MerchantRegister} from '.'
+import {Login,Register, Product,Navbar,Cart,CreateProduct,MerchantLogin,MerchantRegister, MerchantProducts} from '.'
+
 
 
 const App = () => {
@@ -20,10 +21,12 @@ const App = () => {
   return (
     <div>
     <div>
+    
       <Navbar setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
     </div>
     {isLoggedIn && isAdmin ? (
       <Routes> 
+      <Route path ='/merchantproduct' element ={<MerchantProducts />}/>
           <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>} />
           <Route path='/cart' element={<Cart />}/> 
        </Routes> ) : 
