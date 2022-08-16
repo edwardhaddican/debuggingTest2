@@ -27,7 +27,7 @@ const CreateProduct = ({productsList, setProductsList})=> {
         } else {
             setError(null)
            await setProductsList([freshProduct, ...productsList ])
-           navigate('./Product')
+           navigate('./')
         }
     }
 

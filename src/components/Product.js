@@ -25,7 +25,7 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
     return (
         <div className="bg-gradient-to-t from-rose-300 to-yellow-600 h-screen  flex justify-center items-center pb-24 ">
           <div className=" mx-0 py-16 px-4 sm:py-24 sm:px-12 lg:max-w-full lg:max-h-full lg:px-9 sm:max-h-full  overflow-y-scroll ">
-             <UpdateProducts/>
+             
             <div className=" grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10 xl:max-w-full  ">
               {productsList.map((element, index) => (
                 <a  key={`Product ${index}`}  className="group">

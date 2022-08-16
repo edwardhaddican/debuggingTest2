@@ -52,8 +52,7 @@ router.get("/", async (req, res, next) => {
 
   router.patch("/:productId", requireMerchant, async (req,res,next) => {
     const {productId} = req.params;
-    const {countryId, name, description, price, inventory, weight, roast, grind}= req.body;
-
+    const {creatorId, name, description, price, inventory, weight, roast, grind} = req.body
     const originalProductId = await getProductById(productId);
     const orginalProductName = await getProductsByName(name);
     try {
@@ -68,9 +67,9 @@ router.get("/", async (req, res, next) => {
               message: `An Product with name ${name} already exists`,
           });
       } else {
-        const updatedProduct = await updateProduct({
-          id: creatorId,
-          countryId, name, description, price, inventory, weight, roast, grind
+        const updatedProduct = await updateProduct({productId,
+          creatorId: req.merchant.id,
+          name, description, price, inventory, weight, roast, grind, inventory
         });
           
           res.send(updatedProduct);
