@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router()
-const { getAllProducts, createProduct, getProductById, destroyProduct } = require("../db/Product");
+const { getAllProducts, createProduct, getProductById, destroyProduct, updateProduct, getProductsByName } = require("../db/Product");
+const { requireUser } = require("./utils");
 const { requireUser, requireMerchant } = require("./utils");
+
 
 
 router.get("/", async (req, res, next) => {
@@ -49,4 +51,33 @@ router.get("/", async (req, res, next) => {
       }
   })
 
+  router.patch("/", requireUser, async (req,res,next) => {
+    const {productId} = req.params;
+    const {countryId, name, description, price, inventory, weight, roast, grind}= req.body;
+
+    const originalProductId = await getProductById(productId);
+    const orginalProductName = await getProductsByName(name);
+    try {
+      if (!originalProductId) {
+        next({
+          name: "NoProductFound",
+          message: `Product ${productId} not found`,
+        });
+      } else if (orginalProductName) {
+          next({
+              name: "FailedToUpdate",
+              message: `An Product with name ${name} already exists`,
+          });
+      } else {
+        const updatedProduct = await updateProduct({
+          id: creatorId,
+          countryId, name, description, price, inventory, weight, roast, grind
+        });
+          
+          res.send(updatedProduct);
+        } 
+      } catch (error) {
+          next (error)
+      }
+  })
   module.exports = router
