@@ -3,7 +3,6 @@ const { getMerchantByUsername } = require("./merchant");
 
 async function createProduct({
   creatorId,
-  countryId,
   name,
   description,
   price,
@@ -11,19 +10,19 @@ async function createProduct({
   weight,
   roast,
   grind,
+  country
 }) {
   try {
     const {
       rows: [Products],
     } = await client.query(
       `
-      INSERT INTO Product("creatorId", countryId, name, description, price, inventory, weight, roast, grind) 
+      INSERT INTO Product("creatorId", name, description, price, inventory, weight, roast, grind, country) 
       VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
       RETURNING *;
     `,
       [
         creatorId,
-        countryId,
         name,
         description,
         price,
@@ -31,17 +30,18 @@ async function createProduct({
         weight,
         roast,
         grind,
+        country
       ]
     );
     creatorId,
-      countryId,
       name,
       description,
       price,
       inventory,
       weight,
       roast,
-      grind;
+      grind,
+      country
     return Products;
   } catch (error) {
     throw error;

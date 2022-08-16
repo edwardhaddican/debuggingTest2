@@ -55,7 +55,7 @@ export const userLogin = async (username, password) => {
     }
   };
 
-  export const createNewProduct = async (token, nameProduct,description, price, weight, roast, grind, inventory ) => {
+  export const createNewProduct = async (token, nameProduct,description, price, weight, roast, grind, inventory, country) => {
     const response = await fetch(`${BASE_URL}/products`, {
       method: "POST",
       headers: {
@@ -69,7 +69,8 @@ export const userLogin = async (username, password) => {
            weight,
             roast, 
             grind, 
-            inventory
+            inventory,
+            country 
       }),
     });
     const result = await response.json();
@@ -154,7 +155,7 @@ export const userLogin = async (username, password) => {
   }
 
 
-export async function updateProduct(token, productId,  nameProduct, description, price, weight, roast, grind, inventory) {
+export async function updateProduct(token, productId,  nameProduct, description, price, weight, roast, grind, inventory, country) {
   const response = await fetch(`${BASE_URL}/products/${productId}`, {
     method: "PATCH",
     headers: {
@@ -168,7 +169,8 @@ export async function updateProduct(token, productId,  nameProduct, description,
          weight,
           roast, 
           grind, 
-          inventory
+          inventory,
+          country
     }),
   })
   const result = await response.json()

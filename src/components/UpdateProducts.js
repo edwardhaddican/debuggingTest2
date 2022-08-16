@@ -9,6 +9,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
   const [roast, setRoast] = useState('')
   const [grind, setGrind] = useState('')
   const [inventory, setInventory] = useState(0)
+  const [country, setCountry] = useState('')
   const [error, setError] = useState(null)
 
   async function handleSubmit (event) {
@@ -16,7 +17,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
       
       const token = localStorage.getItem('token')
       const username = localStorage.getItem("username")
-      const freshProduct = await updateProduct(token, productId, name, description, price, weight, roast, grind, inventory)
+      const freshProduct = await updateProduct(token, productId, name, description, price, weight, roast, grind, inventory, country)
       if (freshProduct.error) {
         setError(freshProduct);
       } else {
@@ -63,6 +64,10 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
         <label className="flex flex-col">
             Grind: 
             <input type='text' value={grind} onChange={(event)=> {setGrind(event.target.value)}}/>
+        </label>
+        <label className="flex flex-col">
+            Country: 
+            <input type='text' value={country} onChange={(event)=> {setCountry(event.target.value)}}/>
         </label>
         <label className="flex flex-col">
             Inventory:

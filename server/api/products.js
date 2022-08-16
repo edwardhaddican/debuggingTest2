@@ -12,9 +12,9 @@ router.get("/", async (req, res, next) => {
   });
 
   router.post("/", requireMerchant, async (req,res,next) => {
-      const {creatorId, countryId, name, description, price, inventory, weight, roast, grind,} = req.body
+      const {creatorId, name, description, price, inventory, weight, roast, grind, country} = req.body
       const productData = {
-        creatorId: req.merchant.id, countryId, name, description, price, inventory, weight, roast, grind , inventory
+        creatorId: req.merchant.id, name, description, price, inventory, weight, roast, grind , inventory, country
       }
       try {
           const product = await createProduct(productData)
@@ -52,7 +52,7 @@ router.get("/", async (req, res, next) => {
 
   router.patch("/:productId", requireMerchant, async (req,res,next) => {
     const {productId} = req.params;
-    const {creatorId, name, description, price, inventory, weight, roast, grind} = req.body
+    const {creatorId, name, description, price, inventory, weight, roast, grind, country} = req.body
     const originalProductId = await getProductById(productId);
     const orginalProductName = await getProductsByName(name);
     try {
@@ -69,7 +69,7 @@ router.get("/", async (req, res, next) => {
       } else {
         const updatedProduct = await updateProduct({productId,
           creatorId: req.merchant.id,
-          name, description, price, inventory, weight, roast, grind, inventory
+          name, description, price, inventory, weight, roast, grind, country
         });
           
           res.send(updatedProduct);
