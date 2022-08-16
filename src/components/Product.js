@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
+import { UpdateProducts } from ".";
 import { getProducts } from "../apiAdapter";
 import '../input.css';
 import CreateProduct from "./CreateProduct";
@@ -22,11 +23,9 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
     }, [])
  
     return (
-        <div className="bg-gradient-to-t from-rose-300 to-yellow-600 h-screen  flex justify-center items-center overflow-scroll xl:overflow-hidden ">
-          <div className=" mx-0 py-16 px-4 sm:py-24 sm:px-12 lg:max-w-full lg:max-h-full lg:px-9  sm:max-h-full  ">
+        <div className="bg-gradient-to-t from-rose-300 to-yellow-600 h-screen  flex justify-center items-center pb-24 ">
+          <div className=" mx-0 py-16 px-4 sm:py-24 sm:px-12 lg:max-w-full lg:max-h-full lg:px-9 sm:max-h-full  overflow-y-scroll ">
             
-    
-
             <div className=" grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10 xl:max-w-full  ">
               {productsList.map((element, index) => (
                 <a  key={`Product ${index}`}  className="group">
@@ -39,7 +38,7 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
                     /> 
                     
                   </div>
-                  
+                  <UpdateProducts/>
                   <h3 className=" text-center mt-2 text-2xl  text-gray-700 justify-center">{element.name}</h3> 
                   <p className="text-center mt-1 text-xl font-medium text-gray-900 ">${element.price}</p>
                   <button className="container font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500">Details</button>
@@ -47,10 +46,6 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
                   
                 </a>
               ))}
-               {isLoggedIn && isAdmin ? 
-              <button onClick={btnClick}>Create Product</button>
-               : null}
-               {isShown && (<CreateProduct productsList={productsList} setProductsList={setProductsList} />)} 
             </div>
           </div>
         </div>

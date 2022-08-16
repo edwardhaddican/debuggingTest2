@@ -106,18 +106,21 @@ async function getProductsByName(name) {
 async function getProductsByBrand({ username }) {
   try {
     const seller = await getMerchantByUsername(username);
+    console.log(seller, "GETTING  USERNAME ")
     const { rows: [Products]} = await client.query(
       `
-    SELECT Product.*, merchants.username AS "creatorId"
+    SELECT Product.*
     FROM Product
+    JOIN merchants ON Product."creatorId" = merchants.id
     WHERE "creatorId" =$1;
     `,
-      [brand]
+      [seller.id]
     );
     if (!Products) {
       return null;
-    }
-    console.log(Products,"GETTING PRODUCTS BY BRAND")
+    };
+    // const allproducts = attachProductsUserOrder(Products)
+    console.log(Products,"3 BRAND")
     return Products;
   } catch (error) {
     throw error;
@@ -143,6 +146,7 @@ async function destroyProduct(id) {
   }
 }
 async function attachProductsUserOrder(usersOrders) {
+  console.log(usersOrders,"HELLO HELP ME PLEASE LINE !49 ")
   const ordersToReturn = [...usersOrders];
   const binds = usersOrders.map((_, index) => `$${index + 1}`).join(", ");
   const orderIds = usersOrders.map((userOrder) => userOrder.id);
