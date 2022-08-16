@@ -50,7 +50,7 @@ router.get("/", async (req, res, next) => {
       }
   })
 
-  router.patch("/", requireUser, async (req,res,next) => {
+  router.patch("/:productId", requireMerchant, async (req,res,next) => {
     const {productId} = req.params;
     const {countryId, name, description, price, inventory, weight, roast, grind}= req.body;
 

@@ -154,8 +154,8 @@ export const userLogin = async (username, password) => {
   }
 
 
-export async function updateProduct(token, id,  productName, productDescription, price, inventory, weight) {
-  const response = await fetch(`${BASE_URL}/activities/${id}`, {
+export async function updateProduct(token, Id,  productName, productDescription, price, weight, roast, grind, inventory) {
+  const response = await fetch(`${BASE_URL}/products/${Id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
