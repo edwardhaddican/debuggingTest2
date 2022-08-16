@@ -23,11 +23,11 @@ const navigate = useNavigate()
     </div>
 
      {/* Here is were we can add more links to the navbar */}
-    <div className="flex items-center justify-center w-screen bg-lime-600 ">
-    <NavLink to="/" className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >Home
-    </NavLink>
-      {isAdmin ? (<div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-40 sm:flex-row justify-center sm:gap-x-20 ">
-      <NavLink to='/createProduct' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >Create Product
+    <div className="flex items-center justify-center w-screen  gap-x-20  ">
+      <NavLink to="/" className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0 " >Home
+      </NavLink>
+      {isAdmin ? (<div className="flex flex-col sm:flex-row md:flex-row gap-x-60 sm:gap-x-8 md:mx-6 lg:gap-x-20 xl:gap-x-20 justify-center ">
+      <NavLink to='/createProduct' className=" my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0 " >Create Product
       </NavLink>
       <NavLink to='/merchantproduct' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
       </NavLink>
@@ -36,7 +36,7 @@ const navigate = useNavigate()
       {/* <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1"> "Log Out"</button> */}
       </div>): !isAdmin && isLoggedIn ? (null): 
 
-      <div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-40 sm:flex-row justify-center sm:gap-x-20 ">
+      <div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-20 sm:flex-row justify-center sm:gap-x-20 ">
         <NavLink to="/login" className="my-1 text-3xl text-gray-200 font-medium text- hover:text-yellow-600 hover:scale-125  transition duration-400  md:my-0 ">Log In
         </NavLink>
         <NavLink to="/register" className="my-1 text-3xl text-gray-200 font-medium hover:text-yellow-600 hover:scale-125  transition duration-400  md:my-0" >Register
