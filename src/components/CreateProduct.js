@@ -37,8 +37,8 @@ const CreateProduct = ({productsList, setProductsList})=> {
       {error && error.message ? (
         <h3>{error.message}</h3>
       ) : null}
-      <form className='flex flex-col font-medium  ' onSubmit={handleSubmit}>
-          <label className='my-2'>
+      <form className='flex flex-col  font-medium  ' onSubmit={handleSubmit}>
+          <label className='my-2 flex md:flex-row lg:flex-col'>
               Name: 
               <input className='flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10' type='text' value={name}  onChange={(event)=> {setName(event.target.value)}}/>
           </label>
