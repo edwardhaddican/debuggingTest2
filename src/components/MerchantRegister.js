@@ -40,7 +40,7 @@ const MerchantRegister = () => {
         <div >
           <div>
             <img
-              className="mx-auto h-29 w-auto rounded-lg shadow-gray-700 shadow-md "
+              className="mx-auto h-24 w-auto rounded-lg shadow-gray-700 shadow-md "
               src={require('../components/Logo/coffee.png')}
               alt="Workflow"
             />

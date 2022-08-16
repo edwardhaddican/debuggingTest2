@@ -27,7 +27,7 @@ useEffect(() => {
 
 const showMyProducts = myProducts.map((product, index) => {
   return (
-    <div>
+    <div className=''>
       <h1> {product.name}</h1>
       <DeleteProduct myProducts={myProducts} setMyProducts={setMyProducts} productId={product.id}/>
       <button onClick={buttonClick2}>EDIT PRODUCT</button>
