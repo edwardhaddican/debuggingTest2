@@ -812,10 +812,13 @@ select {
   margin-right: 0px;
 }
 
+
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
 
 .ml-4 {
   margin-left: 1rem;
@@ -1210,10 +1213,12 @@ select {
   background-color: rgb(253 186 116 / var(--tw-bg-opacity));
 }
 
+
 .bg-lime-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(101 163 13 / var(--tw-bg-opacity));
 }
+
 
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
