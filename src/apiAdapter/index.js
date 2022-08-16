@@ -152,3 +152,25 @@ export const userLogin = async (username, password) => {
   
     return result;
   }
+
+
+export async function updateProduct(token, id,  productName, productDescription, price, inventory, weight) {
+  const response = await fetch(`${BASE_URL}/activities/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: productName,
+       description: productDescription,
+        price, 
+         weight,
+          roast, 
+          grind, 
+          inventory
+    }),
+  })
+  const result = await response.json()
+  return result
+}
