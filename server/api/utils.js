@@ -9,6 +9,18 @@ function requireUser(req, res, next) {
   
     next();
   }
+
+  function requireMerchant(req, res, next) {
+    if (!req.merchant) {
+      res.status(401);
+      next({
+        name: "MissingMerchantError",
+        message: "You must be logged in to perform this action"
+      });
+    }
+  
+    next();
+  }
   
 
-  module.exports = {requireUser}
+  module.exports = {requireUser, requireMerchant}

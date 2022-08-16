@@ -131,25 +131,25 @@ export const userLogin = async (username, password) => {
   };
 
   export async function getProductsByAdmin(username) {
-    const response = await fetch(`${BASE_URL}/users/${username}/products`, {
+    const response = await fetch(`${BASE_URL}/merchants/${username}/products`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     const result = await response.json();
-  
+  console.log(result, " this is getproductsbyadmin api ")
     return result;
   }
 
   export async function getUsersMe(token) {
-    const response = await fetch(`${BASE_URL}/users/me`, {
+    const response = await fetch(`${BASE_URL}/merchants/me`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
     const result = await response.json();
-  
+  console.log(result, "this is getuser api call")
     return result;
   }
 

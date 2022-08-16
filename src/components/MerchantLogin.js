@@ -15,6 +15,7 @@ import Login from "./Login";
       try {
         event.preventDefault();
         const result = await merchantLogin(username, password);
+        console.log(result)
         const token =result.token
         
         if(result.error){

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router()
 const { getAllProducts, createProduct, getProductById, destroyProduct, updateProduct, getProductsByName } = require("../db/Product");
 const { requireUser } = require("./utils");
+const { requireUser, requireMerchant } = require("./utils");
+
 
 
 router.get("/", async (req, res, next) => {
@@ -10,10 +12,10 @@ router.get("/", async (req, res, next) => {
     res.send(product);
   });
 
-  router.post("/", requireUser, async (req,res,next) => {
+  router.post("/", requireMerchant, async (req,res,next) => {
       const {creatorId, countryId, name, description, price, inventory, weight, roast, grind,} = req.body
       const productData = {
-        creatorId: req.user.id, countryId, name, description, price, inventory, weight, roast, grind , inventory
+        creatorId: req.merchant.id, countryId, name, description, price, inventory, weight, roast, grind , inventory
       }
       try {
           const product = await createProduct(productData)
@@ -30,18 +32,18 @@ router.get("/", async (req, res, next) => {
       }
   })
 
-  router.delete('/:productId', requireUser, async (req,res,next)=> {
+  router.delete('/:productId', requireMerchant, async (req,res,next)=> {
       const {productId} = req.params
       try {
           const product = await getProductById(productId)
-          if (product && product.creatorId === req.user.id) {
+          if (product && product.creatorId === req.merchant.id) {
               await destroyProduct(productId)
               res.send(product)
           } else {
             res.status(403);
             next({
               name: "MissingUserError",
-              message: `User ${req.user.username} is not allowed to delete this post.`,
+              message: `User ${req.merchant.username} is not allowed to delete this post.`,
             });
           }
       } catch ({name,message}) {

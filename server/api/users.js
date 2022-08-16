@@ -76,30 +76,8 @@ router.post('/login', async (req,res,next)=> {
     }
 })
 
-router.get("/me", requireUser, async (req, res, next) => {
-    try {
-      res.send(req.user);
-    } catch (error) {
-      next(error);
-    }
-  });
 
-  router.get("/:username/products", async (req, res, next) => {
-      const {username} = req.params
-      const user = req.user
-      try {
-          const productUser = await getProductsByMerchant(username)
-         if (username === user.username && productUser.length) {
-             res.send(productUser)
-         } else {
-             next({
-                 name:'ErrorGettingProducts',
-                 message: 'Product error'
-             })
-         }
-      } catch ({name, message}) {
-          next({name, message})
-      }
-  })
+
+
 
 module.exports = router
