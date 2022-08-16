@@ -38,7 +38,12 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
                     /> 
                     
                   </div>
-                  <UpdateProducts/>
+
+                  <div className="">
+                      <button>Update</button>
+                      <UpdateProducts/>
+                  </div>
+
                   <h3 className=" text-center mt-2 text-2xl  text-gray-700 justify-center">{element.name}</h3> 
                   <p className="text-center mt-1 text-xl font-medium text-gray-900 ">${element.price}</p>
                   <button className="container font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500">Details</button>

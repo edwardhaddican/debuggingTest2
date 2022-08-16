@@ -20,40 +20,40 @@ const UpdateProducts = ({id})=> {
   
 
   return (
-    <div className='flex flex-col absolute  bg-white'>
-        <h1 id="addRoutineTitle">UPDATE PRODUCT</h1>
-    <form className='flex flex-row' onSubmit={handleSubmit}>
-        <label>
+    <div className='container text-center '>
+        <h1 id="">UPDATE PRODUCT</h1>
+    <form className='flex flex-col items-center  ' onSubmit={handleSubmit}>
+        <label className="flex flex-col ">
             Name: 
-            <input type='text' value={productName} placeholder='update Name' onChange={(event)=> {setProductName(event.target.value)}}/>
+            <input  type='text' value={productName} placeholder='update Name' onChange={(event)=> {setProductName(event.target.value)}}/>
         </label>
-        <label>
+        <label className="flex flex-col">
             Description: 
             <input type='text' value={productDescription} onChange={(event)=> {setProductDescription(event.target.value)}}/>
         </label>
-        <label>
+        <label className="flex flex-col">
             Price: 
             <input type='text' value={price} onChange={(event)=> {setPrice(event.target.value)}}/>
 
         </label>
-        <label>
+        <label className="flex flex-col">
             Weight: 
             <input value={weight} type='text' onChange={(event)=> {setWeight(event.target.value)}}/>
         </label>
-        <label>
+        <label className="flex flex-col">
             Roast:
             <input type='text' value={roast} onChange={(event)=> {setRoast(event.target.value)}}/>
         </label>
-        <label>
+        <label className="flex flex-col">
             Grind: 
             <input type='text' value={grind} onChange={(event)=> {setGrind(event.target.value)}}/>
         </label>
-        <label>
+        <label className="flex flex-col">
             Inventory:
             <input value={inventory} type='text' onChange={(event)=> {setInventory(event.target.value)}}/>
         </label>
-        <button className="Testbutton" id="updateActivityButton" type="Submit">
-          SAVE
+        <button className="container font-medium mt-2  py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500"  >
+          UPDATE
         </button>
       </form>
     </div>
