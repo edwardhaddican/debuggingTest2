@@ -154,16 +154,16 @@ export const userLogin = async (username, password) => {
   }
 
 
-export async function updateProduct(token, Id,  productName, productDescription, price, weight, roast, grind, inventory) {
-  const response = await fetch(`${BASE_URL}/products/${Id}`, {
+export async function updateProduct(token, productId,  nameProduct, description, price, weight, roast, grind, inventory) {
+  const response = await fetch(`${BASE_URL}/products/${productId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      name: productName,
-       description: productDescription,
+      name: nameProduct,
+       description,
         price, 
          weight,
           roast, 
@@ -172,5 +172,6 @@ export async function updateProduct(token, Id,  productName, productDescription,
     }),
   })
   const result = await response.json()
+  console.log(result)
   return result
 }

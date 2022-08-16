@@ -175,24 +175,27 @@ async function attachProductsUserOrder(usersOrders) {
   }
 }
 
-async function updateProduct({ id, ...fields }) {
+async function updateProduct({ productId, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
 
-  try {
-    if (setString.length > 0) {
-      await client.query(
+    if (setString.length === 0) {
+      return;
+    }
+    try {
+      const {
+        rows: [product],
+      } = await client.query(
         `
-        UPDATE Product
-        SET ${setString}
-        WHERE id=${id}
-        RETURNING *;
-      `,
+    UPDATE Product
+    SET ${setString}
+    WHERE id=${productId}
+    RETURNING *;
+    `,
         Object.values(fields)
       );
-    }
-    return await getProductById(id);
+      return product;
   } catch (error) {
     throw error;
   }

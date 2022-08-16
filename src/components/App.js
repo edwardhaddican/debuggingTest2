@@ -29,7 +29,7 @@ const App = () => {
           <Route path ='/merchantproduct' element ={<MerchantProducts />}/>
           <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>} />
           <Route path='/cart' element={<Cart />}/> 
-          <Route path='/createProduct' element={<CreateProduct />} />
+          <Route path='/createProduct' element={<CreateProduct productsList={productsList} setProductsList={setProductsList} />} />
        </Routes> ) : 
        !isAdmin && isLoggedIn ? (
         <Routes>  
