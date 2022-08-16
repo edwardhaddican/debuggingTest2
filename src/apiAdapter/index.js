@@ -55,7 +55,7 @@ export const userLogin = async (username, password) => {
     }
   };
 
-  export const createNewProduct = async (token, nameProduct,description, price, weight, roast, grind, inventory ) => {
+  export const createNewProduct = async (token, nameProduct,description, price, inventory, weight, roast, grind, country ) => {
     const response = await fetch(`${BASE_URL}/products`, {
       method: "POST",
       headers: {
@@ -65,11 +65,12 @@ export const userLogin = async (username, password) => {
       body: JSON.stringify({
         name: nameProduct,
          description,
-          price, 
+          price,
+          inventory, 
            weight,
             roast, 
             grind, 
-            inventory
+         country
       }),
     });
     const result = await response.json();
