@@ -21,7 +21,7 @@ const CreateProduct = ({productsList, setProductsList})=> {
     async function handleSubmit (event) {
         event.preventDefault()
         const token = localStorage.getItem('token')
-        const freshProduct = await createNewProduct(token, name,description, price, weight, roast, grind, inventory)
+        const freshProduct = await createNewProduct(token, name,description, price, weight, roast, grind, inventory, country)
         if (freshProduct.error) {
             setError(freshProduct)
         } else {
@@ -77,14 +77,14 @@ const CreateProduct = ({productsList, setProductsList})=> {
               Country: 
               <select id="Country" className='flex w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10' type='text' value={country} onChange={(event)=> {setCountry(event.target.value)}}>
                 <option defaultValue >--Select Country--</option>
-                <option value="Whole Beans">Brazil</option>
-                <option value="Ground">Vietnam</option>
-                <option value="Instant">Colombia</option>
-                <option value="Instant">Indonesia</option>
-                <option value="Instant">Ethiopia</option>
-                <option value="Instant">Honduras</option>
-                <option value="Instant">India</option>
-                <option value="Instant">Uganda</option>
+                <option value="Brazil">Brazil</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Hondurus">Honduras</option>
+                <option value="India">India</option>
+                <option value="Uganda">Uganda</option>
 
               </select>
           </label>
