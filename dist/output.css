@@ -797,6 +797,11 @@ select {
   margin-bottom: -1rem;
 }
 
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -811,14 +816,6 @@ select {
   margin-left: 0px;
   margin-right: 0px;
 }
-
-
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 
 .ml-4 {
   margin-left: 1rem;
@@ -844,12 +841,12 @@ select {
   margin-bottom: 0.25rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
 .mb-8 {
@@ -1069,10 +1066,6 @@ select {
   overflow: hidden;
 }
 
-.overflow-scroll {
-  overflow: scroll;
-}
-
 .overflow-y-scroll {
   overflow-y: scroll;
 }
@@ -1137,12 +1130,12 @@ select {
   border-bottom-right-radius: 0.5rem;
 }
 
-.border {
-  border-width: 1px;
-}
-
 .border-2 {
   border-width: 2px;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .border-solid {
@@ -1152,6 +1145,11 @@ select {
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.border-zinc-900 {
+  --tw-border-opacity: 1;
+  border-color: rgb(24 24 27 / var(--tw-border-opacity));
 }
 
 .border-gray-300 {
@@ -1166,11 +1164,6 @@ select {
 .border-black {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-
-.border-zinc-900 {
-  --tw-border-opacity: 1;
-  border-color: rgb(24 24 27 / var(--tw-border-opacity));
 }
 
 .bg-gray-100 {
@@ -1188,9 +1181,19 @@ select {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-orange-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 186 116 / var(--tw-bg-opacity));
+}
+
 .bg-rose-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(136 19 55 / var(--tw-bg-opacity));
+}
+
+.bg-lime-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(101 163 13 / var(--tw-bg-opacity));
 }
 
 .bg-yellow-600 {
@@ -1208,18 +1211,6 @@ select {
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
-.bg-orange-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 186 116 / var(--tw-bg-opacity));
-}
-
-
-.bg-lime-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(101 163 13 / var(--tw-bg-opacity));
-}
-
-
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
 }
@@ -1231,18 +1222,6 @@ select {
 .from-rose-300 {
   --tw-gradient-from: #fda4af;
   --tw-gradient-to: rgb(253 164 175 / 0);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-rose-600 {
-  --tw-gradient-from: #e11d48;
-  --tw-gradient-to: rgb(225 29 72 / 0);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-rose-500 {
-  --tw-gradient-from: #f43f5e;
-  --tw-gradient-to: rgb(244 63 94 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -1285,6 +1264,11 @@ select {
   padding-bottom: 1rem;
 }
 
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -1305,17 +1289,12 @@ select {
   padding-bottom: 4rem;
 }
 
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+.pb-24 {
+  padding-bottom: 6rem;
 }
 
 .pl-3 {
   padding-left: 0.75rem;
-}
-
-.pb-24 {
-  padding-bottom: 6rem;
 }
 
 .text-center {
@@ -1356,12 +1335,12 @@ select {
   font-weight: 500;
 }
 
-.font-extrabold {
-  font-weight: 800;
-}
-
 .font-bold {
   font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
 }
 
 .tracking-tight {
@@ -1476,14 +1455,14 @@ select {
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:bg-yellow-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(202 138 4 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-rose-900:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(136 19 55 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-yellow-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(202 138 4 / var(--tw-bg-opacity));
 }
 
 .hover\:text-yellow-600:hover {
@@ -1691,10 +1670,6 @@ select {
   .xl\:gap-x-10 {
     -webkit-column-gap: 2.5rem;
             column-gap: 2.5rem;
-  }
-
-  .xl\:overflow-hidden {
-    overflow: hidden;
   }
 }
 

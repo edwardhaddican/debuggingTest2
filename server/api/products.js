@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router()
 const { getAllProducts, createProduct, getProductById, destroyProduct, updateProduct, getProductsByName } = require("../db/Product");
-const { requireUser } = require("./utils");
 const { requireUser, requireMerchant } = require("./utils");
 
 
