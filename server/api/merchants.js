@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require("jsonwebtoken");
-const { getMerchantByUsername, createMerchant } = require('../db/merchant');
+const { getMerchantByUsername, createMerchant, getMerchant } = require('../db/merchant');
 const { getProductsByMerchant} = require('../db/Product');
 const { JWT_SECRET } = process.env;
 const {requireMerchant} = require('./utils')
@@ -15,20 +15,22 @@ router.post('/register', async (req,res,next)=> {
             message: 'Please supply both username and password'
         })
     }
-    if (password.length < 8) {
-        next({
-            name: 'PasswordLengthError',
-            message: 'Password must be longer than 8 characters'
-        })
-    }
+    
     try {
         const _merchant = await getMerchantByUsername(username)
         if (_merchant) {
             next({
                 name: 'UserExistError',
-                message: `Merchant ${_merchant.username} alredy exists.`
+                message: `Admin ${_merchant.username} alredy exists.`
             })
-        } else {
+        } else if (password.length < 8) {
+            next({
+                name: 'PasswordLengthError',
+                message: 'Password must be longer than 8 characters'
+            })
+        }
+        
+        else {
             const merchant = await createMerchant({
                 username,
                 password,
@@ -63,7 +65,7 @@ router.post('/login', async (req,res,next)=> {
         })
     }
     try {
-        const merchant = await getMerchantByUsername(username)
+        const merchant = await getMerchant({username, password})
         if (merchant) {
             const token = jwt.sign({
                 id: merchant.id,

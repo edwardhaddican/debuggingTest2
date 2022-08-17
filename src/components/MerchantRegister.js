@@ -27,7 +27,9 @@ const MerchantRegister = () => {
         }else if (token) {
           setError(null)
           setMyResult(result)
-          localStorage.setItem(username,"username");
+          setUsername('')
+          setPassword('')
+          setBrand('')
         }
        } catch (error) {
         alert(error);
