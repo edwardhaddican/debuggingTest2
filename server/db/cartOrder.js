@@ -1,4 +1,24 @@
 const client = require("./client");
+const {createUsersOrders} = require("./userOrders")
+
+async function getCartOrder(userId){
+  try{
+  const {
+    rows: [cart],
+  } = await client.query(
+    `
+    SELECT * FROM usersOrders
+    WHERE userId =$1
+  `,
+    [userId]
+  );
+if(!cart){
+  await createUsersOrders(userId)
+}
+  return cart;
+} catch (error) {
+  throw error;
+}}
 
 //
 async function addProductToCart({
@@ -133,5 +153,6 @@ module.exports = {
   updateCartOrder,
   getCartOrderrById,
   canEditCartOrder,
-  editItemQuantity
+  editItemQuantity,
+  getCartOrder
 };

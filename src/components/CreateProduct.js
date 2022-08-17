@@ -28,7 +28,6 @@ const CreateProduct = ({ productsList, setProductsList }) => {
         }
 
     }
-  }
     return (
       <div className='bg-gradient-to-t from-rose-300 to-yellow-600 h-screen flex flex-col justify-center items-center pb-24'>
           <h1 className='font-bold text-3xl' id="addRoutineTitle">Add A Product</h1>
