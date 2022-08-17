@@ -27,7 +27,6 @@ const Register = () => {
           setError(null)
           setMyResult(result)
           const username = result.user.username
-          localStorage.setItem(username,"username");
           navigate('/login')
         }
        } catch (error) {

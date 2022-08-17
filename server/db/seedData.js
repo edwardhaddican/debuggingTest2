@@ -48,14 +48,14 @@ async function createTables() {
           CREATE TABLE Product (
             id SERIAL PRIMARY KEY,
             "creatorId" INTEGER REFERENCES Merchants(id),
-            countryId coffeeCountry,
             name VARCHAR(255) NOT NULL,
             description TEXT NOT NULL,
             price INTEGER,
             inventory INTEGER NOT NULL,
             weight INTEGER,
             roast coffeeRoast NOT NULL,
-            grind coffeeGrind      
+            grind coffeeGrind,
+            country coffeeCountry      
           );
           CREATE TABLE usersOrders (
             id SERIAL PRIMARY KEY,
@@ -137,7 +137,7 @@ async function createInitialProducts() {
   const productsToCreate = [
     {
       creatorId: 1,
-      countryId: "Brazil",
+      country: "Brazil",
       name: "Coffee#1",
       description: "coffee stuff description 1",
       price: 20,
@@ -145,10 +145,11 @@ async function createInitialProducts() {
       weight: 5,
       roast: "Medium",
       grind: "Ground",
+      country: "Brazil",
     },
     {
       creatorId: 1,
-      countryId: "Vietnam",
+      country: "Vietnam",
       name: "Coffee#2",
       description: "coffee stuff description 2",
       price: 55,
@@ -156,10 +157,11 @@ async function createInitialProducts() {
       weight: 2,
       roast: "Dark",
       grind: "Ground",
+      country: "Vietnam",
     },
     {
       creatorId: 2,
-      countryId: "Colombia",
+      country: "Colombia",
       name: "Coffee#3",
       description: "coffee stuff description 3",
       price: 15,
@@ -167,10 +169,12 @@ async function createInitialProducts() {
       weight: 1,
       roast: "Mild",
       grind: "Whole Beans",
+      country: "Colombia",
     },
     {
       creatorId: 3,
-      countryId: "Ethiopia",
+     country: "Ethiopia",
+
       name: "Coffee#4",
       description: "coffee stuff description 4",
       price: 10,
@@ -178,10 +182,11 @@ async function createInitialProducts() {
       weight: 10,
       roast: "Light",
       grind: "Instant",
+       country: "Ethiopia",
     },
     {
       creatorId: 3,
-      countryId: "Vietnam",
+      country: "Vietnam",
       name: "Coffee#5",
       description: "coffee stuff description 5",
       price: 15,
@@ -189,6 +194,7 @@ async function createInitialProducts() {
       weight: 30,
       roast: "Medium",
       grind: "Whole Beans",
+      country: "Vietnam",
     },
     
   ];

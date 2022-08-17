@@ -6,7 +6,50 @@ const {
     destroyCartOrder,
     updateCartOrder,
     getCartOrderrById,
-    canEditCartOrder } = require('../db')
+    canEditCartOrder,
+    getCartOrder,
+ } = require('../db')
+
+cartOrderRouter.get('/', async (req,res)=>{
+        try{
+            if(!req.user){
+                res.send({
+                    name: "no token",
+                    message: "No Token present"
+                })
+                return;
+        }
+        const userCart = await getCartOrder(req.user.id)
+        res.send({userCart})
+        
+    }catch(error){
+        res.send({
+            error: error.message
+        })
+    }
+}
+    )
+
+//adding product to cart
+cartOrderRouter.post('/:cartOrderId/:productId', async (req,res)=>{
+        try{
+            if(!req.user){
+                res.send({
+                    name: "no token",
+                    message: "No Token present"
+                })
+                return;
+        }
+        const cartItem = await addProductToCart(req.body)
+        res.send({cartItem})
+        
+    }catch(error){
+        res.send({
+            error: error.message
+        })
+    }
+}
+    )
 
 cartOrderRouter.patch('/:cartOrderId', requireUser, async (req, res, next) => {
     const { cartOrderId } = req.params;
@@ -50,5 +93,19 @@ cartOrderRouter.delete('/:cartOrderId', requireUser, async (req,res,next)=>{
     } catch (error) {
         next (error)
     }})
+
+
+cartOrderRouter.get('/', requireUser, async (req, res, next) => {
+    if(!req.user){
+        res.send({
+            name: "no token",
+            message: "No Token present"
+        })
+        return;
+
+    } 
+    const cart = await getCartOrderrById(req.user.id)   
+    res.send({cart})
+})
 
 module.exports = cartOrderRouter;

@@ -28,12 +28,10 @@ async function getUser({ username, password }) {
   const user = await getUserByUsername(username);
   const hashedPassword = user.password;
   const isValid = await bcrypt.compare(password, hashedPassword);
-  if (!isValid) {
-    return false;
-  } else {
-    delete user.password;
-  }
-  return user;
+  if (isValid) {
+    delete user.password; //might have to move this
+    return user;
+  } 
 }
 
 async function getUserById(userId) {

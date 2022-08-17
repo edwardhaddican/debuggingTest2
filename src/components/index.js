@@ -10,4 +10,8 @@ export {default as MerchantProducts} from './MerchantProducts'
 export {default as MerchantRegister} from './MerchantRegister'
 export {default as DeleteProduct} from './DeleteProduct'
 export {default as UpdateProducts} from './UpdateProducts'
+
 export {default as SingleProduct} from './SingleProduct'
+
+export {default as AddProductToCart} from './Add2Cart'
+
