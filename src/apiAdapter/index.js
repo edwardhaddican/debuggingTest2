@@ -176,3 +176,20 @@ export async function updateProduct(token, productId,  nameProduct, description,
   console.log(result)
   return result
 }
+
+export async function addProductToCart(productId, orderId, quantity, price ) {
+  const response = await fetch(`${BASE_URL}/:cartOrderId/:productId`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      productId: productId, 
+      orderId: orderId, 
+      quantity, 
+      price 
+    })
+  })
+  const result = await response.json()
+  return result
+}

@@ -77,7 +77,7 @@ async function destroyCartOrder(id) {
       `
     DELETE FROM cartOrder
     WHERE id =$1
-    RETURNING *
+    RETURNING *;
     `,
       [id]
     );
@@ -100,10 +100,30 @@ async function canEditCartOrder(cartOrderId, userId) {
   );
 
   if (cartOrder.orderId === userId) {
-    return routineActivity;
+    return cartOrder;
   } else {
     return false;
   }
+}
+async function editItemQuantity ({productId, quantity}) {
+  const {
+    rows: [cartOrder],
+  } = await client.query(
+    `
+ UPDATE cartOrder
+ SET quantity =$1
+ WHERE id =$2
+ RETURNING *;
+  `,
+    [productId, quantity]
+  );
+
+  if (cartOrder.orderId === userId) {
+    return cartOrder;
+  } else {
+    return false;
+  }
+
 }
 
 module.exports = {
@@ -112,5 +132,6 @@ module.exports = {
   destroyCartOrder,
   updateCartOrder,
   getCartOrderrById,
-  canEditCartOrder
+  canEditCartOrder,
+  editItemQuantity
 };
