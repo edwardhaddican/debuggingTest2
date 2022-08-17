@@ -1,7 +1,7 @@
 import { userLogin } from "../apiAdapter";
 import React, { useState } from "react";
 import { Link,useNavigate} from "react-router-dom";
-import { LockClosedIcon } from '@heroicons/react/solid';
+import { LockClosedIcon,UserIcon } from '@heroicons/react/solid';
 import '../input.css';
 
  const Login = ({setIsLoggedIn}) => {
@@ -53,9 +53,6 @@ import '../input.css';
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="username" className="sr-only">
-                  Username
-                </label>
                 <input
                   onChange={({ target }) => setUsername(target.value)}
                   value={username}
@@ -82,25 +79,22 @@ import '../input.css';
                   placeholder="Password"
                 />
               </div>
-              <Link to={'/adminLogin'}><h3>Admin?</h3></Link>
+              <Link  to={'/adminLogin'}><h3 className="text-center text-xl mt-6 hover:underline">Admin, Log in HERE</h3></Link>
                 {error && error.message ? <h3>{error.message}</h3> : null}
             </div>
 
-            <div className="flex items-center justify-between">
-        
-            </div>
+
             <div>
               <button
                 onClick={handleSubmit}
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-rose-900 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-900 shadow-gray-700 shadow-lg"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-rose-900 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-900 shadow-gray-700 shadow-lg transition duration-500"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3 ">
                   <LockClosedIcon className="h-5 w-5 text-yellow-600  group-hover:text-rose-900" aria-hidden="true" />
                 </span>
                 Sign in
               </button>
-              
             </div>
           </form>
         </div>
