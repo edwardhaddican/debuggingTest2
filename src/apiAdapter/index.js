@@ -1,5 +1,5 @@
-const BASE_URL = "https://fathomless-dawn-16080.herokuapp.com/api";
-// const BASE_URL = "http://localhost:3001/api";
+// const BASE_URL = "https://fathomless-dawn-16080.herokuapp.com/api";
+const BASE_URL = "http://localhost:3001/api";
 export const userLogin = async (username, password) => {
     try {
       const response = await fetch(`${BASE_URL}/users/login`, {
@@ -42,15 +42,17 @@ export const userLogin = async (username, password) => {
 
   export const getProducts = async () => {
     try {
+      console.log("Hello")
       const response = await fetch(`${BASE_URL}/products`, {
         headers: {
           "Content-Type": "application/json",
         },
       });
       const result = await response.json();
-      
+      console.log(result, "Get Products API CALL")
       return result;
     } catch (error) {
+      console.log(error, "Line 55")
       throw error;
     }
   };

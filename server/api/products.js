@@ -7,7 +7,7 @@ const { requireUser, requireMerchant } = require("./utils");
 
 router.get("/", async (req, res, next) => {
     const product = await getAllProducts();
-  
+  console.log(product," API router check Product")
     res.send(product);
   });
 
