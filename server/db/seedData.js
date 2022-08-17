@@ -48,6 +48,7 @@ async function createTables() {
           CREATE TABLE Product (
             id SERIAL PRIMARY KEY,
             "creatorId" INTEGER REFERENCES Merchants(id),
+            country coffeeCountry,
             name VARCHAR(255) NOT NULL,
             description TEXT NOT NULL,
             price INTEGER,
@@ -137,6 +138,7 @@ async function createInitialProducts() {
   const productsToCreate = [
     {
       creatorId: 1,
+      country: "Brazil",
       name: "Coffee#1",
       description: "coffee stuff description 1",
       price: 20,
@@ -148,7 +150,7 @@ async function createInitialProducts() {
     },
     {
       creatorId: 1,
-      
+      country: "Vietnam",
       name: "Coffee#2",
       description: "coffee stuff description 2",
       price: 55,
@@ -160,7 +162,7 @@ async function createInitialProducts() {
     },
     {
       creatorId: 2,
-      
+      country: "Colombia",
       name: "Coffee#3",
       description: "coffee stuff description 3",
       price: 15,
@@ -172,7 +174,8 @@ async function createInitialProducts() {
     },
     {
       creatorId: 3,
-     
+     country: "Ethiopia",
+
       name: "Coffee#4",
       description: "coffee stuff description 4",
       price: 10,
@@ -184,7 +187,7 @@ async function createInitialProducts() {
     },
     {
       creatorId: 3,
-      
+      country: "Vietnam",
       name: "Coffee#5",
       description: "coffee stuff description 5",
       price: 15,

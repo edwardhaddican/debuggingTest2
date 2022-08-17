@@ -42,7 +42,7 @@ import Login from "./Login";
         <div >
           <div>
             <img
-              className="mx-auto h-29 w-auto rounded-lg shadow-gray-700 shadow-md select-none "
+              className="mx-auto h-24 w-auto rounded-lg shadow-gray-700 shadow-md select-none "
               src={require('../components/Logo/coffee.png')}
               alt="Workflow"
 

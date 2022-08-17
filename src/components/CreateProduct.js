@@ -12,94 +12,47 @@ const CreateProduct = ({ productsList, setProductsList }) => {
   const [country, setCountry] = useState("");
   const [inventory, setInventory] = useState(0);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const token = localStorage.getItem("token");
-    const freshProduct = await createNewProduct(
-      token,
-      name,
-      description,
-      price,
-      inventory,
-      weight,
-      roast,
-      grind,
-      country
-    );
-    if (freshProduct.error) {
-      setError(freshProduct);
-    } else {
-      setError(null);
-      await setProductsList([freshProduct, ...productsList]);
-      navigate("./");
+
+    async function handleSubmit (event) {
+        event.preventDefault()
+        const token = localStorage.getItem('token')
+        const freshProduct = await createNewProduct(token, name,description, price, weight, roast, grind, inventory, country)
+        if (freshProduct.error) {
+            setError(freshProduct)
+        } else {
+            setError(null)
+           await setProductsList([freshProduct, ...productsList ])
+           navigate('./')
+        }
+
     }
   }
-
-  return (
-    <div className="bg-gradient-to-t from-rose-300 to-yellow-600 h-screen flex flex-col justify-center items-center pb-24">
-      <h1 className="font-bold text-3xl" id="addRoutineTitle">
-        Add A Product
-      </h1>
-      {error && error.message ? <h3>{error.message}</h3> : null}
-      <form className="flex flex-col font-medium  " onSubmit={handleSubmit}>
-        <label className="my-2">
-          Name:
-          <input
-            className="flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
-            type="text"
-            value={name}
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-          />
-        </label>
-        <label className="my-2">
-          Description:
-          <input
-            className="flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
-            type="text"
-            value={description}
-            onChange={(event) => {
-              setDescription(event.target.value);
-            }}
-          />
-        </label>
-        <label className="my-2">
-          Price:
-          <input
-            className="flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
-            type="text"
-            value={price}
-            onChange={(event) => {
-              setPrice(event.target.value);
-            }}
-          />
-        </label>
-        <label className="my-2 ">
-          Inventory:
-          <input
-            className="flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
-            value={inventory}
-            type="text"
-            onChange={(event) => {
-              setInventory(event.target.value);
-            }}
-          />
-        </label>
-        <label className="my-2">
-          Weight:
-          <input
-            className="flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
-            value={weight}
-            type="text"
-            onChange={(event) => {
-              setWeight(event.target.value);
-            }}
-          />
-        </label>
-        <label className='my-2'>
+    return (
+      <div className='bg-gradient-to-t from-rose-300 to-yellow-600 h-screen flex flex-col justify-center items-center pb-24'>
+          <h1 className='font-bold text-3xl' id="addRoutineTitle">Add A Product</h1>
+      {error && error.message ? (
+        <h3>{error.message}</h3>
+      ) : null}
+      <form className='flex flex-col  font-medium  ' onSubmit={handleSubmit}>
+          <label className='my-2 flex md:flex-row lg:flex-col'>
+              Name: 
+              <input className='flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10' type='text' value={name}  onChange={(event)=> {setName(event.target.value)}}/>
+          </label>
+          <label className='my-2'>
+              Description: 
+              <input className='flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10' type='text' value={description} onChange={(event)=> {setDescription(event.target.value)}}/>
+          </label>
+          <label className='my-2'>
+              Price: 
+              <input className='flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10'  type='text' value={price} onChange={(event)=> {setPrice(event.target.value)}}/>
+          </label>
+          <label className='my-2'>
+              Weight: 
+              <input className='flex rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10'  value={weight} type='text' onChange={(event)=> {setWeight(event.target.value)}}/>
+          </label>
+          <label className='my-2'>
               Roast:
               <select id="roast" className='flex w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10' type='text' value={roast} onChange={(event)=> {setRoast(event.target.value)}}>
                 <option defaultValue >--Select Roast--</option>

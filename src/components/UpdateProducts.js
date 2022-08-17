@@ -1,45 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { getProductsByAdmin, updateProduct } from "../apiAdapter";
+const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
+  const [name, setName ] = useState('')
+  const [description, setDescription] = useState('')
+  const [price, setPrice] = useState(0)
+  const [weight, setWeight] = useState(0)
+  const [roast, setRoast] = useState('')
+  const [grind, setGrind] = useState('')
+  const [inventory, setInventory] = useState(0)
+  const [country, setCountry] = useState('')
+  const [error, setError] = useState(null)
 
-const UpdateProducts = ({ myProducts, setMyProducts, productId }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const [roast, setRoast] = useState("");
-  const [grind, setGrind] = useState("");
-  const [inventory, setInventory] = useState(0);
-  const [error, setError] = useState(null);
-  const [country, setCountry] = useState("");
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    const token = localStorage.getItem("token");
-    const username = localStorage.getItem("username");
-    const freshProduct = await updateProduct(
-      token,
-      productId,
-      name,
-      description,
-      price,
-      inventory,
-      weight,
-      roast,
-      grind,
-      country
-    );
-    if (freshProduct.error) {
-      setError(freshProduct);
-    } else {
-      setError(null);
-      freshProduct;
-      const newEditedProduct = await getProductsByAdmin(username);
-
-      setMyProducts(newEditedProduct);
-    }
-  }
-  useEffect(() => {}, [myProducts]);
+  async function handleSubmit (event) {
+      event.preventDefault()
+      
+      const token = localStorage.getItem('token')
+      const username = localStorage.getItem("username")
+      const freshProduct = await updateProduct(token, productId, name, description, price, weight, roast, grind, inventory, country)
+      if (freshProduct.error) {
+        setError(freshProduct);
+      } else {
+        setError(null);
+        freshProduct;
+        const newEditedProduct = await getProductsByAdmin(username);
+  
+        setMyProducts(newEditedProduct);
+      
+      }
+      }
+      useEffect(() => {}, [myProducts]);
 
   return (
     <div className="flex flex-col absolute  bg-white">
@@ -147,14 +136,14 @@ const UpdateProducts = ({ myProducts, setMyProducts, productId }) => {
           </select>
         </label>
         <label className="flex flex-col">
-          Inventory:
-          <input
-            value={inventory}
-            type="text"
-            onChange={(event) => {
-              setInventory(event.target.value);
-            }}
-          />
+
+            Country: 
+            <input type='text' value={country} onChange={(event)=> {setCountry(event.target.value)}}/>
+        </label>
+        <label className="flex flex-col">
+            Inventory:
+            <input value={inventory} type='text' onChange={(event)=> {setInventory(event.target.value)}}/>
+
         </label>
         <button className="container font-medium mt-2  py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500">
           UPDATE
