@@ -6,7 +6,30 @@ const {
     destroyCartOrder,
     updateCartOrder,
     getCartOrderrById,
-    canEditCartOrder } = require('../db')
+    canEditCartOrder,
+    getCartOrder,
+ } = require('../db')
+
+cartOrderRouter.get('/', async (req,res)=>{
+        try{
+            if(!req.user){
+                res.send({
+                    name: "no token",
+                    message: "No Token present"
+                })
+                return;
+        }
+        const userCart = await getCartOrder(req.user.id)
+        res.send({userCart})
+        
+    }catch(error){
+        res.send({
+            error: error.message
+        })
+    }
+}
+    )
+
 //adding product to cart
 cartOrderRouter.post('/:cartOrderId/:productId', async (req,res)=>{
         try{

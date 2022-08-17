@@ -48,7 +48,6 @@ async function createTables() {
           CREATE TABLE Product (
             id SERIAL PRIMARY KEY,
             "creatorId" INTEGER REFERENCES Merchants(id),
-            country coffeeCountry,
             name VARCHAR(255) NOT NULL,
             description TEXT NOT NULL,
             price INTEGER,
