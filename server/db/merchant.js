@@ -28,12 +28,11 @@ async function getMerchant({ username, password }) {
   const seller = await getMerchantByUsername(username);
   const hashedPassword = seller.password;
   const isValid = await bcrypt.compare(password, hashedPassword);
-  if (!isValid) {
-    return false;
-  } else {
+  if (isValid) {
     delete seller.password;
-  }
-  return seller;
+    return seller
+  } 
+  
 }
 
 async function getMerchantById(sellerId) {
