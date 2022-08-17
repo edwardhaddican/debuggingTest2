@@ -12,9 +12,11 @@ router.get("/", async (req, res, next) => {
   });
 
   router.post("/", requireMerchant, async (req,res,next) => {
+
       const {creatorId, name, description, price, inventory, weight, roast, grind, country} = req.body
       const productData = {
         creatorId: req.merchant.id, name, description, price, inventory, weight, roast, grind , inventory, country
+
       }
       try {
           const product = await createProduct(productData)

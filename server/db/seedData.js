@@ -55,7 +55,8 @@ async function createTables() {
             inventory INTEGER NOT NULL,
             weight INTEGER,
             roast coffeeRoast NOT NULL,
-            grind coffeeGrind      
+            grind coffeeGrind,
+            country coffeeCountry      
           );
           CREATE TABLE usersOrders (
             id SERIAL PRIMARY KEY,
@@ -145,6 +146,7 @@ async function createInitialProducts() {
       weight: 5,
       roast: "Medium",
       grind: "Ground",
+      country: "Brazil",
     },
     {
       creatorId: 1,
@@ -156,6 +158,7 @@ async function createInitialProducts() {
       weight: 2,
       roast: "Dark",
       grind: "Ground",
+      country: "Vietnam",
     },
     {
       creatorId: 2,
@@ -167,10 +170,12 @@ async function createInitialProducts() {
       weight: 1,
       roast: "Mild",
       grind: "Whole Beans",
+      country: "Colombia",
     },
     {
       creatorId: 3,
-      country: "Ethiopia",
+     country: "Ethiopia",
+
       name: "Coffee#4",
       description: "coffee stuff description 4",
       price: 10,
@@ -178,6 +183,7 @@ async function createInitialProducts() {
       weight: 10,
       roast: "Light",
       grind: "Instant",
+       country: "Ethiopia",
     },
     {
       creatorId: 3,
@@ -189,6 +195,7 @@ async function createInitialProducts() {
       weight: 30,
       roast: "Medium",
       grind: "Whole Beans",
+      country: "Vietnam",
     },
     
   ];

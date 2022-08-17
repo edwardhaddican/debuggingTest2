@@ -41,7 +41,8 @@ async function createProduct({
       weight,
       roast,
       grind,
-      country
+      country;
+
     return Products;
   } catch (error) {
     throw error;

@@ -55,6 +55,7 @@ export const userLogin = async (username, password) => {
     }
   };
 
+
   export const createNewProduct = async (token, nameProduct,description, price, weight, roast, grind, inventory, country) => {
     const response = await fetch(`${BASE_URL}/products`, {
       method: "POST",
@@ -65,11 +66,11 @@ export const userLogin = async (username, password) => {
       body: JSON.stringify({
         name: nameProduct,
          description,
-          price, 
+          price,
            weight,
             roast, 
             grind, 
-            inventory,
+            inventory, 
             country 
       }),
     });
@@ -175,5 +176,22 @@ export async function updateProduct(token, productId,  nameProduct, description,
   })
   const result = await response.json()
   console.log(result)
+  return result
+}
+
+export async function addProductToCart(productId, orderId, quantity, price ) {
+  const response = await fetch(`${BASE_URL}/:cartOrderId/:productId`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      productId: productId, 
+      orderId: orderId, 
+      quantity, 
+      price 
+    })
+  })
+  const result = await response.json()
   return result
 }
