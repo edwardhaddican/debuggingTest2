@@ -8,7 +8,7 @@
     "seed": "node ./server/db/seed.js",
     "start:dev": "nodemon ./server/app.js",
     "start": "react-scripts start",
-    "build": "NODE_ENV=production npm run compile-env && react-scripts build"
+    "build": "NODE_ENV=production && react-scripts build"
   },
   "author": "Michael Lopez, Garrett Truong, Jacob Morris, Brandon Covarrubias",
   "license": "ISC",
