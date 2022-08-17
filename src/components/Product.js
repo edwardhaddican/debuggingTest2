@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import { Link} from "react-router-dom";
 import { AddProductToCart } from ".";
+
 import { getProducts } from "../apiAdapter";
 import '../input.css';
 import CreateProduct from "./CreateProduct";
@@ -9,6 +13,11 @@ import DeleteProduct from "./DeleteProduct";
 
 
 const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/SingleProduct')
+  }
   const [isShown,setIsShown] = useState(false)
     
         async function btnClick () {
@@ -41,8 +50,12 @@ const Products = ({productsList, setProductsList, isLoggedIn, isAdmin}) => {
 
                   <h3 className=" text-center mt-2 text-2xl  text-gray-700 justify-center">{element.name}</h3> 
                   <p className="text-center mt-1 text-xl font-medium text-gray-900 ">${element.price}</p>
-                  <button className="container font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500">Details</button>
+
+                  <button onClick={handleClick} className="container font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500">Details</button>
+                 
+
                   <AddProductToCart productsList= {productsList} setProductsList= {setProductsList} productId={element.id}/>
+
                   
                 </a>
               ))}
