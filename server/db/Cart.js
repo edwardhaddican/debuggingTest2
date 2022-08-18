@@ -65,16 +65,16 @@ async function updateCart({ id, ...fields }) {
 async function getCart() {
   try {
     const {
-      rows: [cart],
+      rows: cart,
     } = await client.query(`
     SELECT *
     FROM Cart;
     `);
-    // if (!cart) {
-    //   return await createCart();
-    // }
+    if (!cart) {
+      return await createCart();
+    }
 
-    return [cart]
+    return cart
   } catch (error) {
     throw error;
   }}
