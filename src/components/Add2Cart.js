@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addProductsToCart, getAllCarts, getUsersMe} from "../apiAdapter";
+import { addProductsToCart, getAllCartsByUserId, getUsersMe} from "../apiAdapter";
 import { useNavigate } from "react-router-dom";
 
 
@@ -16,37 +16,43 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   async function fetchCart () {
     const token = localStorage.getItem("token")
     const getUser = await getUsersMe(token);
-    console.log(getUser.id, "Userbefore creating cart")
-    if(!getUser){
-      console.log("NO USER HERE, creating cart")
-      await getAllCarts()
-    }else{
+
+    console.log(getUser, 'the user')
       console.log("CREATING CART FOR USER")
-      await getAllCarts(getUser.id)
-      console.log(await getAllCarts(getUser.id),"Finished creating cart")
-    }
-    console.log(getUser,"SHOW ME THE USer")}
-   
+      const getTheCart = await getAllCartsByUserId(getUser.id)
+      console.log(getTheCart, 'cart')
+      setSelectedCart(getTheCart)
+     
+    
+  }
+    
+  
     
     useEffect(()=> {
     fetchCart()
     }, [])
- 
-  // async function handleSubmit() {
     
-  //   const token = localStorage.getItem("token");
+  
+  
+  
+  async function handleSubmit() {
+
+
+ 
+    const token = localStorage.getItem("token");
    
-  //  const addedCartProduct = await addProductsToCart(productId, , quantity, price)
-  // //  console.log(selectedCart[0], "show me the money")
-  // //   console.log(addedCartProduct, "Show me more stuff")
-  // //   if (addedCartProduct.error) {
-  //     setError(addedCartProduct);
-  //   } else {
-  //     setError(null);
-  //     setCart(addedCartProduct);
-  //     navigate("./");
-  // //   }
-  // }
+<
+   const addedCartProduct = await addProductsToCart(productId, selectedCart.id, quantity, price)
+
+    if (addedCartProduct.error) {
+      setError(addedCartProduct);
+    } else {
+      setError(null);
+      setCart(addedCartProduct);
+      navigate("./");
+    }
+  }
+
 
 
 

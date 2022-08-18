@@ -21,14 +21,14 @@ async function createCart({userId}) {
   }
 }
 
-async function getCartById(id) {
+async function getCartById(userId) {
   try {
     const {
       rows: [cart],
     } = await client.query(`
-    SELECT id, "userId"
+    SELECT *
     FROM Cart
-    WHERE id =${id};
+    WHERE id =${userId};
     `);
     if (!cart) {
       return await createCart(id);

@@ -8,5 +8,9 @@ router.get("/", async (req, res, next) => {
   
     res.send(cart);
   });
-
+ router.get('/:userId', async (req,res,next)=> {
+   const {userId} = req.params
+   const cartUser = await getCartById(userId)
+   res.send(cartUser)
+ })
   module.exports = router

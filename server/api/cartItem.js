@@ -8,11 +8,11 @@ const {
     canEditcartItem } = require('../db')
     const {addProductToCart} = require('../db/cartItem')
 //adding product to cart
-router.post('/:orderId/:productId', async (req,res)=>{
-    const {orderId, productId} = req.params
+router.post('/:cartId/:productId', async (req,res)=>{
+    const {cartId, productId} = req.params
     const {quantity, price} = req.body
         try{
-            const cartItem = await addProductToCart({orderId, productId, quantity, price})
+            const cartItem = await addProductToCart({cartId, productId, quantity, price})
             res.send({cartItem})
         
         
