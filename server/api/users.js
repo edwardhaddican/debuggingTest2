@@ -79,6 +79,14 @@ router.post('/login', async (req,res,next)=> {
     }
 })
 
+router.get("/me", requireUser, async (req, res, next) => {
+    try {
+      res.send(req.user);
+    } catch (error) {
+      next(error);
+    }
+  });
+
 
 
 

@@ -153,10 +153,20 @@ export const userLogin = async (username, password) => {
       },
     });
     const result = await response.json();
-  console.log(result, "this is getuser api call")
+  console.log(result, 'merchant')
     return result;
   }
-
+  export async function getUsersMe2(token) {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+ 
+    return result;
+  }
 
 export async function updateProduct(token, productId,  nameProduct, description, price, weight, roast, grind, inventory, country) {
   const response = await fetch(`${BASE_URL}/products/${productId}`, {

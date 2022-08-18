@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { addProductsToCart, getAllCartsByUserId, getCartItemsbyUserId, getUsersMe} from "../apiAdapter";
+
+import { addProductsToCart, getAllCartsByUserId, getUsersMe2} from "../apiAdapter";
+
 import { useNavigate } from "react-router-dom";
 
 
@@ -15,7 +17,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   
   async function fetchCart () {
     const token = localStorage.getItem("token")
-    const getUser = await getUsersMe(token);
+    const getUser = await getUsersMe2(token);
 
     console.log(getUser, 'the user')
       console.log("CREATING CART FOR USER")
