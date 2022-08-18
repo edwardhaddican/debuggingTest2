@@ -199,7 +199,7 @@ export async function addProductsToCart(productId, orderId, quantity, price ) {
   return result
 }
 
-export const getAllCarts = async () => {
+export const getAllCarts = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/Cart`, {
       headers: {

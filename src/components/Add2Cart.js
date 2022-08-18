@@ -16,33 +16,36 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   async function fetchCart () {
     const token = localStorage.getItem("token")
     const getUser = await getUsersMe(token);
+    console.log(getUser.id, "Userbefore creating cart")
     if(!getUser){
       console.log("NO USER HERE, creating cart")
       await getAllCarts()
     }else{
       console.log("CREATING CART FOR USER")
       await getAllCarts(getUser.id)
+      console.log(await getAllCarts(getUser.id),"Finished creating cart")
     }
     console.log(getUser,"SHOW ME THE USer")}
-    fetchCart()
+   
     
-  //   useEffect(()=> {
-  //   fetchCarts()
-  //   }, [])
+    useEffect(()=> {
+    fetchCart()
+    }, [])
  
   // async function handleSubmit() {
     
   //   const token = localStorage.getItem("token");
    
-  //  const addedCartProduct = await addProductsToCart(productId, selectedCart[0], quantity, price)
-  //  console.log(selectedCart[0], "show me the money")
-  //   if (addedCartProduct.error) {
+  //  const addedCartProduct = await addProductsToCart(productId, , quantity, price)
+  // //  console.log(selectedCart[0], "show me the money")
+  // //   console.log(addedCartProduct, "Show me more stuff")
+  // //   if (addedCartProduct.error) {
   //     setError(addedCartProduct);
   //   } else {
   //     setError(null);
   //     setCart(addedCartProduct);
   //     navigate("./");
-  //   }
+  // //   }
   // }
 
 

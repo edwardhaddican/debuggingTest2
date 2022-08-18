@@ -242,7 +242,7 @@ async function createInitialCart() {
     const selleruser = await getMerchantByUsername(`benny12`);
     console.log(selleruser,"Starting to create CART ORDER");
     const [order1, order2, order3] = await getCart();
-  console.log(order1,"Finsihed getting Cart")
+  console.log(order3,"Finsihed getting Cart")
   const [product1, product2, product3, product4, product5] = await getAllProducts();
    console.log(await getProductsByBrand(selleruser), "PLEASE HELP ME SEED DATA")
   

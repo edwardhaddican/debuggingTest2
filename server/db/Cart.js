@@ -31,7 +31,7 @@ async function getCartById(id) {
     WHERE id =${id};
     `);
     if (!cart) {
-      return null;
+      return await createCart(id);
     }
     return cart;
   } catch (error) {
