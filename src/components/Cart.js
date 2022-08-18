@@ -1,6 +1,10 @@
-import React from 'react'
 
- const Cart = () => {
+import React, {useState} from 'react'
+
+import { getAllCarts } from '../apiAdapter'
+
+ const Cart = ({carts, setCarts}) => {
+
 
 
 

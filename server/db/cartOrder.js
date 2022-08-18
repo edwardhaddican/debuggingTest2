@@ -48,6 +48,20 @@ async function addProductToCart({
   }
 }
 
+async function getCartOrderByUserOrder({ id }) {
+  try {
+    const { rows } = await client.query(`
+    SELECT *
+    FROM cartOrder
+    WHERE "orderId"=${id}
+    `);
+
+    return rows;
+  } catch (error) {
+    console.error;
+  }
+}
+
 async function getCartOrderrById(id) {
   try {
     const {
@@ -154,5 +168,7 @@ module.exports = {
   getCartOrderrById,
   canEditCartOrder,
   editItemQuantity,
+
   getCartOrder
+
 };

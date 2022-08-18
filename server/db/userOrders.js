@@ -1,6 +1,7 @@
-const { attachProductsUsersOrders } = require("./Product");
+const { attachProductsUsersOrders, attachProductsUserOrder } = require("./Product");
 const client = require("./client");
 const { getUserByUsername } = require("./users");
+
 
 async function createUsersOrders({userId}) {
   try {
@@ -60,17 +61,17 @@ async function updateUsersOrders({ id, ...fields }) {
   }
 }
 
+
 async function getUsersOrders() {
   try {
-    const { rows } = await client.query(`
-    SELECT *
-    FROM usersOrders;
+    const { rows: userOrders } = await client.query(`
+    SELECT usersOrders.*, users.username 
+    FROM usersOrders
+    Join users on usersOrders."userId" = users.id
     `);
-    if (!rows) {
-      return null;
-    }
-    console.log(rows,"Getting usersOrders in UsersOrders.js")
-    return rows;
+  
+ 
+    return attachProductsUserOrder(userOrders)
   } catch (error) {
     throw error;
   }

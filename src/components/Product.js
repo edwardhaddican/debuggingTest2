@@ -15,6 +15,7 @@ const Products = ({ productsList, setProductsList, isLoggedIn, isAdmin }) => {
   };
   const [isShown, setIsShown] = useState(false);
 
+
   async function btnClick() {
     setIsShown((current) => !current);
   }
@@ -27,6 +28,7 @@ const Products = ({ productsList, setProductsList, isLoggedIn, isAdmin }) => {
       setProductsList(newproducts);
     } catch (error) {
       console.log(error);
+
     }
   }
 

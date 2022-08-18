@@ -227,5 +227,6 @@ module.exports = {
   destroyProduct,
   getProductsByBrand,
   getProductById,
-  getProductsByMerchant
+  getProductsByMerchant,
+  attachProductsUserOrder
 };

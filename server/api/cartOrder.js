@@ -1,47 +1,20 @@
 const express = require('express');
-const  cartOrderRouter = express.Router();
+const  router = express.Router();
 const { requireUser } = require('./utils')
 const { 
-    addProductToCart,
     destroyCartOrder,
     updateCartOrder,
     getCartOrderrById,
-    canEditCartOrder,
-    getCartOrder,
- } = require('../db')
-
-cartOrderRouter.get('/', async (req,res)=>{
-        try{
-            if(!req.user){
-                res.send({
-                    name: "no token",
-                    message: "No Token present"
-                })
-                return;
-        }
-        const userCart = await getCartOrder(req.user.id)
-        res.send({userCart})
-        
-    }catch(error){
-        res.send({
-            error: error.message
-        })
-    }
-}
-    )
-
+    canEditCartOrder } = require('../db')
+    const {addProductToCart} = require('../db/cartOrder')
 //adding product to cart
-cartOrderRouter.post('/:cartOrderId/:productId', async (req,res)=>{
+router.post('/:orderId/:productId', async (req,res)=>{
+    const {orderId, productId} = req.params
+    const {quantity, price} = req.body
         try{
-            if(!req.user){
-                res.send({
-                    name: "no token",
-                    message: "No Token present"
-                })
-                return;
-        }
-        const cartItem = await addProductToCart(req.body)
-        res.send({cartItem})
+            const cartItem = await addProductToCart({orderId, productId, quantity, price})
+            res.send({cartItem})
+        
         
     }catch(error){
         res.send({
@@ -51,7 +24,7 @@ cartOrderRouter.post('/:cartOrderId/:productId', async (req,res)=>{
 }
     )
 
-cartOrderRouter.patch('/:cartOrderId', requireUser, async (req, res, next) => {
+router.patch('/:cartOrderId', requireUser, async (req, res, next) => {
     const { cartOrderId } = req.params;
     console.log(cartOrderId, "first check")
     const { quantity, price } = req.body;
@@ -76,7 +49,7 @@ cartOrderRouter.patch('/:cartOrderId', requireUser, async (req, res, next) => {
 })
 
 
-cartOrderRouter.delete('/:cartOrderId', requireUser, async (req,res,next)=>{
+router.delete('/:cartOrderId', requireUser, async (req,res,next)=>{
     const { username}= req.user
     try{
         if(!await canEditCartOrder(req.params.cartOrderId, req.user.id)) {
@@ -95,17 +68,10 @@ cartOrderRouter.delete('/:cartOrderId', requireUser, async (req,res,next)=>{
     }})
 
 
-cartOrderRouter.get('/', requireUser, async (req, res, next) => {
-    if(!req.user){
-        res.send({
-            name: "no token",
-            message: "No Token present"
-        })
-        return;
-
-    } 
+router.get('/', requireUser, async (req, res, next) => {
+   
     const cart = await getCartOrderrById(req.user.id)   
     res.send({cart})
 })
 
-module.exports = cartOrderRouter;
+module.exports = router;

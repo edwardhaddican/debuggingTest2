@@ -181,19 +181,35 @@ export async function updateProduct(token, productId,  nameProduct, description,
   return result
 }
 
-export async function addProductToCart(productId, orderId, quantity, price ) {
-  const response = await fetch(`${BASE_URL}/:cartOrderId/:productId`, {
+export async function addProductsToCart(productId, orderId, quantity, price ) {
+  const response = await fetch(`${BASE_URL}/cartOrder/${orderId}/${productId}`, {
+    method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
     method: "POST",
     body: JSON.stringify({
-      productId: productId, 
-      orderId: orderId, 
+      productId: productId,  
       quantity, 
       price 
     })
   })
   const result = await response.json()
+  console.log(result)
   return result
 }
+
+export const getAllCarts = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/userOrders`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
