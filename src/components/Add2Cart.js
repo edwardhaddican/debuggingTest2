@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+
 import { addProductsToCart, getAllCartsByUserId, getUsersMe2} from "../apiAdapter";
+
 import { useNavigate } from "react-router-dom";
 
 
@@ -20,7 +22,9 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
     console.log(getUser, 'the user')
       console.log("CREATING CART FOR USER")
       const getTheCart = await getAllCartsByUserId(getUser.id)
-      console.log(getTheCart, 'cart')
+      const getCartItems = await getCartItemsbyUserId(getUser.id)
+      console.log(getCartItems,"SOHW ME THE CART ITEMS")
+      // console.log(getTheCart, 'cart')
       setSelectedCart(getTheCart)
      
     
@@ -58,15 +62,10 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
 
   return (
     <div className="products-container">
-      <div key={productId}>
-        <h3>{productsList.name}</h3>
-        <p>${productsList.price}</p>
-        <p>{productsList.description}</p>
-        <p>{productsList.country}</p>
+     
               <button onClick={() => handleSubmit(productId)}>
                 Add to Cart
               </button>
-      </div>
     </div>
   );
 };

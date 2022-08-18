@@ -2,11 +2,14 @@ const express = require('express');
 const  router = express.Router();
 const { requireUser } = require('./utils')
 const { 
+    addProductToCart,
     destroycartItem,
     updatecartItem,
     getcartItemrById,
-    canEditcartItem } = require('../db')
-    const {addProductToCart} = require('../db/cartItem')
+    canEditcartItem,
+    getcartItem,
+    getcartItemById,
+ } = require('../db/cartItem')
 //adding product to cart
 router.post('/:cartId/:productId', async (req,res)=>{
     const {cartId, productId} = req.params
@@ -67,11 +70,15 @@ router.delete('/:cartItemId', requireUser, async (req,res,next)=>{
         next (error)
     }})
 
+    router.get('/:userId', async (req,res,next)=> {
+        const {userId} = req.params
+        const cartOrder = await getcartItemById(userId)
+        res.send(cartOrder)
+      })
 
-router.get('/', requireUser, async (req, res, next) => {
+// router.get('/', requireUser, async (req, res, next) => {
    
-    const cart = await getcartItemrById(req.user.id)   
-    res.send({cart})
-})
-
+//     const cart = await getcartItem(req.user.id)   
+//     res.send({cart})
+// })
 module.exports = router;

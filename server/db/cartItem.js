@@ -1,5 +1,5 @@
 const client = require("./client");
-const {createUsersOrders} = require("./Cart")
+const {createCart} = require("./Cart")
 
 async function getcartItem(userId){
   try{
@@ -7,13 +7,13 @@ async function getcartItem(userId){
     rows: [cart],
   } = await client.query(
     `
-    SELECT * FROM usersOrders
+    SELECT * FROM Cart
     WHERE userId =$1
   `,
     [userId]
   );
 if(!cart){
-  await createUsersOrders(userId)
+  await createCart(userId)
 }
   return cart;
 } catch (error) {
@@ -48,37 +48,57 @@ async function addProductToCart({
   }
 }
 
-async function getcartItemByUserOrder({ id }) {
-  try {
-    const { rows } = await client.query(`
-    SELECT *
-    FROM cartItem
-    WHERE "cartId"=${id}
-    `);
+// async function getcartItemByCartId({ id }) {
+//   try {
+//     const { rows } = await client.query(`
+//     SELECT *
+//     FROM cartItem
+//     WHERE "cartId"=${id}
+//     `);
 
-    return rows;
-  } catch (error) {
-    console.error;
-  }
-}
+//     return rows;
+//   } catch (error) {
+//     console.error;
+//   }
+// }
 
-async function getcartItemrById(id) {
+async function getcartItemById(Id) {
   try {
     const {
-      rows: [order],
+      rows: [cart],
     } = await client.query(`
     SELECT id, "productId", "cartId", quantity, price
     FROM cartItem
-    WHERE id =${id};
+    WHERE "cartId" =${Id};
     `);
-    if (!order) {
+    if (!cart) {
       return null;
     }
-    return order;
+    // const cartItems = await Promise.all(cart.map((product)=>getcartItemById(product.id)))
+    return cart;
   } catch (error) {
     throw error;
-  }
-}
+//   }
+// }
+// async function getcartItembyUser( username ) {
+//   try {
+//     const { rows: products } = await client.query(
+//       `
+//     SELECT cartItem.*, Cart.userId AS "User_Id"
+//     FROM cartItem
+//     JOIN Cart ON cartItem."creatorId" = Merchants.id
+//     WHERE username = $1;
+//   `,
+//       [username]
+//     );
+//     return products;
+//   } catch (error) {
+//     console.error("Trouble getting products", error);
+//   }
+// }
+
+
+
 
 async function updatecartItem({ id, ...fields }) {
   const setString = Object.keys(fields)
@@ -97,7 +117,7 @@ async function updatecartItem({ id, ...fields }) {
         Object.values(fields)
       );
     }
-    return await getcartItemrById(id);
+    return await getcartItemById(id);
   } catch (error) {
     throw error;
   }
@@ -127,7 +147,7 @@ async function canEditcartItem(cartItemId, userId) {
   } = await client.query(
     `
   SELECT * FROM cartItem
-  JOIN userOrders ON cartItem."cartId" = userOrders.id
+  JOIN Cart ON cartItem."cartId" = Cart.id
   AND cartItem.id = $1
   `,
     [cartItemId]
@@ -165,10 +185,9 @@ module.exports = {
   addProductToCart,
   destroycartItem,
   updatecartItem,
-  getcartItemrById,
   canEditcartItem,
   editItemQuantity,
-
+  getcartItemById,
   getcartItem
 
 };

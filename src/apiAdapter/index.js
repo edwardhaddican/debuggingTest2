@@ -225,3 +225,20 @@ export const getAllCartsByUserId = async (userId) => {
     throw error;
   }
 };
+
+
+export const getCartItemsbyUserId = async (userId) => {
+
+  try {
+    const response = await fetch(`${BASE_URL}/cartOrder/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
