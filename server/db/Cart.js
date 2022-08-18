@@ -31,7 +31,7 @@ async function getCartById(userId) {
     WHERE id =${userId};
     `);
     if (!cart) {
-      return await createCart(id);
+      return await createCart(userId);
     }
     return cart;
   } catch (error) {

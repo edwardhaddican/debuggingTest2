@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addProductsToCart, getAllCartsByUserId, getUsersMe} from "../apiAdapter";
+import { addProductsToCart, getAllCartsByUserId, getUsersMe2} from "../apiAdapter";
 import { useNavigate } from "react-router-dom";
 
 
@@ -15,7 +15,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   
   async function fetchCart () {
     const token = localStorage.getItem("token")
-    const getUser = await getUsersMe(token);
+    const getUser = await getUsersMe2(token);
 
     console.log(getUser, 'the user')
       console.log("CREATING CART FOR USER")
@@ -41,7 +41,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
  
     const token = localStorage.getItem("token");
    
-<
+
    const addedCartProduct = await addProductsToCart(productId, selectedCart.id, quantity, price)
 
     if (addedCartProduct.error) {
