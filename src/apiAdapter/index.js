@@ -181,8 +181,8 @@ export async function updateProduct(token, productId,  nameProduct, description,
   return result
 }
 
-export async function addProductsToCart(productId, orderId, quantity, price ) {
-  const response = await fetch(`${BASE_URL}/cartOrder/${orderId}/${productId}`, {
+export async function addProductsToCart(productId, cartId, quantity, price ) {
+  const response = await fetch(`${BASE_URL}/cartOrder/${cartId}/${productId}`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -199,9 +199,9 @@ export async function addProductsToCart(productId, orderId, quantity, price ) {
   return result
 }
 
-export const getAllCarts = async () => {
+export const getAllCartsByUserId = async (userId) => {
   try {
-    const response = await fetch(`${BASE_URL}/Cart`, {
+    const response = await fetch(`${BASE_URL}/Cart/${userId}`, {
       headers: {
         "Content-Type": "application/json",
       },
