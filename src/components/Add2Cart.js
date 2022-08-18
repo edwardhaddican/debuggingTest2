@@ -16,6 +16,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   async function fetchCart () {
     const token = localStorage.getItem("token")
     const getUser = await getUsersMe(token);
+
     console.log(getUser, 'the user')
       console.log("CREATING CART FOR USER")
       const getTheCart = await getAllCartsByUserId(getUser.id)
@@ -36,9 +37,11 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   
   async function handleSubmit() {
 
+
  
     const token = localStorage.getItem("token");
    
+<
    const addedCartProduct = await addProductsToCart(productId, selectedCart.id, quantity, price)
 
     if (addedCartProduct.error) {
@@ -49,6 +52,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
       navigate("./");
     }
   }
+
 
 
 

@@ -3,7 +3,8 @@ const { getCart, getCartById } = require('../db/Cart');
 const router = express.Router()
 
 router.get("/", async (req, res, next) => {
-    const cart = await getCart()
+  const {id} = req.body
+    const cart = await getCartById(id)
   
     res.send(cart);
   });
