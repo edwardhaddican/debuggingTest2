@@ -2,14 +2,14 @@ const client = require("./client");
 const { createUser, getUserByUsername } = require("./users");
 const { createMerchant, getMerchantByUsername } = require("./merchant");
 const { createProduct, getAllProducts, getProductsByBrand } = require("./Product");
-const { createUsersOrders, getUsersOrders } = require("./userOrders");
-const { addProductToCart } = require("./cartOrder");
+const { createCart, getCart } = require("./Cart");
+const { addProductToCart } = require("./cartItem");
 
 async function dropTables() {
   try {
     await client.query(`
-       DROP TABLE IF EXISTS cartOrder;
-      DROP TABLE IF EXISTS usersOrders;
+       DROP TABLE IF EXISTS cartItem;
+      DROP TABLE IF EXISTS Cart;
        DROP TABLE IF EXISTS Product;
        DROP TABLE IF EXISTS Merchants;
        DROP TABLE IF EXISTS users;
@@ -57,18 +57,19 @@ async function createTables() {
             grind coffeeGrind,
             country coffeeCountry      
           );
-          CREATE TABLE usersOrders (
+          CREATE TABLE Cart (
             id SERIAL PRIMARY KEY,
-            "userId" INTEGER REFERENCES users(id)
+            "userId" INTEGER REFERENCES users(id),
+            "isActive" BOOLEAN DEFAULT true
           
           );
-          CREATE TABLE cartOrder (
+          CREATE TABLE cartItem (
             id SERIAL PRIMARY KEY,
             "productId" INTEGER REFERENCES Product(id),
-            "orderId" INTEGER REFERENCES usersOrders(id),
+            "cartId" INTEGER REFERENCES Cart(id),
             quantity INTEGER,
             price INTEGER,
-            UNIQUE("productId","orderId")
+            UNIQUE("productId","cartId")
             );
         `);
   } catch (error) {
@@ -209,68 +210,68 @@ async function createInitialProducts() {
 }
 
 
-async function createInitialuserOrder() {
-  console.log("Starting to create USERSORDERS");
+async function createInitialCart() {
+  console.log("Starting to create individual Carts");
 
-  const userOrderstoCreate = [
+  const CartstoCreate = [
     {
       userId: 1,
       
     },
     {
-      userId: 1,
+      userId: 2,
       
     },
     {
-      userId: 1,
+      userId: 3,
      
     },
   
   ];
-    const userOrder = await Promise.all(
-      userOrderstoCreate.map((product) => createUsersOrders(product))
+    const userCart = await Promise.all(
+      CartstoCreate.map((product) => createCart(product))
     );
   
-    console.log("PRODUCT created:");
-    console.log(userOrder);
+    console.log("Cart created:");
+    console.log(userCart);
   
-    console.log("Finished creating PRODUCTS");
+    console.log("Finished creating Cart");
   }
 
-  async function createInitialCartOrder() {
+  async function createInitialcartItem() {
     const selleruser = await getMerchantByUsername(`benny12`);
-    console.log("Starting to create CART ORDER");
-    const [order1, order2, order3] = await getUsersOrders();
-  console.log(order1,"Finsihed getting UsersOrders")
+    console.log(selleruser,"Starting to create CART ORDER");
+    const [order1, order2, order3] = await getCart();
+  console.log(order1,"Finsihed getting Cart")
   const [product1, product2, product3, product4, product5] = await getAllProducts();
-   console.log(await getProductsByBrand(selleruser), "PLEASE HELP ME")
+   console.log(await getProductsByBrand(selleruser), "PLEASE HELP ME SEED DATA")
   
   
-    const cartOrderstoCreate = [
+    const cartItemstoCreate = [
       {
         productId: product1.id,
-        orderId: order1.id,
+        cartId: order1.id,
         quantity: 5,
         price: 20
       },
       {
         productId: product2.id,
-        orderId: order2.id,
+        cartId: order1.id,
         quantity: 5,
         price: 3
       },
       {
         productId: product4.id,
-        orderId: order1.id,
+        cartId: order1.id,
         quantity: 5,
         price: 100
       },
     ];
-    const cartOrder = await Promise.all(
-      cartOrderstoCreate.map(addProductToCart)
+    const cartItem = await Promise.all(
+      cartItemstoCreate.map(addProductToCart)
     );
   
-    console.log(cartOrder, " I THINK I CREATED MY CART");
+    console.log(cartItem, " I THINK I CREATED MY CART");
   
     console.log("Finished creating CART");
   }
@@ -283,8 +284,8 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialMerchants();
     await createInitialProducts();
-    await createInitialuserOrder();
-    await createInitialCartOrder();
+    await createInitialCart();
+    await createInitialcartItem();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;

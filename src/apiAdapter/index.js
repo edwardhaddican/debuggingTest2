@@ -201,7 +201,7 @@ export async function addProductsToCart(productId, orderId, quantity, price ) {
 
 export const getAllCarts = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/userOrders`, {
+    const response = await fetch(`${BASE_URL}/Cart`, {
       headers: {
         "Content-Type": "application/json",
       },

@@ -1,7 +1,7 @@
 const client = require("./client");
-const {createUsersOrders} = require("./userOrders")
+const {createUsersOrders} = require("./Cart")
 
-async function getCartOrder(userId){
+async function getcartItem(userId){
   try{
   const {
     rows: [cart],
@@ -23,7 +23,7 @@ if(!cart){
 //
 async function addProductToCart({
   productId,
-  orderId,
+  cartId,
   quantity,
   price,
 }) {
@@ -32,12 +32,12 @@ async function addProductToCart({
       rows: [Order],
     } = await client.query(
       `
-      INSERT INTO cartOrder("productId", "orderId", quantity, price) 
+      INSERT INTO cartItem("productId", "cartId", quantity, price) 
       VALUES($1, $2, $3, $4) 
       RETURNING *;
     `,
       [productId,
-        orderId,
+        cartId,
         quantity,
         price,]
     );
@@ -48,12 +48,12 @@ async function addProductToCart({
   }
 }
 
-async function getCartOrderByUserOrder({ id }) {
+async function getcartItemByUserOrder({ id }) {
   try {
     const { rows } = await client.query(`
     SELECT *
-    FROM cartOrder
-    WHERE "orderId"=${id}
+    FROM cartItem
+    WHERE "cartId"=${id}
     `);
 
     return rows;
@@ -62,13 +62,13 @@ async function getCartOrderByUserOrder({ id }) {
   }
 }
 
-async function getCartOrderrById(id) {
+async function getcartItemrById(id) {
   try {
     const {
       rows: [order],
     } = await client.query(`
-    SELECT id, "productId", "orderId", quantity, price
-    FROM cartOrder
+    SELECT id, "productId", "cartId", quantity, price
+    FROM cartItem
     WHERE id =${id};
     `);
     if (!order) {
@@ -80,7 +80,7 @@ async function getCartOrderrById(id) {
   }
 }
 
-async function updateCartOrder({ id, ...fields }) {
+async function updatecartItem({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -89,7 +89,7 @@ async function updateCartOrder({ id, ...fields }) {
     if (setString.length > 0) {
       await client.query(
         `
-        UPDATE cartOrder
+        UPDATE cartItem
         SET ${setString}
         WHERE id=${id}
         RETURNING *;
@@ -97,19 +97,19 @@ async function updateCartOrder({ id, ...fields }) {
         Object.values(fields)
       );
     }
-    return await getCartOrderrById(id);
+    return await getcartItemrById(id);
   } catch (error) {
     throw error;
   }
 }
 
-async function destroyCartOrder(id) {
+async function destroycartItem(id) {
   try {
     const {
       rows: [order],
     } = await client.query(
       `
-    DELETE FROM cartOrder
+    DELETE FROM cartItem
     WHERE id =$1
     RETURNING *;
     `,
@@ -121,30 +121,30 @@ async function destroyCartOrder(id) {
   }
 }
 
-async function canEditCartOrder(cartOrderId, userId) {
+async function canEditcartItem(cartItemId, userId) {
   const {
-    rows: [cartOrder],
+    rows: [cartItem],
   } = await client.query(
     `
-  SELECT * FROM cartOrder
-  JOIN userOrders ON cartOrder."orderId" = userOrders.id
-  AND cartOrder.id = $1
+  SELECT * FROM cartItem
+  JOIN userOrders ON cartItem."cartId" = userOrders.id
+  AND cartItem.id = $1
   `,
-    [cartOrderId]
+    [cartItemId]
   );
 
-  if (cartOrder.orderId === userId) {
-    return cartOrder;
+  if (cartItem.cartId === userId) {
+    return cartItem;
   } else {
     return false;
   }
 }
 async function editItemQuantity ({productId, quantity}) {
   const {
-    rows: [cartOrder],
+    rows: [cartItem],
   } = await client.query(
     `
- UPDATE cartOrder
+ UPDATE cartItem
  SET quantity =$1
  WHERE id =$2
  RETURNING *;
@@ -152,8 +152,8 @@ async function editItemQuantity ({productId, quantity}) {
     [productId, quantity]
   );
 
-  if (cartOrder.orderId === userId) {
-    return cartOrder;
+  if (cartItem.cartId === userId) {
+    return cartItem;
   } else {
     return false;
   }
@@ -163,12 +163,12 @@ async function editItemQuantity ({productId, quantity}) {
 module.exports = {
 
   addProductToCart,
-  destroyCartOrder,
-  updateCartOrder,
-  getCartOrderrById,
-  canEditCartOrder,
+  destroycartItem,
+  updatecartItem,
+  getcartItemrById,
+  canEditcartItem,
   editItemQuantity,
 
-  getCartOrder
+  getcartItem
 
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { addProductsToCart, getAllCarts} from "../apiAdapter";
+import { addProductsToCart, getAllCarts, getUsersMe} from "../apiAdapter";
 import { useNavigate } from "react-router-dom";
+
 
 const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   const [price, setPrice] = useState(0);
@@ -12,29 +13,37 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   const [carts, setCarts] = useState([])
   const navigate = useNavigate();
   
-  async function fetchCarts () {
-    const fetchTheCarts = await getAllCarts()
-    setSelectedCart([fetchTheCarts[0].id])
-    setCarts(fetchTheCarts)
+  async function fetchCart () {
+    const token = localStorage.getItem("token")
+    const getUser = await getUsersMe(token);
+    if(!getUser){
+      console.log("NO USER HERE, creating cart")
+      await getAllCarts()
+    }else{
+      console.log("CREATING CART FOR USER")
+      await getAllCarts(getUser.id)
     }
+    console.log(getUser,"SHOW ME THE USer")}
+    fetchCart()
     
-    useEffect(()=> {
-    fetchCarts()
-    }, [])
+  //   useEffect(()=> {
+  //   fetchCarts()
+  //   }, [])
  
-  async function handleSubmit() {
+  // async function handleSubmit() {
     
-    const token = localStorage.getItem("token");
-    console.log(productsList, "HELLO ADD PRODUCTS")
-   const addedCartProduct = await addProductsToCart(productId, selectedCart[0], quantity, price)
-    if (addedCartProduct.error) {
-      setError(addedCartProduct);
-    } else {
-      setError(null);
-      setCart(addedCartProduct);
-      navigate("./");
-    }
-  }
+  //   const token = localStorage.getItem("token");
+   
+  //  const addedCartProduct = await addProductsToCart(productId, selectedCart[0], quantity, price)
+  //  console.log(selectedCart[0], "show me the money")
+  //   if (addedCartProduct.error) {
+  //     setError(addedCartProduct);
+  //   } else {
+  //     setError(null);
+  //     setCart(addedCartProduct);
+  //     navigate("./");
+  //   }
+  // }
 
 
 

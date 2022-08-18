@@ -1,9 +1,9 @@
 const express = require('express');
-const { getUsersOrders } = require('../db/userOrders');
+const { getCart } = require('../db/Cart');
 const router = express.Router()
 
 router.get("/", async (req, res, next) => {
-    const cart = await getUsersOrders()
+    const cart = await getCart()
   
     res.send(cart);
   });

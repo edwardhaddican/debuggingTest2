@@ -1,15 +1,15 @@
-const { attachProductsUsersOrders, attachProductsUserOrder } = require("./Product");
+const { attachProductsCart, attachProductscart } = require("./Product");
 const client = require("./client");
 const { getUserByUsername } = require("./users");
 
 
-async function createUsersOrders({userId}) {
+async function createCart({userId}) {
   try {
     const {
       rows: [orders],
     } = await client.query(
       `
-      INSERT INTO usersOrders("userId") 
+      INSERT INTO Cart("userId") 
       VALUES($1)
       RETURNING *;
     `,
@@ -21,24 +21,24 @@ async function createUsersOrders({userId}) {
   }
 }
 
-async function getUsersOrdersById(id) {
+async function getCartById(id) {
   try {
     const {
-      rows: [userOrder],
+      rows: [cart],
     } = await client.query(`
     SELECT id, "userId"
-    FROM usersOrders
+    FROM Cart
     WHERE id =${id};
     `);
-    if (!userOrder) {
+    if (!cart) {
       return null;
     }
-    return routine;
+    return cart;
   } catch (error) {
     throw error;
   }}
 
-async function updateUsersOrders({ id, ...fields }) {
+async function updateCart({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -62,34 +62,36 @@ async function updateUsersOrders({ id, ...fields }) {
 }
 
 
-async function getUsersOrders() {
+async function getCart() {
   try {
-    const { rows: userOrders } = await client.query(`
-    SELECT usersOrders.*, users.username 
-    FROM usersOrders
-    Join users on usersOrders."userId" = users.id
+    const {
+      rows: [cart],
+    } = await client.query(`
+    SELECT *
+    FROM Cart;
     `);
-  
- 
-    return attachProductsUserOrder(userOrders)
+    // if (!cart) {
+    //   return await createCart();
+    // }
+
+    return [cart]
   } catch (error) {
     throw error;
-  }
-}
+  }}
 
 // async function getAllRoutinesByUser({ username }) {
 //   try {
 //     const user = await getUserByUsername(username);
-//     const { rows: userOrder } = await client.query(
+//     const { rows: cart } = await client.query(
 //       `
-//     SELECT usersOrders.*, users.username AS "userId"
+//     SELECT Cart.*, users.username AS "userId"
 //     FROM Product
-//     JOIN users ON usersOrders."userId" = users.id 
+//     JOIN users ON Cart."userId" = users.id 
 //     WHERE "userId" = $1;
 //     `,
 //       [user.id]
 //     );
-//     const allProducts = attachActivitiesToRoutines(userOrder);
+//     const allProducts = attachActivitiesToRoutines(cart);
 //     return allProducts;
 //   } catch (error) {
 //     throw error;
@@ -125,9 +127,9 @@ async function getUsersOrders() {
 // }
 
 module.exports = {
-    createUsersOrders,
-    updateUsersOrders,
+    createCart,
+    updateCart,
   getUserByUsername,
-  getUsersOrdersById,
-  getUsersOrders,
+  getCartById,
+  getCart,
 };

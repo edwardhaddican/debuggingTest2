@@ -144,37 +144,37 @@ async function destroyProduct(id) {
     return product;
   } catch (error) {
     throw error;
-  }
-}
-async function attachProductsUserOrder(usersOrders) {
-  console.log(usersOrders,"HELLO HELP ME PLEASE LINE !49 ")
-  const ordersToReturn = [...usersOrders];
-  const binds = usersOrders.map((_, index) => `$${index + 1}`).join(", ");
-  const orderIds = usersOrders.map((userOrder) => userOrder.id);
-  if (!orderIds?.length) return [];
+  }}
+// }
+// async function attachProductsUserOrder(usersOrders) {
+//   console.log(usersOrders,"HELLO HELP ME PLEASE LINE !49 ")
+//   const ordersToReturn = [...usersOrders];
+//   const binds = usersOrders.map((_, index) => `$${index + 1}`).join(", ");
+//   const orderIds = usersOrders.map((userOrder) => userOrder.id);
+//   if (!orderIds?.length) return [];
 
-  try {
-    const { rows: products } = await client.query(
-      `
-      SELECT Product.*, cartOrder.quantity, cartOrder.price, cartOrder.id AS "cartOrderId", cartOrder."orderId"
-      FROM Product
-      JOIN cartOrder ON cartOrder."productId" = Product.id
-      WHERE cartOrder."orderId" IN (${binds});
-    `,
-      orderIds
-    );
+//   try {
+//     const { rows: products } = await client.query(
+//       `
+//       SELECT Product.*, cartOrder.quantity, cartOrder.price, cartOrder.id AS "cartOrderId", cartOrder."orderId"
+//       FROM Product
+//       JOIN cartOrder ON cartOrder."productId" = Product.id
+//       WHERE cartOrder."orderId" IN (${binds});
+//     `,
+//       orderIds
+//     );
 
-    for (const order of ordersToReturn) {
-      const productsToAdd = products.filter(
-        (product) => product.orderId === order.id
-      );
-      order.products = productsToAdd;
-    }
-    return ordersToReturn;
-  } catch (error) {
-    throw error;
-  }
-}
+//     for (const order of ordersToReturn) {
+//       const productsToAdd = products.filter(
+//         (product) => product.orderId === order.id
+//       );
+//       order.products = productsToAdd;
+//     }
+//     return ordersToReturn;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 async function updateProduct({ productId, ...fields }) {
   const setString = Object.keys(fields)
@@ -228,5 +228,4 @@ module.exports = {
   getProductsByBrand,
   getProductById,
   getProductsByMerchant,
-  attachProductsUserOrder
 };

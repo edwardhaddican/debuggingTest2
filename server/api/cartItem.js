@@ -2,11 +2,11 @@ const express = require('express');
 const  router = express.Router();
 const { requireUser } = require('./utils')
 const { 
-    destroyCartOrder,
-    updateCartOrder,
-    getCartOrderrById,
-    canEditCartOrder } = require('../db')
-    const {addProductToCart} = require('../db/cartOrder')
+    destroycartItem,
+    updatecartItem,
+    getcartItemrById,
+    canEditcartItem } = require('../db')
+    const {addProductToCart} = require('../db/cartItem')
 //adding product to cart
 router.post('/:orderId/:productId', async (req,res)=>{
     const {orderId, productId} = req.params
@@ -24,24 +24,24 @@ router.post('/:orderId/:productId', async (req,res)=>{
 }
     )
 
-router.patch('/:cartOrderId', requireUser, async (req, res, next) => {
-    const { cartOrderId } = req.params;
-    console.log(cartOrderId, "first check")
+router.patch('/:cartItemId', requireUser, async (req, res, next) => {
+    const { cartItemId } = req.params;
+    console.log(cartItemId, "first check")
     const { quantity, price } = req.body;
     console.log( quantity, price, "second check")
     const { username } = req.user
-    const updatedCartOrder = await getCartOrderrById(id)
+    const updatedcartItem = await getcartItemrById(id)
     try {
-        if(updatedCartOrder.id !== req.user.id) {
+        if(updatedcartItem.id !== req.user.id) {
             res.status(403)
             next ({
                 name: "User is not found",
                 message: `User ${username} is not allowed to do update this cart`
             })
         } else {
-            const upToDateCartOrder = await updateCartOrder({ id: cartOrderId, quantity, price });
+            const upToDatecartItem = await updatecartItem({ id: cartItemId, quantity, price });
 
-            res.send(upToDateCartOrder)
+            res.send(upToDatecartItem)
         }
     } catch (error) {
         next (error)
@@ -49,17 +49,17 @@ router.patch('/:cartOrderId', requireUser, async (req, res, next) => {
 })
 
 
-router.delete('/:cartOrderId', requireUser, async (req,res,next)=>{
+router.delete('/:cartItemId', requireUser, async (req,res,next)=>{
     const { username}= req.user
     try{
-        if(!await canEditCartOrder(req.params.cartOrderId, req.user.id)) {
+        if(!await canEditcartItem(req.params.cartItemId, req.user.id)) {
             res.status(403)
             next ({
                 name: "User is not found",
                 message: `User ${username} is not allowed to delete this cart`
             })
         } else {
-            const deleteProducts = await destroyCartOrder(req.params.cartOrderId)
+            const deleteProducts = await destroycartItem(req.params.cartItemId)
 
             res.send(deleteProducts)
         }
@@ -70,7 +70,7 @@ router.delete('/:cartOrderId', requireUser, async (req,res,next)=>{
 
 router.get('/', requireUser, async (req, res, next) => {
    
-    const cart = await getCartOrderrById(req.user.id)   
+    const cart = await getcartItemrById(req.user.id)   
     res.send({cart})
 })
 
