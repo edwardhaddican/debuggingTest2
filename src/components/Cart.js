@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { getUsersMe2, getCartItemsbyUserId } from "../apiAdapter";
+import { ProductById } from "./index";
+import { getUsersMe2, getCartItemsbyUserId, getProductsById } from "../apiAdapter";
 
 const Cart = ({ carts, setCarts }) => {
   const [cartItems, setCartItems] = useState([])
+
   async function fetchCart() {
     const token = localStorage.getItem("token");
     const getUser = await getUsersMe2(token);
@@ -13,14 +15,23 @@ const Cart = ({ carts, setCarts }) => {
     console.log(getCartItems, "SOHW ME THE CART ITEMS");
     setCartItems(getCartItems);
   }
+
+ 
+
+  
   useEffect(() => {
     fetchCart();
+    // fetchProductId()
   }, []);
 
   const myCart = cartItems.map((cartItem, index) => {
+   
+
     return(
       <div key={index}>
-        <h2>{cartItem.cartId}</h2>
+        <h2>{cartItem.cartId} </h2>
+        <ProductById productId={cartItem.productId}/>
+   
         <h1>{cartItem.productId}</h1>
         <p>{cartItem.price}</p>
         <p>{cartItem.quantity}</p>
@@ -28,9 +39,19 @@ const Cart = ({ carts, setCarts }) => {
     )
   });
 
+  // const mapOverTheProduct = getProduct.map((element)=> {
+  //   return (
+  //     <div>
+  //       <h1>{element.name}</h1>
+  //       </div>
+  //   )
+  // })
+
   return (
     <div>
 {myCart}
+
+{/* {mapOverTheProduct} */}
     </div>
     // <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 ">
     //   <h1 className="sr-only">Checkout</h1>

@@ -14,4 +14,4 @@ export {default as UpdateProducts} from './UpdateProducts'
 export {default as SingleProduct} from './SingleProduct'
 
 export {default as AddProductToCart} from './Add2Cart'
-
+export {default as ProductById} from './ProductById'

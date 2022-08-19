@@ -80,4 +80,10 @@ router.get("/", async (req, res, next) => {
           next (error)
       }
   })
+
+  router.get('/:productId', async (req,res,next )=> {
+    const {productId} = req.params
+    const getProduct = await getProductById(productId)
+    res.send(getProduct)
+  })
   module.exports = router
