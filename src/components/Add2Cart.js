@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { addProductsToCart, getAllCartsByUserId, getUsersMe2} from "../apiAdapter";
+import { addProductsToCart, getAllCartsByUserId, getUsersMe2, getCartItemsbyUserId} from "../apiAdapter";
 
 import { useNavigate } from "react-router-dom";
 
@@ -22,8 +22,8 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
     console.log(getUser, 'the user')
       console.log("CREATING CART FOR USER")
       const getTheCart = await getAllCartsByUserId(getUser.id)
-      const getCartItems = await getCartItemsbyUserId(getUser.id)
-      console.log(getCartItems,"SOHW ME THE CART ITEMS")
+      const getCartItems = await getCartItemsbyUserId(getUser.id);
+      console.log(getCartItems, "SOHW ME THE CART ITEMS");
       console.log(getTheCart, 'cart')
       setSelectedCart(getTheCart)
      

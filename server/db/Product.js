@@ -202,22 +202,22 @@ async function updateProduct({ productId, ...fields }) {
   }
 }
 
-// async function getProductsByMerchant( username ) {
-//   try {
-//     const { rows: products } = await client.query(
-//       `
-//     SELECT Product.*, Merchants.username AS "creatorName"
-//     FROM Product
-//     JOIN Merchants ON Product."creatorId" = Merchants.id
-//     WHERE username = $1;
-//   `,
-//       [username]
-//     );
-//     return products;
-//   } catch (error) {
-//     console.error("Trouble getting products", error);
-//   }
-// }
+async function getProductsByMerchant( username ) {
+  try {
+    const { rows: products } = await client.query(
+      `
+    SELECT Product.*, Merchants.username AS "creatorName"
+    FROM Product
+    JOIN Merchants ON Product."creatorId" = Merchants.id
+    WHERE username = $1;
+  `,
+      [username]
+    );
+    return products;
+  } catch (error) {
+    console.error("Trouble getting products", error);
+  }
+}
 
 module.exports = {
   createProduct,
@@ -226,4 +226,5 @@ module.exports = {
   updateProduct,
   destroyProduct,
   getProductById,
+  getProductsByMerchant
 };

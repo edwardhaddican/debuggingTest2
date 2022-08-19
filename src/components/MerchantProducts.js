@@ -14,6 +14,7 @@ async function fetchMyProducts() {
   const user = await getUsersMe(token)
   if (user.username === username) {
     const allMyProducts = await getProductsByAdmin(username)
+    console.log(allMyProducts,"Show me the products line 17")
     setMyProducts(allMyProducts)
   }
 }
@@ -27,7 +28,7 @@ useEffect(() => {
 
 const showMyProducts = myProducts.map((product, index) => {
   return (
-    <div className=''>
+    <div key={index} className=''>
       <h1> {product.name}</h1>
       <DeleteProduct myProducts={myProducts} setMyProducts={setMyProducts} productId={product.id}/>
       <button onClick={buttonClick2}>EDIT PRODUCT</button>
