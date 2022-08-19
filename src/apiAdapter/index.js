@@ -210,12 +210,13 @@ export async function addProductsToCart(productId, cartId, quantity, price ) {
 }
 
 
-export const getAllCartsByUserId = async (userId) => {
+export const getAllCartsByUserId = async (token, userId) => {
 
   try {
     const response = await fetch(`${BASE_URL}/Cart/${userId}`, {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     const result = await response.json();

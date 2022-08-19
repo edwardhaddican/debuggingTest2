@@ -65,12 +65,14 @@ const Products = ({ productsList, setProductsList, isLoggedIn, isAdmin }) => {
               >
                 Details
               </button>
+              {!isAdmin ?
 
               <AddProductToCart
                 productsList={productsList}
                 setProductsList={setProductsList}
                 productId={element.id}
               />
+              : null }
             </a>
           ))}
         </div>

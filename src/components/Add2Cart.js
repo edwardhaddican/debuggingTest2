@@ -17,16 +17,18 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
   
   async function fetchCart () {
     const token = localStorage.getItem("token")
-    const getUser = await getUsersMe2(token);
+    
 
-    console.log(getUser, 'the user')
+    // console.log(getUser, 'the user')
       console.log("CREATING CART FOR USER")
-      const getTheCart = await getAllCartsByUserId(getUser.id)
+      if (token) {
+        const getUser = await getUsersMe2(token);
+      const getTheCart = await getAllCartsByUserId(token, getUser.id)
       const getCartItems = await getCartItemsbyUserId(getUser.id);
       console.log(getCartItems, "SOHW ME THE CART ITEMS");
       console.log(getTheCart, 'cart')
       setSelectedCart(getTheCart)
-     
+      }
     
   }
     
