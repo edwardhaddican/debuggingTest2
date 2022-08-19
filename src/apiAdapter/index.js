@@ -242,3 +242,20 @@ export const getCartItemsbyUserId = async (userId) => {
     throw error;
   }
 };
+
+export const getProductsById = async (productId) => {
+  try {
+    console.log("Hello")
+    const response = await fetch(`${BASE_URL}/products/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result, "Get Products API CALL")
+    return result;
+  } catch (error) {
+    console.log(error, "Line 55")
+    throw error;
+  }
+};
