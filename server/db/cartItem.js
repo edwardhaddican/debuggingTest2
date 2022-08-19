@@ -65,9 +65,9 @@ async function addProductToCart({
 async function getcartItemById(Id) {
   try {
     const {
-      rows: [cart],
+      rows: cart,
     } = await client.query(`
-    SELECT id, "productId", "cartId", quantity, price
+    SELECT *
     FROM cartItem
     WHERE "cartId" =${Id};
     `);
@@ -78,24 +78,24 @@ async function getcartItemById(Id) {
     return cart;
   } catch (error) {
     throw error;
-//   }
-// }
-// async function getcartItembyUser( username ) {
-//   try {
-//     const { rows: products } = await client.query(
-//       `
-//     SELECT cartItem.*, Cart.userId AS "User_Id"
-//     FROM cartItem
-//     JOIN Cart ON cartItem."creatorId" = Merchants.id
-//     WHERE username = $1;
-//   `,
-//       [username]
-//     );
-//     return products;
-//   } catch (error) {
-//     console.error("Trouble getting products", error);
-//   }
-// }
+  }
+}
+async function getcartItembyUser( username ) {
+  try {
+    const { rows: carts } = await client.query(
+      `
+    SELECT cartItem.*, Cart.userId AS "User_Id"
+    FROM cartItem
+    JOIN Cart ON cartItem."cartId" = Cart.id
+    WHERE username = $1;
+  `,
+      [username]
+    );
+    return carts;
+  } catch (error) {
+    console.error("Trouble getting Cart Items", error);
+  }
+}
 
 
 
@@ -188,6 +188,7 @@ module.exports = {
   canEditcartItem,
   editItemQuantity,
   getcartItemById,
-  getcartItem
+  getcartItem,
+  getcartItembyUser
 
 };

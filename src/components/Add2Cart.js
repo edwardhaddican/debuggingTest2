@@ -22,7 +22,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
       const getTheCart = await getAllCartsByUserId(getUser.id)
       const getCartItems = await getCartItemsbyUserId(getUser.id)
       console.log(getCartItems,"SOHW ME THE CART ITEMS")
-      // console.log(getTheCart, 'cart')
+      console.log(getTheCart, 'cart')
       setSelectedCart(getTheCart)
      
     
