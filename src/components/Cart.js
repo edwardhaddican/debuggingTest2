@@ -1,10 +1,25 @@
 
 import React, {useState} from 'react'
+import { getUsersMe2, getCartItemsbyUserId} from '../apiAdapter'
 
 import { getAllCarts } from '../apiAdapter'
 
  const Cart = ({carts, setCarts}) => {
+ 
+  async function fetchCart () {
+    const token = localStorage.getItem("token")
+    const getUser = await getUsersMe2(token);
 
+    console.log(getUser, 'the user')
+      console.log("CREATING CART FOR USER")
+      const getCartItems = await getCartItemsbyUserId(getUser.id)
+      console.log(getCartItems,"SOHW ME THE CART ITEMS")
+      setCarts(getCartItems)
+     
+    
+  }    useEffect(()=> {
+    fetchCart()
+    }, [])
   return (
     <section className=' flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 '>
   <h1 className="sr-only">Checkout</h1>
