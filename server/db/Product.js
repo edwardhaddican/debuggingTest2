@@ -104,29 +104,29 @@ async function getProductsByName(name) {
   }
 }
 
-async function getProductsByBrand({ username }) {
-  try {
-    const seller = await getMerchantByUsername(username);
-    console.log(seller, "GETTING  USERNAME ")
-    const { rows: [Products]} = await client.query(
-      `
-    SELECT Product.*
-    FROM Product
-    JOIN merchants ON Product."creatorId" = merchants.id
-    WHERE "creatorId" =$1;
-    `,
-      [seller.id]
-    );
-    if (!Products) {
-      return null;
-    };
-    // const allproducts = attachProductsUserOrder(Products)
-    console.log(Products,"3 BRAND")
-    return Products;
-  } catch (error) {
-    throw error;
-  }
-}
+// async function getProductsByBrand({ username }) {
+//   try {
+//     const seller = await getMerchantByUsername(username);
+//     console.log(seller, "GETTING  USERNAME ")
+//     const { rows: [Products]} = await client.query(
+//       `
+//     SELECT Product.*
+//     FROM Product
+//     JOIN merchants ON Product."creatorId" = merchants.id
+//     WHERE "creatorId" =$1;
+//     `,
+//       [seller.id]
+//     );
+//     if (!Products) {
+//       return null;
+//     };
+//     // const allproducts = attachProductsUserOrder(Products)
+//     console.log(Products,"3 BRAND")
+//     return Products;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 async function destroyProduct(id) {
   try {
@@ -202,22 +202,22 @@ async function updateProduct({ productId, ...fields }) {
   }
 }
 
-async function getProductsByMerchant( username ) {
-  try {
-    const { rows: products } = await client.query(
-      `
-    SELECT Product.*, Merchants.username AS "creatorName"
-    FROM Product
-    JOIN Merchants ON Product."creatorId" = Merchants.id
-    WHERE username = $1;
-  `,
-      [username]
-    );
-    return products;
-  } catch (error) {
-    console.error("Trouble getting products", error);
-  }
-}
+// async function getProductsByMerchant( username ) {
+//   try {
+//     const { rows: products } = await client.query(
+//       `
+//     SELECT Product.*, Merchants.username AS "creatorName"
+//     FROM Product
+//     JOIN Merchants ON Product."creatorId" = Merchants.id
+//     WHERE username = $1;
+//   `,
+//       [username]
+//     );
+//     return products;
+//   } catch (error) {
+//     console.error("Trouble getting products", error);
+//   }
+// }
 
 module.exports = {
   createProduct,
@@ -225,7 +225,5 @@ module.exports = {
   getProductsByName,
   updateProduct,
   destroyProduct,
-  getProductsByBrand,
   getProductById,
-  getProductsByMerchant,
 };

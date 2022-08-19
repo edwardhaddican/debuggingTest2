@@ -5,10 +5,10 @@ const {
     addProductToCart,
     destroycartItem,
     updatecartItem,
-    getcartItemrById,
     canEditcartItem,
     getcartItem,
     getcartItemById,
+    getcartItembyUser
  } = require('../db/cartItem')
 //adding product to cart
 router.post('/:cartId/:productId', async (req,res)=>{
