@@ -8,8 +8,10 @@ const {
     canEditcartItem,
     getcartItem,
     getcartItemById,
-    getcartItembyUser
- } = require('../db/cartItem')
+    getcartItemByCartItemId,
+    editItemQuantity,
+ } = require('../db/cartItem');
+
 //adding product to cart
 router.post('/:cartId/:productId', async (req,res)=>{
     const {cartId, productId} = req.params
@@ -30,10 +32,11 @@ router.post('/:cartId/:productId', async (req,res)=>{
 router.patch('/:cartItemId', requireUser, async (req, res, next) => {
     const { cartItemId } = req.params;
     console.log(cartItemId, "first check")
-    const { quantity, price } = req.body;
-    console.log( quantity, price, "second check")
+    const { quantity} = req.body;
+    console.log( quantity, "second check")
     const { username } = req.user
-    const updatedcartItem = await getcartItemrById(id)
+    console.log(username, req.user.id, req.user, "Show me the database money")
+    const updatedcartItem = await getcartItemByCartItemId(cartItemId)
     try {
         if(updatedcartItem.id !== req.user.id) {
             res.status(403)
@@ -42,7 +45,7 @@ router.patch('/:cartItemId', requireUser, async (req, res, next) => {
                 message: `User ${username} is not allowed to do update this cart`
             })
         } else {
-            const upToDatecartItem = await updatecartItem({ id: cartItemId, quantity, price });
+            const upToDatecartItem = await editItemQuantity({ id: cartItemId, quantity});
 
             res.send(upToDatecartItem)
         }

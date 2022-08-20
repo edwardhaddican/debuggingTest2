@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProductById } from "./index";
+import { ProductById,UpdateCartItem } from "./index";
 import { getUsersMe2, getCartItemsbyUserId, getProductsById } from "../apiAdapter";
 
 const Cart = ({ carts, setCarts }) => {
@@ -31,7 +31,7 @@ const Cart = ({ carts, setCarts }) => {
       <div key={index}>
         <h2>{cartItem.cartId} </h2>
         <ProductById productId={cartItem.productId}/>
-   
+        <UpdateCartItem cartItemId={cartItem.id}/>
         <h1>{cartItem.productId}</h1>
         <p>{cartItem.price}</p>
         <p>{cartItem.quantity}</p>

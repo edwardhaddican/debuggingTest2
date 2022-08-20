@@ -80,16 +80,14 @@ async function getcartItemById(Id) {
     throw error;
   }
 }
-async function getcartItembyUser( username ) {
+async function getcartItemByCartItemId(cartItemId) {
   try {
     const { rows: carts } = await client.query(
       `
-    SELECT cartItem.*, Cart.userId AS "User_Id"
+    SELECT *
     FROM cartItem
-    JOIN Cart ON cartItem."cartId" = Cart.id
-    WHERE username = $1;
+    WHERE id = ${cartItemId};
   `,
-      [username]
     );
     return carts;
   } catch (error) {
@@ -141,25 +139,25 @@ async function destroycartItem(id) {
   }
 }
 
-async function canEditcartItem(cartItemId, userId) {
-  const {
-    rows: [cartItem],
-  } = await client.query(
-    `
-  SELECT * FROM cartItem
-  JOIN Cart ON cartItem."cartId" = Cart.id
-  AND cartItem.id = $1
-  `,
-    [cartItemId]
-  );
+// async function canEditcartItem(cartItemId, userId) {
+//   const {
+//     rows: [cartItem],
+//   } = await client.query(
+//     `
+//   SELECT * FROM cartItem
+//   JOIN Cart ON cartItem."cartId" = Cart.id
+//   AND cartItem.id = $1
+//   `,
+//     [cartItemId]
+//   );
 
-  if (cartItem.cartId === userId) {
-    return cartItem;
-  } else {
-    return false;
-  }
-}
-async function editItemQuantity ({productId, quantity}) {
+//   if (cartItem.cartId === userId) {
+//     return cartItem;
+//   } else {
+//     return false;
+//   }
+// }
+async function editItemQuantity ({cartItemId, quantity}) {
   const {
     rows: [cartItem],
   } = await client.query(
@@ -169,7 +167,7 @@ async function editItemQuantity ({productId, quantity}) {
  WHERE id =$2
  RETURNING *;
   `,
-    [productId, quantity]
+    [cartItemId, quantity]
   );
 
   if (cartItem.cartId === userId) {
@@ -185,10 +183,9 @@ module.exports = {
   addProductToCart,
   destroycartItem,
   updatecartItem,
-  canEditcartItem,
   editItemQuantity,
   getcartItemById,
   getcartItem,
-  getcartItembyUser
+  getcartItemByCartItemId
 
 };
