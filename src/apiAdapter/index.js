@@ -260,3 +260,19 @@ export const getProductsById = async (productId) => {
     throw error;
   }
 };
+
+
+// ATTEMPTING TO CREATE API CALL TO REMOVE ITEMS FROM CART -MICHAEL
+
+
+export const removeCartItem = async (cartId, token) => {
+  const response = await fetch(`${BASE_URL}/cartOrder/${cartId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  return result;
+};
