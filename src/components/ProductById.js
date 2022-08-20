@@ -14,19 +14,12 @@ const ProductById= ({productId}) => {
   useEffect(()=> {
       fetchProductId()
   }, [])
-console.log(getProduct)
-//   const productMap = getProduct.map((product)=> {
-//       return (
-//           <div>
-//               <h1>{product.name}</h1>
-//           </div>
-//       )
-//   })
+
 
     return (
         <div>
-<h1>{getProduct.name}</h1>
-<h1>{getProduct.description}</h1>
+            <h1>{getProduct.name}</h1>
+            <h1>{getProduct.description}</h1>
         </div>
     )
 }
