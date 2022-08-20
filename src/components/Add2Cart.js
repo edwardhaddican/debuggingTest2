@@ -5,7 +5,7 @@ import { addProductsToCart, getAllCartsByUserId, getUsersMe2, getCartItemsbyUser
 import { useNavigate } from "react-router-dom";
 
 
-const AddProductToCart = ({ productsList, setProductsList, productId }) => {
+const AddProductToCart = ({ productsList, setProductsList, productId,productPrice }) => {
   const [price, setPrice] = useState(0);
   const [inventory, setInventory] = useState(0);
   const [quantity, setQuantity] = useState(0)
@@ -46,7 +46,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId }) => {
     const token = localStorage.getItem("token");
    
 
-   const addedCartProduct = await addProductsToCart(productId, selectedCart.id, quantity, price)
+   const addedCartProduct = await addProductsToCart(productId, selectedCart.id, quantity, productPrice)
 
     if (addedCartProduct.error) {
       setError(addedCartProduct);

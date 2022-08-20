@@ -70,6 +70,7 @@ const Products = ({ productsList, setProductsList, isLoggedIn, isAdmin }) => {
                 productsList={productsList}
                 setProductsList={setProductsList}
                 productId={element.id}
+                productPrice={element.price}
               />
             </a>
           ))}
