@@ -158,19 +158,20 @@ async function destroycartItem(id) {
 //   }
 // }
 async function editItemQuantity ({cartItemId, quantity}) {
+  console.log(cartItemId, quantity,"INITIATING editItemQuantity")
   const {
     rows: [cartItem],
   } = await client.query(
     `
  UPDATE cartItem
- SET quantity =$1
- WHERE id =$2
+ SET quantity =${quantity}
+ WHERE id =${cartItemId}
  RETURNING *;
   `,
-    [cartItemId, quantity]
+    []
   );
-
-  if (cartItem.cartId === userId) {
+console.log(cartItem, "Hello show me cart Item in db")
+  if (cartItem.cartId) {
     return cartItem;
   } else {
     return false;

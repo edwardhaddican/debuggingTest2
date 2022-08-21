@@ -29,7 +29,7 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
               <label>
           quantity
           <input
-            type="text"
+            type="number"
             value={cartQuantity}
             onChange={(event) => {
               setCartQuantity(event.target.value);

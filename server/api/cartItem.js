@@ -29,7 +29,7 @@ router.post('/:cartId/:productId', async (req,res)=>{
 }
     )
 
-router.patch('/:cartItemId/edit', requireUser, async (req, res, next) => {
+router.patch('/:cartItemId', requireUser, async (req, res, next) => {
     const { cartItemId } = req.params;
     console.log(cartItemId, "first check")
     const { quantity} = req.body;
@@ -39,15 +39,15 @@ router.patch('/:cartItemId/edit', requireUser, async (req, res, next) => {
     const updatedcartItem = await getcartItemByCartItemId(cartItemId)
     console.log(updatedcartItem, "show me what updatedCartITem")
     try {
-        if(updatedcartItem.cartId !== req.user.id) {
+        if(!updatedcartItem) {
             res.status(403)
             next ({
                 name: "User is not found",
                 message: `User ${username} is not allowed to do update this cart`
             })
         } else {
-            const upToDatecartItem = await editItemQuantity({ id: cartItemId, quantity});
-
+            const upToDatecartItem = await editItemQuantity({ cartItemId, quantity});
+            console.log(upToDatecartItem, "Intiating SEND ITEM EDIT")
             res.send(upToDatecartItem)
         }
     } catch (error) {
