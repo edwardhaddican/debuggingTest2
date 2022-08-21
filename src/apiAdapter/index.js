@@ -273,6 +273,7 @@ export const getProductsById = async (productId) => {
   }
 };
 
+
 export const editCartItemsbyId = async (token, cartItemId, quantity) => {
   try {
     const response = await fetch(`${BASE_URL}/cartOrder/${cartItemId}`, {
@@ -293,3 +294,20 @@ export const editCartItemsbyId = async (token, cartItemId, quantity) => {
     throw error;
   }
 };
+
+
+// ATTEMPTING TO CREATE API CALL TO REMOVE ITEMS FROM CART -MICHAEL
+
+
+export const removeCartItem = async (cartId, token) => {
+  const response = await fetch(`${BASE_URL}/cartOrder/${cartId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  return result;
+};
+
