@@ -58,20 +58,22 @@ router.patch('/:cartItemId', requireUser, async (req, res, next) => {
 
 router.delete('/:cartItemId', requireUser, async (req,res,next)=>{
     const { username}= req.user
+    const {cartItemId} = req.params
     try{
-        if(!await canEditcartItem(req.params.cartItemId, req.user.id)) {
-            res.status(403)
-            next ({
-                name: "User is not found",
-                message: `User ${username} is not allowed to delete this cart`
-            })
-        } else {
-            const deleteProducts = await destroycartItem(req.params.cartItemId)
+      const cartItem = await getcartItemByCartItemId(cartItemId)
+         if (cartItem ) {
+           await destroycartItem(cartItemId)
 
-            res.send(deleteProducts)
-        }
-    } catch (error) {
-        next (error)
+            res.send(cartItem)
+         } else {
+            res.status(403);
+            next({
+              name: "MissingUserError",
+              message: `User ${req.user.username} is not allowed to delete this cart item.`,
+            });
+          }
+    } catch ({name, message}) {
+        next ({name, message})
     }})
 
     router.get('/:userId', async (req,res,next)=> {
