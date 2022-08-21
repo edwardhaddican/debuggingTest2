@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 import { AddProductToCart } from ".";
 import { getProducts } from "../apiAdapter";
 import "../input.css";
@@ -59,12 +59,12 @@ const Products = ({ productsList, setProductsList, isLoggedIn, isAdmin }) => {
                 ${element.price}
               </p>
 
-              <button
-                onClick={handleClick}
+              <Link to='/SingleProduct'
+                state={{productId: element.id}}
                 className="container font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500"
               >
                 Details
-              </button>
+              </Link>
               {!isAdmin ?
 
               <AddProductToCart

@@ -37,6 +37,7 @@ const App = () => {
         <Routes>  
               <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin} carts={carts} setcarts={setCarts}/>}/>
               <Route path='/cart' element={<Cart />}/>
+              <Route path='/SingleProduct' element={<SingleProduct/>} />
        </Routes>) : (  
         <Routes>
             <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
