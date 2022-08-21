@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCart, getCartById } = require('../db/Cart');
+const { getCart, getCartById, cartCheckout } = require('../db/Cart');
 const { requireUser } = require('./utils');
 const router = express.Router()
 
@@ -14,4 +14,25 @@ router.get("/", async (req, res, next) => {
    const cartUser = await getCartById(userId)
    res.send(cartUser)
  })
+
+ router.patch("/:cartId/checkout", requireUser, async (req, res, next) => {
+  const {cartId} = req.params
+  console.log(cartId," GOT CART ID FOR CHECKOUT")
+      try {
+        console.log("INITIALIZING CHECKOUT ")
+          const userCartCheckout = await getCartById(cartId)
+          if (userCartCheckout && cart.cartId === req.user.id) {
+              await cartCheckout(cartId)
+              res.send(userCartCheckout)
+          } else {
+            res.status(403);
+            next({
+              name: "MissingUserError",
+              message: `User ${req.user.username} is not allowed to delete this post.`,
+            });
+          }
+      } catch ({name,message}) {
+          next({name, message})
+      }
+  })
   module.exports = router

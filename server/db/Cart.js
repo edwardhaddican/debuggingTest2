@@ -106,4 +106,5 @@ module.exports = {
   getUserByUsername,
   getCartById,
   getCart,
+  cartCheckout
 };
