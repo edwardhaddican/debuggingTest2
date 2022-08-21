@@ -32,7 +32,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
 
   return (
     <div className="flex flex-col absolute  bg-white">
-      <h1 id="addRoutineTitle">UPDATE PRODUCT</h1>
+      {/* <h1 id="addRoutineTitle">UPDATE PRODUCT</h1> */}
       {error && error.message ? (
         <h3>There Is Already A Product With That Name</h3>
       ) : null}
