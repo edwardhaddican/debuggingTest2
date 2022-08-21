@@ -29,7 +29,7 @@ router.post('/:cartId/:productId', async (req,res)=>{
 }
     )
 
-router.patch('/:cartItemId', requireUser, async (req, res, next) => {
+router.patch('/:cartItemId/edit', requireUser, async (req, res, next) => {
     const { cartItemId } = req.params;
     console.log(cartItemId, "first check")
     const { quantity} = req.body;
@@ -37,8 +37,9 @@ router.patch('/:cartItemId', requireUser, async (req, res, next) => {
     const { username } = req.user
     console.log(username, req.user.id, req.user, "Show me the database money")
     const updatedcartItem = await getcartItemByCartItemId(cartItemId)
+    console.log(updatedcartItem, "show me what updatedCartITem")
     try {
-        if(updatedcartItem.id !== req.user.id) {
+        if(updatedcartItem.cartId !== req.user.id) {
             res.status(403)
             next ({
                 name: "User is not found",
