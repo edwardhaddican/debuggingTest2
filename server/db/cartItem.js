@@ -80,16 +80,14 @@ async function getcartItemById(Id) {
     throw error;
   }
 }
-async function getcartItembyUser( username ) {
+async function getcartItemByCartItemId(cartItemId) {
   try {
     const { rows: carts } = await client.query(
       `
-    SELECT cartItem.*, Cart.userId AS "User_Id"
+    SELECT *
     FROM cartItem
-    JOIN Cart ON cartItem."cartId" = Cart.id
-    WHERE username = $1;
+    WHERE id = ${cartItemId};
   `,
-      [username]
     );
     return carts;
   } catch (error) {
@@ -141,38 +139,39 @@ async function destroycartItem(id) {
   }
 }
 
-async function canEditcartItem(cartItemId, userId) {
-  const {
-    rows: [cartItem],
-  } = await client.query(
-    `
-  SELECT * FROM cartItem
-  JOIN Cart ON cartItem."cartId" = Cart.id
-  AND cartItem.id = $1
-  `,
-    [cartItemId]
-  );
+// async function canEditcartItem(cartItemId, userId) {
+//   const {
+//     rows: [cartItem],
+//   } = await client.query(
+//     `
+//   SELECT * FROM cartItem
+//   JOIN Cart ON cartItem."cartId" = Cart.id
+//   AND cartItem.id = $1
+//   `,
+//     [cartItemId]
+//   );
 
-  if (cartItem.cartId === userId) {
-    return cartItem;
-  } else {
-    return false;
-  }
-}
-async function editItemQuantity ({productId, quantity}) {
+//   if (cartItem.cartId === userId) {
+//     return cartItem;
+//   } else {
+//     return false;
+//   }
+// }
+async function editItemQuantity ({cartItemId, quantity}) {
+  console.log(cartItemId, quantity,"INITIATING editItemQuantity")
   const {
     rows: [cartItem],
   } = await client.query(
     `
  UPDATE cartItem
- SET quantity =$1
- WHERE id =$2
+ SET quantity =${quantity}
+ WHERE id =${cartItemId}
  RETURNING *;
   `,
-    [productId, quantity]
+    []
   );
-
-  if (cartItem.cartId === userId) {
+console.log(cartItem, "Hello show me cart Item in db")
+  if (cartItem.cartId) {
     return cartItem;
   } else {
     return false;
@@ -185,10 +184,9 @@ module.exports = {
   addProductToCart,
   destroycartItem,
   updatecartItem,
-  canEditcartItem,
   editItemQuantity,
   getcartItemById,
   getcartItem,
-  getcartItembyUser
+  getcartItemByCartItemId
 
 };

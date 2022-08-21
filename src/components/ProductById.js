@@ -4,12 +4,14 @@ import { getProductsById } from '../apiAdapter'
 
 const ProductById= ({productId}) => {
 
-    const [getProduct, setGetProduct] = useState([])
-   async function fetchProductId () {
+//     const [getProduct, setGetProduct] = useState([])
+//    async function fetchProductId () {
   
-    const getTheProduct = await getProductsById(productId)
-    setGetProduct(getTheProduct)
-  }
+//     const getTheProduct = await getProductsById(productId)
+//     setGetProduct(getTheProduct)
+//   }
+
+
 
   useEffect(()=> {
       fetchProductId()
@@ -22,6 +24,7 @@ const ProductById= ({productId}) => {
             <h1>{getProduct.description}</h1>
         </div>
     )
+
 }
 
 export default ProductById

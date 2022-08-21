@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ProductById } from "./index";
+import { ProductById, UpdateCartItem } from "./index";
 import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem} from "../apiAdapter";
+
 
 const Cart = ({ carts, setCarts }) => {
   const [cartItems, setCartItems] = useState([])
@@ -19,6 +20,21 @@ const Cart = ({ carts, setCarts }) => {
     fetchCart();
   }, []);
 
+
+  const myCart = cartItems.map((cartItem, index) => {
+   
+
+    return(
+      <div key={index}>
+        <h2>{cartItem.cartId} </h2>
+        <ProductById productId={cartItem.productId}/>
+        <UpdateCartItem cartItemId={cartItem.id}/>
+        <h1>{cartItem.productId}</h1>
+        <p>{cartItem.price}</p>
+        <p>{cartItem.quantity}</p>
+      </div>
+    )
+  });
 
   const sumAll = cartItems.map(item => item.price).reduce((prev, curr) => prev + curr*quantity, 0);
   console.log(sumAll);

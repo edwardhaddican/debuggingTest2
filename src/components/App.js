@@ -29,7 +29,7 @@ const App = () => {
       <Routes> 
           <Route path ='/merchantproduct' element ={<MerchantProducts />}/>
           <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin} carts={carts} setcarts={setCarts}/>} />
-          {/* <Route path='/cart' element={<Cart carts={carts} setcarts={setCarts}/>}/>  */}
+          <Route path='/cart' element={<Cart carts={carts} setcarts={setCarts}/>}/> 
           <Route path='/createProduct' element={<CreateProduct productsList={productsList} setProductsList={setProductsList} />} />
           <Route path='/SingleProduct' element={<SingleProduct/>} />
        </Routes> ) : 
