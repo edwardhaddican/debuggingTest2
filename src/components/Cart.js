@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProductById, UpdateCartItem } from "./index";
+import { DeleteCartItem, ProductById, UpdateCartItem } from "./index";
 import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem} from "../apiAdapter";
 
 
@@ -15,6 +15,8 @@ const Cart = ({ carts, setCarts }) => {
     const getCartItems = await getCartItemsbyUserId(getUser.id);
     setCartItems(getCartItems);
   }
+
+ 
  
   useEffect(() => {
     fetchCart();
@@ -79,8 +81,7 @@ const Cart = ({ carts, setCarts }) => {
                    value={quantity} 
                    onChange={handleChange}
                    className="  ml-auto text-black rounded-md w-16 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 focus:ring-2 "/>
-                   <button className="ml-5 bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 border-b-2 border-yellow-700 hover:border-yellow-500 rounded" 
-                   onClick={() => removeCartItem(cartItem.id)}>remove</button>
+                   <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
                </div>
              </li>
            </ul>
