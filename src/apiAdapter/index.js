@@ -288,7 +288,7 @@ export const editCartItemsbyId = async (token, cartItemId, quantity) => {
     });
 
     const result = await response.json();
-
+console.log(result, 'jjjjj')
     return result;
   } catch (error) {
     throw error;
