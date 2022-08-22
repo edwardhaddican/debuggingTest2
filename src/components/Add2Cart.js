@@ -54,9 +54,9 @@ const AddProductToCart = ({ productsList, setProductsList, productId, productPri
   }
 
   return (
-    <div className="products-container">
-      <button onClick={() => handleSubmit(productId)}>Add to Cart</button>
-    </div>
+    <button className="font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500"
+       onClick={() => handleSubmit(productId)}>Add to Cart</button>
+    
   );
 };
 export default AddProductToCart;
