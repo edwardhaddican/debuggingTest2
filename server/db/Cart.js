@@ -78,53 +78,27 @@ async function getCart() {
   } catch (error) {
     throw error;
   }}
-
-// async function getAllRoutinesByUser({ username }) {
-//   try {
-//     const user = await getUserByUsername(username);
-//     const { rows: cart } = await client.query(
-//       `
-//     SELECT Cart.*, users.username AS "userId"
-//     FROM Product
-//     JOIN users ON Cart."userId" = users.id 
-//     WHERE "userId" = $1;
-//     `,
-//       [user.id]
-//     );
-//     const allProducts = attachActivitiesToRoutines(cart);
-//     return allProducts;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-
-
-
-
-// async function destroyRoutine(id) {
-//   try {
-//     await client.query(
-//       `
-//     DELETE FROM routine_activities
-//     WHERE "routineId" =$1;
-//     `,
-//       [id]
-//     );
-//     const {
-//       rows: [routine],
-//     } = await client.query(
-//       `
-//     DELETE FROM routines
-//     WHERE id = $1
-//     RETURNING *;
-//     `,
-//       [id]
-//     );
-//     return routine;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+  async function cartCheckout (cartId) {
+    console.log(cartId,"INITIATING CHECKOUT")
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
+   UPDATE Cart
+   SET "isActive" = false
+   WHERE id =${cartId}
+   RETURNING *;
+    `,
+      []
+    );
+  console.log(cart, "Hello show me cart Item in db")
+    if (cart) {
+      return cart;
+    } else {
+      return false;
+    }
+  
+  }
 
 module.exports = {
     createCart,
@@ -132,4 +106,5 @@ module.exports = {
   getUserByUsername,
   getCartById,
   getCart,
+  cartCheckout
 };

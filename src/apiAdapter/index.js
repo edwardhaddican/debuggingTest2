@@ -312,3 +312,24 @@ export const removeCartItem = async (cartItemId, token) => {
   return result;
 };
 
+
+
+
+export const userCartCheckout = async (token, cartId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/Cart/${cartId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
