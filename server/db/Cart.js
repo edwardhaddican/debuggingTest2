@@ -4,6 +4,7 @@ const { getUserByUsername } = require("./users");
 
 
 async function createCart({userId}) {
+  console.log("CREATING CART FOR USER", userId)
   try {
     const {
       rows: [orders],
@@ -30,7 +31,8 @@ async function getCartById(userId) {
     FROM Cart
     WHERE id =${userId};
     `);
-    if (!cart) {
+    if (cart.isActive === false) {
+      console.log("getcartbyId CREATING CART", cart)
       return await createCart(userId);
     }
     return cart;
@@ -70,9 +72,9 @@ async function getCart() {
     SELECT *
     FROM Cart;
     `);
-    if (!cart) {
-      return await createCart();
-    }
+    // if (!cart) {
+    //   return await createCart();
+    // }
 
     return cart
   } catch (error) {
@@ -92,8 +94,8 @@ async function getCart() {
       []
     );
   console.log(cart, "Hello show me cart Item in db")
-    if (cart) {
-      return cart;
+    if (cart.isActive === false) {
+      return await createCart(cartId);
     } else {
       return false;
     }

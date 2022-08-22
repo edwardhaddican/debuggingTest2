@@ -12,9 +12,10 @@ async function getcartItem(userId){
   `,
     [userId]
   );
-if(!cart){
-  await createCart(userId)
-}
+// if(!cart || cart.isActive === false){
+//   console.log("Creating new cart with",userId)
+//   await createCart(userId)
+// }
   return cart;
 } catch (error) {
   throw error;
