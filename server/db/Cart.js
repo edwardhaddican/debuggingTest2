@@ -30,7 +30,8 @@ async function getCartById(userId) {
     } = await client.query(`
     SELECT *
     FROM Cart
-    WHERE id =${userId};
+    WHERE "userId" =${userId}
+    AND "isActive" = true;
     `);
     return cart;
   } catch (error) {
