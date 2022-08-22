@@ -20,4 +20,4 @@ export {default as UpdateCartItem} from './UpdateCartItem'
 export {default as CartCheckout} from './CartCheckout'
 
 export {default as DeleteCartItem} from './DeleteCartItem'
-
+export {default as Sum} from './Sum'

@@ -12,7 +12,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId, productPri
 
   const [price, setPrice] = useState(0);
   const [inventory, setInventory] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
   const [selectedCart, setSelectedCart] = useState([]);
   const [error, setError] = useState(null);
