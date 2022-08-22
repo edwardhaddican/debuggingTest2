@@ -21,7 +21,7 @@ const router = express.Router()
       try {
         console.log("INITIALIZING CHECKOUT ")
           const userCartCheckout = await getCartById(cartId)
-          if (userCartCheckout && req.user.id) {
+          if (userCartCheckout) {
              const purchaseCart= await cartCheckout(cartId)
              console.log(purchaseCart,"Hello show me the purchased cart")
               res.send(purchaseCart)
@@ -29,7 +29,7 @@ const router = express.Router()
             res.status(403);
             next({
               name: "MissingUserError",
-              message: `User ${req.user.username} is not allowed to delete this post.`,
+              message: `User ${req.user.username} is not allowed to checkout for some reason?`,
             });
           }
       } catch ({name,message}) {

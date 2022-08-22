@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import { DeleteCartItem, ProductById, UpdateCartItem, CartCheckout, Sum  } from "./index";
-import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem} from "../apiAdapter";
+import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem, getAllCartsByUserId} from "../apiAdapter";
+
 
 
 const Cart = ({ carts, setCarts}) => {
@@ -12,7 +14,10 @@ const Cart = ({ carts, setCarts}) => {
   async function fetchCart() {
     const token = localStorage.getItem("token");
     const getUser = await getUsersMe2(token);
-    const getCartItems = await getCartItemsbyUserId(getUser.id);
+    console.log("Cart User", getUser)
+    const getCart = await getAllCartsByUserId(token, getUser.id)
+    console.log("New Cart", getCart)
+    const getCartItems = await getCartItemsbyUserId(getCart.id);
     setCartItems(getCartItems);
   }
 
