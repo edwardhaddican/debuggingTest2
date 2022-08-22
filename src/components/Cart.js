@@ -83,6 +83,8 @@ const Cart = ({ carts, setCarts}) => {
                    onChange={handleChange}
                    className="  ml-auto text-black rounded-md w-16 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 focus:ring-2 "/>
                    <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
+                   <UpdateCartItem cartItemId={cartItem.id}/>
+
                </div>
              </li>
            </ul>
@@ -118,7 +120,7 @@ const Cart = ({ carts, setCarts}) => {
                   For the purchase of  
                 </p>
               </div> 
-                {myCart}
+                {item}
                 <CartCheckout/>
             </div>
           </div>
