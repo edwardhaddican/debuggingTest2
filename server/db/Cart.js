@@ -78,8 +78,8 @@ async function getCart() {
   } catch (error) {
     throw error;
   }}
-  async function cartCheckout ({cartId}) {
-    console.log(cartId,"INITIATING editItemQuantity")
+  async function cartCheckout (cartId) {
+    console.log(cartId,"INITIATING CHECKOUT")
     const {
       rows: [cart],
     } = await client.query(
@@ -89,7 +89,7 @@ async function getCart() {
    WHERE id =${cartId}
    RETURNING *;
     `,
-      [cartId]
+      []
     );
   console.log(cart, "Hello show me cart Item in db")
     if (cart) {

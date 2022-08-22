@@ -9,18 +9,13 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
     const token = localStorage.getItem("token");
     const getUser = await getUsersMe2(token);
     console.log(cartItemId, "Show me the cart ID")
-    const editCartItemQuantity = await editCartItemsbyId(token, cartItemId, cartQuantity)
-    if (editCartItemQuantity.error) {
-      setError(editCartItemQuantity);
-    } else {
-      setError(null);
-      editCartItemQuantity;
+    // const editCartItemQuantity = await editCartItemsbyId(token, cartItemId, cartQuantity)
       const newEditedCartItem = await  getCartItemsbyUserId(getUser.id);
 
       setCartItems(newEditedCartItem);
     
     }
-    }
+    
     useEffect(() => {}, []);
     
     return(
@@ -39,6 +34,5 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
         </label>
          </form>
         </div>
-    )
-}
+    )}
 export default UpdateCartItem;

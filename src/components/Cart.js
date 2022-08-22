@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ProductById, UpdateCartItem } from "./index";
+import { ProductById, UpdateCartItem, CartCheckout } from "./index";
 import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem} from "../apiAdapter";
 
 
-const Cart = ({ carts, setCarts }) => {
+const Cart = ({ carts, setCarts}) => {
   const [cartItems, setCartItems] = useState([])
   const [quantity,setQuantity] = useState(1)
 
@@ -116,6 +116,7 @@ const Cart = ({ carts, setCarts }) => {
                 </p>
               </div> 
                 {myCart}
+                <CartCheckout/>
             </div>
           </div>
 

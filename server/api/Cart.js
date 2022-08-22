@@ -15,15 +15,16 @@ router.get("/", async (req, res, next) => {
    res.send(cartUser)
  })
 
- router.patch("/:cartId/checkout", requireUser, async (req, res, next) => {
+ router.patch("/:cartId", requireUser, async (req, res, next) => {
   const {cartId} = req.params
   console.log(cartId," GOT CART ID FOR CHECKOUT")
       try {
         console.log("INITIALIZING CHECKOUT ")
           const userCartCheckout = await getCartById(cartId)
-          if (userCartCheckout && cart.cartId === req.user.id) {
-              await cartCheckout(cartId)
-              res.send(userCartCheckout)
+          if (userCartCheckout && req.user.id) {
+             const purchaseCart= await cartCheckout(cartId)
+             console.log(purchaseCart,"Hello show me the purchased cart")
+              res.send(purchaseCart)
           } else {
             res.status(403);
             next({
