@@ -51,10 +51,10 @@ const Cart = ({ carts, setCarts}) => {
 
  const item = cartItems.map((cartItem) => {
    return (
-     <div key={cartItem.id} className="">
+     <div key={cartItem.id} className=" select-none">
        <div className="mt-12">
          <div className="flow-root">
-           <ul className="-my-4 rounded-lg border-2 border-black shadow-lg ">
+           <ul className="-my-4 rounded-lg border-2 border-black shadow-xl ">
              <li className="flex items-center justify-between py-4">
                <div className="flex items-start ">
                  <img
@@ -68,19 +68,13 @@ const Cart = ({ carts, setCarts}) => {
                    </p>
                  </div>
                </div>
+               <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
                <div>
                  <p className="text-xl font-medium">
                    ${cartItem.price} 
-                </p>
-
-
-                <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
-
-                   <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
-                   
-
-
+                 </p>
                </div>
+                   
                    <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
              </li>
            </ul>
@@ -95,7 +89,7 @@ const Cart = ({ carts, setCarts}) => {
 
 
   return (
-    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 ">
+    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 select-none">
 
       <div className="relative w-full max-w-screen-2xl shadow-2xl  ">
         <div className="grid grid-cols-1 md:grid-cols-2 ">
@@ -111,14 +105,14 @@ const Cart = ({ carts, setCarts}) => {
               </div>
 
               <div className="mt-8">
-               
+              <Sum cartItems={cartItems}/>
                 <p className="mt-1 text-lg text-black">
                   For the purchase of  
                 </p>
               </div> 
                 {item}
 
-                <Sum cartItems={cartItems}/>
+                
 
                 <CartCheckout/>
                 

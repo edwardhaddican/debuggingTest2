@@ -16,9 +16,9 @@ const DeleteCartItem = ({setCartItems, cartItems, cartItemId}) => {
     
       useEffect(() => {}, [cartItems]);
     return (
-        <div>
-          <button className="ml-5 bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 border-b-2 border-yellow-700 hover:border-yellow-500 rounded" 
-                   onClick={handleDelete}>remove</button>
+        <div className="">
+          <button className="bg-yellow-500 hover:bg-yellow-400 text-rose-900 font-medium py-0 px-1 rounded-3xl relative bottom-7 right-2 hover:animate-pulse" 
+                   onClick={handleDelete}>X</button>
         </div>
     )
 }
