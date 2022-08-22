@@ -12,10 +12,6 @@ async function getcartItem(userId){
   `,
     [userId]
   );
-// if(!cart || cart.isActive === false){
-//   console.log("Creating new cart with",userId)
-//   await createCart(userId)
-// }
   return cart;
 } catch (error) {
   throw error;
@@ -75,7 +71,6 @@ async function getcartItemById(Id) {
     if (!cart) {
       return null;
     }
-    // const cartItems = await Promise.all(cart.map((product)=>getcartItemById(product.id)))
     return cart;
   } catch (error) {
     throw error;

@@ -32,10 +32,6 @@ async function getCartById(userId) {
     FROM Cart
     WHERE id =${userId};
     `);
-    if (!cart && cart.isActive === false) {
-      console.log("getcartbyId CREATING CART", cart)
-      return await createCart(cart.userId);
-    }
     return cart;
   } catch (error) {
     throw error;
