@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DeleteCartItem, ProductById, UpdateCartItem, CartCheckout  } from "./index";
+import { DeleteCartItem, ProductById, UpdateCartItem, CartCheckout, Sum  } from "./index";
 import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem} from "../apiAdapter";
 
 
@@ -30,7 +30,7 @@ const Cart = ({ carts, setCarts}) => {
       <div key={index}>
         <h2>{cartItem.cartId} </h2>
         <ProductById productId={cartItem.productId}/>
-        <UpdateCartItem cartItemId={cartItem.id}/>
+        
         <h1>{cartItem.productId}</h1>
         <p>{cartItem.price}</p>
         <p>{cartItem.quantity}</p>
@@ -72,13 +72,10 @@ const Cart = ({ carts, setCarts}) => {
                  <p className="text-xl font-medium">
                    ${cartItem.price} 
                 </p>
-                   {/* <input 
-                   id={cartItem.id}
-                   type="number" 
-                   min="1" 
-                   value={quantity} 
-                   onChange={handleChange}
-                   className="  ml-auto text-black rounded-md w-16 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 focus:ring-2 "/> */}
+
+
+                <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
+
                    <UpdateCartItem cartItemId={cartItem.id}/>
 
                </div>
@@ -112,13 +109,18 @@ const Cart = ({ carts, setCarts}) => {
               </div>
 
               <div className="mt-8">
-                <p className="text-2xl font-medium tracking-tight">Total: ${sumAll}</p>
+               
                 <p className="mt-1 text-lg text-black">
                   For the purchase of  
                 </p>
               </div> 
                 {item}
-                {/* <CartCheckout/> */}
+
+                <Sum cartItems={cartItems}/>
+
+                <CartCheckout/>
+                
+
             </div>
           </div>
 

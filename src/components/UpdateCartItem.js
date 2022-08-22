@@ -9,7 +9,7 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
     const token = localStorage.getItem("token");
     const getUser = await getUsersMe2(token);
     console.log(cartItemId, "Show me the cart ID")
-    // const editCartItemQuantity = await editCartItemsbyId(token, cartItemId, cartQuantity)
+    await editCartItemsbyId(token, cartItemId, cartQuantity)
       const newEditedCartItem = await  getCartItemsbyUserId(getUser.id);
 
       setCartItems(newEditedCartItem);
@@ -24,7 +24,12 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
             onSubmit={handleSubmit}>
               <label>
           quantity
+
           <input className="  ml-auto text-black rounded-md w-16 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 focus:ring-2"
+
+         
+          min='1'
+
             type="number"
             min="1" 
             value={cartQuantity}
@@ -34,6 +39,7 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
           />
          
         </label>
+        <button type='submit'>select</button>
          </form>
         </div>
     )}
