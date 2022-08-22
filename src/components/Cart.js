@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProductById, UpdateCartItem, CartCheckout } from "./index";
+import { DeleteCartItem, ProductById, UpdateCartItem, CartCheckout  } from "./index";
 import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem} from "../apiAdapter";
 
 
@@ -15,6 +15,8 @@ const Cart = ({ carts, setCarts}) => {
     const getCartItems = await getCartItemsbyUserId(getUser.id);
     setCartItems(getCartItems);
   }
+
+ 
  
   useEffect(() => {
     fetchCart();
@@ -49,46 +51,47 @@ const Cart = ({ carts, setCarts}) => {
     
   }
   
-//  const item = cartItems.map((cartItem) => {
-//    return (
-//      <div key={cartItem.id}>
-//        <div className="mt-12 ">
-//          <div className="flow-root">
-//            <ul className="-my-4 ">
-//              <li className="flex items-center justify-between py-4">
-//                <div className="flex items-start">
-//                  <img
-//                    className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
-//                    src={require("./Logo/coffeeBag.jpg")}
-//                    alt=""
-//                  />
-//                  <div className="ml-4">
-//                    <p className="text-md">
-//                      <ProductById productId={cartItem.productId} />
-//                    </p>
-//                  </div>
-//                </div>
-//                <div>
-//                  <p className="text-xl font-medium">
-//                    ${cartItem.price} 
-//                 </p>
-//                    <input 
-//                    id={cartItem.id}
-//                    type="number" 
-//                    min="1" 
-//                    value={quantity} 
-//                    onChange={handleChange}
-//                    className="  ml-auto text-black rounded-md w-16 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 focus:ring-2 "/>
-//                    <button className="ml-5 bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-1 px-2 border-b-2 border-yellow-700 hover:border-yellow-500 rounded" 
-//                    onClick={() => removeCartItem(cartItem.id)}>remove</button>
-//                </div>
-//              </li>
-//            </ul>
-//          </div>
-//        </div>
-//      </div>
-//    );
-//  });
+
+ const item = cartItems.map((cartItem) => {
+   return (
+     <div key={cartItem.id}>
+       <div className="mt-12 ">
+         <div className="flow-root">
+           <ul className="-my-4 ">
+             <li className="flex items-center justify-between py-4">
+               <div className="flex items-start">
+                 <img
+                   className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
+                   src={require("./Logo/coffeeBag.jpg")}
+                   alt=""
+                 />
+                 <div className="ml-4">
+                   <p className="text-md">
+                     <ProductById productId={cartItem.productId} />
+                   </p>
+                 </div>
+               </div>
+               <div>
+                 <p className="text-xl font-medium">
+                   ${cartItem.price} 
+                </p>
+                   <input 
+                   id={cartItem.id}
+                   type="number" 
+                   min="1" 
+                   value={quantity} 
+                   onChange={handleChange}
+                   className="  ml-auto text-black rounded-md w-16 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 focus:ring-2 "/>
+                   <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
+               </div>
+             </li>
+           </ul>
+         </div>
+       </div>
+     </div>
+   );
+ });
+
  
 
 

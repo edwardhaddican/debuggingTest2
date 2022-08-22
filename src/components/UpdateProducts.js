@@ -10,6 +10,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
   const [inventory, setInventory] = useState(0)
   const [country, setCountry] = useState('')
   const [error, setError] = useState(null)
+  const [isShown2, setIsShown2] = useState(false)
 
   async function handleSubmit (event) {
       event.preventDefault()
@@ -30,12 +31,14 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
       }
       useEffect(() => {}, [myProducts]);
 
+      async function buttonClick2() {
+        setIsShown2((current) => !current);
+      }
+
   return (
     <div className="flex flex-col absolute  bg-white">
-      {/* <h1 id="addRoutineTitle">UPDATE PRODUCT</h1> */}
-      {error && error.message ? (
-        <h3>There Is Already A Product With That Name</h3>
-      ) : null}
+      <button onClick={buttonClick2}>EDIT PRODUCT</button>
+      {isShown2 &&
       <form className="flex flex-row" onSubmit={handleSubmit}>
         <label>
           Name:
@@ -149,6 +152,9 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
           UPDATE
         </button>
       </form>
+      }
+            
+            
     </div>
   );
 };

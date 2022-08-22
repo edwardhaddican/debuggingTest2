@@ -299,8 +299,8 @@ export const editCartItemsbyId = async (token, cartItemId, quantity) => {
 // ATTEMPTING TO CREATE API CALL TO REMOVE ITEMS FROM CART -MICHAEL
 
 
-export const removeCartItem = async (cartId, token) => {
-  const response = await fetch(`${BASE_URL}/cartOrder/${cartId}`, {
+export const removeCartItem = async (cartItemId, token) => {
+  const response = await fetch(`${BASE_URL}/cartOrder/${cartItemId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -308,6 +308,7 @@ export const removeCartItem = async (cartId, token) => {
     },
   });
   const result = await response.json();
+  console.log(result, 'delete')
   return result;
 };
 

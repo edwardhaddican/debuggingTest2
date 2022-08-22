@@ -16,4 +16,8 @@ export {default as SingleProduct} from './SingleProduct'
 export {default as AddProductToCart} from './Add2Cart'
 export {default as ProductById} from './ProductById'
 export {default as UpdateCartItem} from './UpdateCartItem'
+
 export {default as CartCheckout} from './CartCheckout'
+
+export {default as DeleteCartItem} from './DeleteCartItem'
+

@@ -31,13 +31,13 @@ const App = () => {
           <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin} carts={carts} setcarts={setCarts}/>} />
           <Route path='/cart' element={<Cart carts={carts} setcarts={setCarts}/>}/> 
           <Route path='/createProduct' element={<CreateProduct productsList={productsList} setProductsList={setProductsList} />} />
-          <Route path='/SingleProduct' element={<SingleProduct/>} />
+          <Route path='/SingleProduct' element={<SingleProduct isAdmin={isAdmin}/>} />
        </Routes> ) : 
        !isAdmin && isLoggedIn ? (
         <Routes>  
               <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin} carts={carts} setcarts={setCarts}/>}/>
               <Route path='/cart' element={<Cart />}/>
-              <Route path='/SingleProduct' element={<SingleProduct/>} />
+              <Route path='/SingleProduct' element={<SingleProduct isAdmin={isAdmin}/>} />
        </Routes>) : (  
         <Routes>
             <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
@@ -46,7 +46,7 @@ const App = () => {
             <Route path='/cart' element={<Cart carts={carts} setcarts={setCarts}/>}/>
             <Route path='/adminLogin' element={<MerchantLogin setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />}/>
             <Route path='/adminRegister' element={<MerchantRegister setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin}/>}/>
-            <Route path='/SingleProduct' element={<SingleProduct/>} />
+            <Route path='/SingleProduct' element={<SingleProduct isAdmin={isAdmin}/>} />
         </Routes>) 
        
   }
