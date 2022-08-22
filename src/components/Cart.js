@@ -76,7 +76,9 @@ const Cart = ({ carts, setCarts}) => {
 
                 <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
 
-                   <UpdateCartItem cartItemId={cartItem.id}/>
+                   <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
+                   
+
 
                </div>
                    <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>

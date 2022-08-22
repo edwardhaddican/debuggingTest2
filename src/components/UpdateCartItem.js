@@ -39,7 +39,7 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
           />
          
         </label>
-        <button type='submit'>select</button>
+        <button type='submit'>Update</button>
          </form>
         </div>
     )}
