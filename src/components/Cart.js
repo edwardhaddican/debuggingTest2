@@ -41,27 +41,24 @@ const Cart = ({ carts, setCarts}) => {
   const sumAll = cartItems.map(item => item.price).reduce((prev, curr) => prev + curr*quantity, 0);
   console.log(sumAll);
 
-  const handleChange=(e,id) => {
-      id=e.target.id
-      console.log(id)
+  // const handleChange=(e,id) => {
+  //     id=e.target.id
+  //     console.log(id)
     
-      setQuantity(e.target.value)
-      
-      
-    
-  }
+  //     setQuantity(e.target.value)
+  // }
   
 
  const item = cartItems.map((cartItem) => {
    return (
-     <div key={cartItem.id}>
-       <div className="mt-12 ">
+     <div key={cartItem.id} className="">
+       <div className="mt-12">
          <div className="flow-root">
-           <ul className="-my-4 ">
+           <ul className="-my-4 rounded-lg border-2 border-black shadow-lg ">
              <li className="flex items-center justify-between py-4">
-               <div className="flex items-start">
+               <div className="flex items-start ">
                  <img
-                   className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
+                   className="flex-shrink-0 object-cover w-16 h-16 rounded-lg shadow-lg "
                    src={require("./Logo/coffeeBag.jpg")}
                    alt=""
                  />
@@ -75,11 +72,16 @@ const Cart = ({ carts, setCarts}) => {
                  <p className="text-xl font-medium">
                    ${cartItem.price} 
                 </p>
+
+
                 <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
+
                    <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
                    
 
+
                </div>
+                   <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
              </li>
            </ul>
          </div>
@@ -98,8 +100,8 @@ const Cart = ({ carts, setCarts}) => {
       <div className="relative w-full max-w-screen-2xl shadow-2xl  ">
         <div className="grid grid-cols-1 md:grid-cols-2 ">
           <div className="py-12 bg-gray-100 bg-opacity-80 md:py-24 rounded-l-lg  ">
-            <div className="max-w-lg px-4 mx-auto lg:px-8 ">
-              <div className="flex items-center">
+            <div className="max-w-full px-4 mx-auto lg:px-4 ">
+              <div className="flex items-center justify-center">
                 <img
                   src={require("../components/Logo/coffee.png")}
                   className="w-20 h-20 rounded-full"
@@ -120,6 +122,7 @@ const Cart = ({ carts, setCarts}) => {
 
                 <CartCheckout/>
                 
+
             </div>
           </div>
 
@@ -283,7 +286,7 @@ const Cart = ({ carts, setCarts}) => {
 
                 <div className="col-span-6">
                   <button
-                    className="rounded-lg bg-black text-sm p-2.5 text-white w-full block"
+                    className="rounded-lg bg-black text-sm p-2.5 text-white w-full block animate-bounce"
                     type="submit"
                   >
                     Pay Now
