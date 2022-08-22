@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { editCartItemsbyId, getCartItemsbyUserId,getUsersMe2 } from "../apiAdapter";
 
 const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
-    const [cartQuantity,setCartQuantity] = useState(0);
+    const [cartQuantity,setCartQuantity] = useState(1);
 
   async function handleSubmit (event) {
     event.preventDefault()
     const token = localStorage.getItem("token");
     const getUser = await getUsersMe2(token);
     console.log(cartItemId, "Show me the cart ID")
-    // const editCartItemQuantity = await editCartItemsbyId(token, cartItemId, cartQuantity)
+    await editCartItemsbyId(token, cartItemId, cartQuantity)
       const newEditedCartItem = await  getCartItemsbyUserId(getUser.id);
 
       setCartItems(newEditedCartItem);
@@ -24,6 +24,7 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
               <label>
           quantity
           <input
+          min='1'
             type="number"
             value={cartQuantity}
             onChange={(event) => {
@@ -32,6 +33,7 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
           />
          
         </label>
+        <button type='submit'>select</button>
          </form>
         </div>
     )}
