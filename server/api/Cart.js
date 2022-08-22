@@ -21,7 +21,7 @@ const router = express.Router()
       try {
         console.log("INITIALIZING CHECKOUT ")
           const userCartCheckout = await getCartById(cartId)
-          if (userCartCheckout) {
+          if (req.user.id) {
              const purchaseCart= await cartCheckout(cartId)
              console.log(purchaseCart,"Hello show me the purchased cart")
               res.send(purchaseCart)
