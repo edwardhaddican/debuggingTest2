@@ -65,7 +65,6 @@ const Cart = ({ carts, setCarts}) => {
                  <img
                    className="flex-shrink-0 object-cover w-16 h-16 rounded-lg shadow-lg "
                    src={require("./Logo/coffeeBag.jpg")}
-                   alt=""
                  />
                  <div className="ml-4">
                    <p className="text-md">
