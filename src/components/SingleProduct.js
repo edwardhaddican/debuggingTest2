@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react'
 import { useLocation } from 'react-router-dom'
 import { getProductsById, addProductsToCart, getUsersMe2, getAllCartsByUserId } from '../apiAdapter'
-const SingleProduct = () => {
+const SingleProduct = ({isAdmin}) => {
   const [quantity,setQuantity] = useState(1)
   const [selectedCart, setSelectedCart] = useState([])
   const [error, setError] = useState(null)
@@ -91,7 +91,9 @@ console.log(getProduct, 'the product')
         </div>
         <div className="flex">
           <span className="title-font font-medium text-2xl text-white">{getProduct.price}</span>
+          {isAdmin ? null :
           <button onClick={() => handleSubmit(productId)} className="flex ml-auto text-rose-900 bg-yellow-600 border-0 py-2 px-6 focus:outline-none hover:bg-rose-900 hover:text-yellow-600 rounded transition duration-500">Add To Cart</button>
+}
         </div>
       </div>
       <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-md" src={require('./Logo/coffeeBag.jpg')}/>
