@@ -16,6 +16,7 @@ async function createCart({userId}) {
     `,
       [userId]
     );
+    console.log("CREATED CART",orders)
     return orders;
   } catch (error) {
     throw error;
@@ -31,9 +32,9 @@ async function getCartById(userId) {
     FROM Cart
     WHERE id =${userId};
     `);
-    if (cart.isActive === false) {
+    if (!cart && cart.isActive === false) {
       console.log("getcartbyId CREATING CART", cart)
-      return await createCart(userId);
+      return await createCart(cart.userId);
     }
     return cart;
   } catch (error) {
@@ -93,13 +94,34 @@ async function getCart() {
     `,
       []
     );
-  console.log(cart, "Hello show me cart Item in db")
+  console.log(cart.userId, "Hello show me cart Item in db")
     if (cart.isActive === false) {
-      return await createCart(cartId);
+      const getUserId = await getUserIdbyCartId(cartId)
+       await createCart(getUserId)
+       return cart;
     } else {
       return false;
     }
   
+  }
+
+  async function getUserIdbyCartId (cartId){
+    console.log("grabbing User ID by cartId", cartId)
+    try{
+    const {
+      rows: [cart]
+    } = await client.query(
+      `
+      SELECT Cart."userId" FROM cartItem
+      JOIN Cart ON Cart.id = cartItem."cartId"
+      WHERE cartItem."cartId" = ${cartId}
+      `
+    )
+    console.log("grabbed USER ID", cart)
+    return cart}
+    catch(error){
+      throw error
+    }
   }
 
 module.exports = {
