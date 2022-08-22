@@ -77,6 +77,8 @@ const Cart = ({ carts, setCarts}) => {
                 </p>
                 <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
                    <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
+                   <UpdateCartItem cartItemId={cartItem.id}/>
+
                </div>
              </li>
            </ul>
@@ -113,7 +115,9 @@ const Cart = ({ carts, setCarts}) => {
                 </p>
               </div> 
                 {item}
+
                 <Sum cartItems={cartItems}/>
+
                 <CartCheckout/>
                 
             </div>
