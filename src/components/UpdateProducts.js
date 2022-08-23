@@ -26,7 +26,13 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
         const newEditedProduct = await getProductsByAdmin(username);
   
         setMyProducts(newEditedProduct);
-      
+      setName('')
+      setDescription('')
+      setPrice(0)
+      setWeight(0)
+      setRoast('')
+      setGrind('')
+      setInventory(0)
       }
       }
       useEffect(() => {}, [myProducts]);
@@ -138,11 +144,11 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
             <option value="Uganda">Uganda</option>
           </select>
         </label>
-        <label className="flex flex-col">
+        {/* <label className="flex flex-col">
 
             Country: 
             <input type='text' value={country} onChange={(event)=> {setCountry(event.target.value)}}/>
-        </label>
+        </label> */}
         <label className="flex flex-col">
             Inventory:
             <input value={inventory} type='text' onChange={(event)=> {setInventory(event.target.value)}}/>

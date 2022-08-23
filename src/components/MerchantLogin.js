@@ -25,9 +25,11 @@ import Login from "./Login";
           setError(null)
           const username = result.merchant.username
           const admin = result.merchant.Admin
+          const brand = result.merchant.brand
           localStorage.setItem("token", token);
           localStorage.setItem("username",username);
           localStorage.setItem("admin",admin);
+          localStorage.setItem('brand', brand)
           setIsLoggedIn(true)
           setIsAdmin(true)
           navigate('../')

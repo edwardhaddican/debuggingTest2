@@ -26,7 +26,7 @@ const Register = () => {
         }else if (token) {
           setError(null)
           setMyResult(result)
-          const username = result.user.username
+          // const username = result.user.username
           navigate('/login')
         }
        } catch (error) {
@@ -47,8 +47,8 @@ const Register = () => {
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign Up </h2>
             <p className="mt-2 text-center text-md text-gray-900">
               Or{' '}
-              <Link to={'/login'} className="font-medium text-rose-900 hover:text-yellow-600">
-                Click here to Log in
+              <Link to={'/adminRegister'} className="font-medium text-rose-900 hover:text-yellow-600">
+                Click here to Register as an Admin
               </Link>
             </p>
           </div>
@@ -58,7 +58,7 @@ const Register = () => {
               <div>
               <div>
                 <label htmlFor="name" className="sr-only">
-                  Name
+                  Username
                 </label>
                 <input
                 value={username}
@@ -68,7 +68,7 @@ const Register = () => {
                   type="text"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md rounded-t-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-md"
-                  placeholder="Name"
+                  placeholder="Username"
                 />
               </div>
                 <label htmlFor="email-address" className="sr-only">
@@ -78,7 +78,7 @@ const Register = () => {
                   id="email-address"
                   name="email"
                   type="email"
-                  // required
+                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md rounded-b-md my-8 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-md"
                   placeholder="Email Address"
                 />

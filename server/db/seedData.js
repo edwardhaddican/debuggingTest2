@@ -251,19 +251,19 @@ async function createInitialCart() {
       {
         productId: product1.id,
         cartId: order1.id,
-        quantity: 5,
+        quantity: 1,
         price: 20
       },
       {
         productId: product2.id,
         cartId: order2.id,
-        quantity: 5,
+        quantity: 1,
         price: 3
       },
       {
         productId: product4.id,
         cartId: order3.id,
-        quantity: 5,
+        quantity: 1,
         price: 100
       },
     ];

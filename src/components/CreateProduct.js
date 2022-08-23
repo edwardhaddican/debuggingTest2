@@ -77,7 +77,7 @@ const CreateProduct = ({ productsList, setProductsList }) => {
                 <option value="Colombia">Colombia</option>
                 <option value="Indonesia">Indonesia</option>
                 <option value="Ethiopia">Ethiopia</option>
-                <option value="Hondurus">Honduras</option>
+                <option value="Honduras">Honduras</option>
                 <option value="India">India</option>
                 <option value="Uganda">Uganda</option>
 

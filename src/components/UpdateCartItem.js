@@ -31,7 +31,7 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
           min='1'
 
             type="number"
-            min="1" 
+            
             value={cartQuantity}
             onChange={(event) => {
               setCartQuantity(event.target.value);
