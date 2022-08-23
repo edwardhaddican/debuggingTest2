@@ -169,7 +169,7 @@ export async function getUsersMe2(token) {
     },
   });
   const result = await response.json();
-
+console.log(result, 'the result')
   return result;
 }
 
@@ -234,7 +234,7 @@ export const getAllCartsByUserId = async (token, userId) => {
       },
     });
     const result = await response.json();
-
+console.log(result, 'user id result')
     return result;
   } catch (error) {
     throw error;

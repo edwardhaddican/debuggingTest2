@@ -21,3 +21,4 @@ export {default as CartCheckout} from './CartCheckout'
 
 export {default as DeleteCartItem} from './DeleteCartItem'
 export {default as Sum} from './Sum'
+export {default as PublicCart} from './PublicCart'

@@ -1,12 +1,13 @@
 import {registerMerchant} from '../apiAdapter'
 import React, { useState,useRef } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { LockClosedIcon } from '@heroicons/react/solid';
 import '../input.css';
 
 
 
 const MerchantRegister = () => {
+  const navigate = useNavigate()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [brand, setBrand] = useState("");
@@ -30,6 +31,7 @@ const MerchantRegister = () => {
           setUsername('')
           setPassword('')
           setBrand('')
+          navigate('/adminLogin')
         }
        } catch (error) {
         alert(error);
@@ -75,7 +77,7 @@ const MerchantRegister = () => {
               </div>
               <div>
                 <label htmlFor="name" className="sr-only">
-                  Name
+                  Username
                 </label>
                 <input
                 value={username}
@@ -85,7 +87,7 @@ const MerchantRegister = () => {
                   type="text"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md rounded-t-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm shadow-gray-700 shadow-md"
-                  placeholder="Name"
+                  placeholder="Username"
                 />
               </div>
                 <label htmlFor="email-address" className="sr-only">

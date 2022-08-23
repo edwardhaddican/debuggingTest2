@@ -1,96 +1,35 @@
-import React, { useState, useEffect } from "react";
-
-import { DeleteCartItem, ProductById, UpdateCartItem, CartCheckout, Sum  } from "./index";
-import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem, getAllCartsByUserId} from "../apiAdapter";
+import React, {useEffect, useState} from 'react'
 
 
+const PublicCart = ({isLoggedIn}) => {
 
-const Cart = ({ carts, setCarts, isLoggedIn}) => {
-  const [cartItems, setCartItems] = useState([])
-  const [quantity,setQuantity] = useState(1)
-  const [guestCart, setGuestCart] = useState([])
-  
+    const [guestCart, setGuestCart] = useState([])
 
-  async function fetchCart() {
-    const token = localStorage.getItem("token");
-    if (token) {
-    const getUser = await getUsersMe2(token);
-    console.log("Cart User", getUser)
-    const getCart = await getAllCartsByUserId(token, getUser.id)
-    console.log("New Cart", getCart)
-    const getCartItems = await getCartItemsbyUserId(getCart.id);
-    setCartItems(getCartItems);
-    }
-  }
-
- 
- 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      console.log('start')
-      let prevItem =  JSON.parse(localStorage.getItem('cart'))
-      console.log(prevItem, 'item')
-      setGuestCart(prevItem)
-    }
-    fetchCart();
-  }, []);
-
+    useEffect(() => {
+        if (!isLoggedIn) {
+          console.log('start')
+          let prevItem =  JSON.parse(localStorage.getItem('cart'))
+          console.log(prevItem, 'item')
+          setGuestCart(prevItem)
+        }
+        
+      }, []);
 console.log(guestCart, 'guest')
+      const myCart = guestCart.map((cartItem, index) => {
+   
 
+        return(
+          <div key={index}>
+            <h2>{cartItem.id} </h2>
+            {/* <ProductById productId={cartItem.name}/> */}
+            <h1>{cartItem.name}</h1>
+            <h1>{cartItem.price}</h1>
+          </div>
+        )
+      });
 
-  
-
-  // const sumAll = cartItems.map(item => item.price).reduce((prev, curr) => prev + curr*quantity, 0);
-  // console.log(sumAll);
-
-  // const handleChange=(e,id) => {
-  //     id=e.target.id
-  //     console.log(id)
-    
-  //     setQuantity(e.target.value)
-  // }
-  
-
- const item = cartItems.map((cartItem) => {
-   return (
-     <div key={cartItem.id} className=" select-none">
-       <div className="mt-12">
-         <div className="flow-root">
-           <ul className="-my-4 rounded-lg border-2 border-black shadow-xl ">
-             <li className="flex items-center justify-between py-4">
-               <div className="flex items-start ">
-                 <img
-                   className="flex-shrink-0 object-cover w-16 h-16 rounded-lg shadow-lg "
-                   src={require("./Logo/coffeeBag.jpg")}
-                 />
-                 <div className="ml-4">
-                   <p className="text-md">
-                     <ProductById productId={cartItem.productId} />
-                   </p>
-                 </div>
-               </div>
-               <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
-               <div>
-                 <p className="text-xl font-medium">
-                   ${cartItem.price} 
-                 </p>
-               </div>
-                   
-                   <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
-             </li>
-           </ul>
-         </div>
-       </div>
-     </div>
-   );
- });
-
-
-
-
-
-  return (
-    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 select-none">
+    return (
+        <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 ">
 
       <div className="relative w-full max-w-screen-2xl shadow-2xl  ">
         <div className="grid grid-cols-1 md:grid-cols-2 ">
@@ -106,17 +45,17 @@ console.log(guestCart, 'guest')
               </div>
 
               <div className="mt-8">
-              <Sum cartItems={cartItems}/>
+               
                 <p className="mt-1 text-lg text-black">
                   For the purchase of  
                 </p>
               </div> 
-            {item}
+            {myCart}
            
 
-                
+                {/* <Sum cartItems={cartItems}/>
 
-                <CartCheckout/>
+                <CartCheckout/> */}
                 
 
             </div>
@@ -295,5 +234,8 @@ console.log(guestCart, 'guest')
       </div>
     </section>
   );
-};
-export default Cart;
+
+    
+}
+
+export default PublicCart

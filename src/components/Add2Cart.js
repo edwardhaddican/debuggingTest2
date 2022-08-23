@@ -5,10 +5,11 @@ import {
   getAllCartsByUserId,
   getUsersMe2,
   getCartItemsbyUserId,
+  getProductsById,
 } from "../apiAdapter";
 
 import { useNavigate } from "react-router-dom";
-const AddProductToCart = ({ productsList, setProductsList, productId, productPrice }) => {
+const AddProductToCart = ({ productsList, setProductsList, productId, productPrice, isLoggedIn }) => {
 
   const [price, setPrice] = useState(0);
   const [inventory, setInventory] = useState(0);
@@ -17,6 +18,7 @@ const AddProductToCart = ({ productsList, setProductsList, productId, productPri
   const [selectedCart, setSelectedCart] = useState([]);
   const [error, setError] = useState(null);
   const [carts, setCarts] = useState([]);
+  const [guestCart, setGuestCart] = useState([])
   const navigate = useNavigate();
 
   async function fetchCart() {
@@ -33,16 +35,23 @@ const AddProductToCart = ({ productsList, setProductsList, productId, productPri
       setSelectedCart(getTheCart);
     }
   }
-
+console.log(guestCart, 'line 38')
   useEffect(() => {
+    if (!isLoggedIn) {
+console.log(guestCart, 'guest')
+      localStorage.setItem('cart', JSON.stringify(guestCart))
+   
+    console.log(guestCart,'the cart')
+    }
     fetchCart();
-  }, []);
+  }, [guestCart]);
 
   async function handleSubmit() {
     const token = localStorage.getItem("token");
+    if (token) {
 
    const addedCartProduct = await addProductsToCart(productId, selectedCart.id, quantity, productPrice)
-
+    
 
     if (addedCartProduct.error) {
       setError(addedCartProduct);
@@ -51,7 +60,31 @@ const AddProductToCart = ({ productsList, setProductsList, productId, productPri
       setCart(addedCartProduct);
       navigate("./");
     }
+  } else {
+    var newcart = localStorage.getItem('cart')
+    newcart = (newcart) ? JSON.parse(newcart) : []
+    // console.log(newcart, 'cart')
+  
+
+// const guestProduct = productsList.map((product, index)=> product.id
+// ) ()
+const newGuestP = productsList.filter(pro => pro.id === productId)
+console.log(newGuestP, 'new')
+for (let i =0; i < newGuestP.length; i++) {
+
+  let info = newGuestP[i]
+  console.log(info, 'info')
+newcart.push(info)  
+}
+
+
+// cart.push(newGuestP)
+console.log(newcart, 'push')
+  setGuestCart(newcart)
+  console.log(guestCart, 'guest cart')
   }
+  } 
+console.log(guestCart, 'line 87')
 
   return (
     <button className="font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500"
