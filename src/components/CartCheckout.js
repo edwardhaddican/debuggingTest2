@@ -7,8 +7,10 @@ const CartCheckout = ({ carts, setCarts}) => {
       event.preventDefault();
       const token = localStorage.getItem("token");
       const getUser = await getUsersMe2(token);
-      console.log(getUser, getUser.id, "Show me the user for Cart Checkout")
-       await userCartCheckout(token, getUser.id);
+      console.log(getUser, "Show me the user for Cart Checkout")
+      const getCart = await getAllCartsByUserId(token, getUser.id)
+      console.log("New Cart", getCart)
+       await userCartCheckout(token, getCart.id);
     }
  
     useEffect(() => {handleCheckout}, []);

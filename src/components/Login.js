@@ -32,8 +32,8 @@ import '../input.css';
     };
     return (
       <div className=" h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-rose-300 to-yellow-600">
-      <div className="max-w-md w-full space-y-8" >
-        <div >
+      <div className="max-w-md w-full space-y-8">
+        <div>
           <div>
             <img
               className="mx-auto h-24 w-auto rounded-lg shadow-gray-700 shadow-md select-none "
@@ -59,7 +59,7 @@ import '../input.css';
                   id="username"
                   name="email"
                   type="email"
-                  required
+                  // required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 sm:text-sm "
                   placeholder="Username"
                 />
@@ -80,9 +80,15 @@ import '../input.css';
                 />
               </div>
               <Link  to={'/adminLogin'}><h3 className="text-center text-xl mt-6 hover:underline">Admin, Log in HERE</h3></Link>
-                {error && error.message ? <h3>{error.message}</h3> : null}
-            </div>
 
+                {error && error.message ? <button className=" flex w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md justify-center">
+  <strong className="font-bold">Holy smokes!</strong>
+  <span className="block sm:inline"> {error.message}</span>
+  <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+    <svg className="fill-current h-6 w-6 text-red-500"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>
+  </span>
+</button> : null}
+            </div>
 
             <div>
               <button

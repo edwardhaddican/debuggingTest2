@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import { DeleteCartItem, ProductById, UpdateCartItem, CartCheckout, Sum  } from "./index";
-import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem} from "../apiAdapter";
+import { getUsersMe2, getCartItemsbyUserId, getProductsById, removeCartItem, getAllCartsByUserId} from "../apiAdapter";
+
 
 
 const Cart = ({ carts, setCarts, isLoggedIn}) => {
@@ -13,7 +15,10 @@ const Cart = ({ carts, setCarts, isLoggedIn}) => {
     const token = localStorage.getItem("token");
     if (token) {
     const getUser = await getUsersMe2(token);
-    const getCartItems = await getCartItemsbyUserId(getUser.id);
+    console.log("Cart User", getUser)
+    const getCart = await getAllCartsByUserId(token, getUser.id)
+    console.log("New Cart", getCart)
+    const getCartItems = await getCartItemsbyUserId(getCart.id);
     setCartItems(getCartItems);
     }
   }
@@ -48,16 +53,15 @@ console.log(guestCart, 'guest')
 
  const item = cartItems.map((cartItem) => {
    return (
-     <div key={cartItem.id} className="">
+     <div key={cartItem.id} className=" select-none">
        <div className="mt-12">
          <div className="flow-root">
-           <ul className="-my-4 rounded-lg border-2 border-black shadow-lg ">
+           <ul className="-my-4 rounded-lg border-2 border-black shadow-xl ">
              <li className="flex items-center justify-between py-4">
                <div className="flex items-start ">
                  <img
                    className="flex-shrink-0 object-cover w-16 h-16 rounded-lg shadow-lg "
                    src={require("./Logo/coffeeBag.jpg")}
-                   alt=""
                  />
                  <div className="ml-4">
                    <p className="text-md">
@@ -65,19 +69,13 @@ console.log(guestCart, 'guest')
                    </p>
                  </div>
                </div>
+               <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
                <div>
                  <p className="text-xl font-medium">
                    ${cartItem.price} 
-                </p>
-
-
-                <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/>
-
-                   <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
-                   
-
-
+                 </p>
                </div>
+                   
                    <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/>
              </li>
            </ul>
@@ -92,7 +90,7 @@ console.log(guestCart, 'guest')
 
 
   return (
-    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 ">
+    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 select-none">
 
       <div className="relative w-full max-w-screen-2xl shadow-2xl  ">
         <div className="grid grid-cols-1 md:grid-cols-2 ">
@@ -108,7 +106,7 @@ console.log(guestCart, 'guest')
               </div>
 
               <div className="mt-8">
-               
+              <Sum cartItems={cartItems}/>
                 <p className="mt-1 text-lg text-black">
                   For the purchase of  
                 </p>
@@ -116,7 +114,7 @@ console.log(guestCart, 'guest')
             {item}
            
 
-                <Sum cartItems={cartItems}/>
+                
 
                 <CartCheckout/>
                 
