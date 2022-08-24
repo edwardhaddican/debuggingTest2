@@ -28,7 +28,7 @@ const App = () => {
     </div>
     {isLoggedIn && isAdmin ? (
       <Routes> 
-          <Route path ='/merchantproduct' element ={<MerchantProducts />}/>
+          <Route path ='/merchantProduct' element ={<MerchantProducts />}/>
           <Route exact path='/' element={<Product productsList={productsList} setProductsList={setProductsList} isLoggedIn={isLoggedIn} isAdmin={isAdmin} carts={carts} setcarts={setCarts}/>} />
           <Route path='/cart' element={<Cart carts={carts} setcarts={setCarts} isLoggedIn={isLoggedIn}/>}/> 
           <Route path='/createProduct' element={<CreateProduct productsList={productsList} setProductsList={setProductsList} />} />

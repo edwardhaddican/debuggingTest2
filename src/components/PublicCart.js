@@ -18,19 +18,44 @@ const PublicCart = ({isLoggedIn}) => {
 
   
 console.log(guestCart, 'guest')
-      const myCart = guestCart.map((cartItem, index) => {
+
+      const myCart = guestCart.map((cartItem) => {
    
 
         return(
-          <div key={index}>
-            <h2>{cartItem.id} </h2>
-            {/* <ProductById productId={cartItem.name}/> */}
-            <h1>{cartItem.name}</h1>
-            <h1>{cartItem.price}</h1>
-            <DeletePublicItem cartItemId={cartItem.id} guestCart={guestCart} setGuestCart={setGuestCart}/>
+
+          <div key={cartItem.id} className=" select-none">
+          <div className="mt-12">
+            <div className="flow-root">
+              <ul className="-my-4 rounded-lg border-2 border-black shadow-xl ">
+                <li className="flex items-center justify-between py-4">
+                  <div className="flex items-start ">
+                    <img
+                      className="flex-shrink-0 object-cover w-16 h-16 rounded-lg shadow-lg "
+                      src={require("./Logo/coffeeBag.jpg")}
+                    />
+                    <div className="ml-4">
+                      <p className="text-md">
+                        {/* <ProductById productId={cartItem.productId} /> */}
+                      </p>
+                    </div>
+                  </div>
+                  {/* <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/> */}
+                  <div>
+                    <p className="text-xl font-medium">
+                      ${cartItem.price} 
+                    </p>
+                  </div>
+                      
+                      <DeletePublicItem cartItemId={cartItem.id} setGuestCart={setGuestCart} guestCart={guestCart}/>
+                </li>
+              </ul>
+            </div>
+
           </div>
-        )
-      });
+        </div>
+      );
+    });
 
 
 
