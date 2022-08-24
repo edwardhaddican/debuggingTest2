@@ -38,46 +38,7 @@ async function getCartById(userId) {
     throw error;
   }}
 
-async function updateCart({ id, ...fields }) {
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
 
-  try {
-    if (setString.length > 0) {
-      await client.query(
-        `
-        UPDATE Product
-        SET ${setString}
-        WHERE id=${id}
-        RETURNING *;
-      `,
-        Object.values(fields)
-      );
-    }
-    return await getProductById(id);
-  } catch (error) {
-    throw error;
-  }
-}
-
-
-async function getCart() {
-  try {
-    const {
-      rows: cart,
-    } = await client.query(`
-    SELECT *
-    FROM Cart;
-    `);
-    // if (!cart) {
-    //   return await createCart();
-    // }
-
-    return cart
-  } catch (error) {
-    throw error;
-  }}
   async function cartCheckout (cartId) {
     console.log(cartId,"INITIATING CHECKOUT")
     const {
@@ -121,11 +82,43 @@ async function getCart() {
     }
   }
 
+  async function getOrderHistorybyId(userId) {
+    try {
+      const {
+        rows: carts,
+      } = await client.query(`
+      SELECT*
+      FROM Cart
+      WHERE "userId" =${userId}
+      AND "isActive" = false;
+      `);
+      console.log("Order History", carts)
+      return carts;
+    } catch (error) {
+      throw error;
+    }}
+
+ async function getOrderHistory() {
+      try {
+        const { rows: cartId } = await client.query(`
+          SELECT id
+          FROM Product;
+        `);
+    
+        const carts = await Promise.all(
+          cartId.map((cart) => getOrderHistorybyId(cart.id))
+        );
+    
+        return carts;
+      } catch (error) {
+        throw error;
+      }
+    }
 module.exports = {
     createCart,
-    updateCart,
   getUserByUsername,
   getCartById,
-  getCart,
-  cartCheckout
+  cartCheckout,
+  getOrderHistorybyId,
+  getOrderHistory,
 };

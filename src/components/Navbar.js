@@ -66,6 +66,10 @@ const navigate = useNavigate()
 
           </Link>
 
+          <NavLink to='/OrderHistory' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >OrderHistory
+      </NavLink>
+          <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1">Log Out</button>
+
       </div>
       ) : (
 <div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-20 sm:flex-row justify-center sm:gap-x-20 ">
