@@ -16,25 +16,25 @@ const UpdateCartItem =({cartItems,setCartItems,cartItemId})=>{
     
     }
     
-    useEffect(() => {}, []);
+    useEffect(() => {}, [cartItems]);
     
     return(
         <div className="select-none ">
-      <form>
+      <form onSubmit={handleSubmit}>
               <label>
           QTY:
 
           <input className="  mx-2 text-black rounded-md w-16 focus:outline-none focus:ring-rose-900 focus:border-rose-900 focus:z-10 focus:ring-1 "
             type="number"
-            
+            min='1'
             value={cartQuantity}
             onChange={(event) => {
               setCartQuantity(event.target.value);
             }}
-            onClick={handleSubmit}
           />
          
         </label>
+        <button type='submit'>Update</button>
          </form>
         </div>
     )}

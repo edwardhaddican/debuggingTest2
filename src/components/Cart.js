@@ -19,6 +19,7 @@ const Cart = ({ carts, setCarts, isLoggedIn}) => {
     const getCart = await getAllCartsByUserId(token, getUser.id)
     console.log("New Cart", getCart)
     const getCartItems = await getCartItemsbyUserId(getCart.id);
+    console.log(getCartItems, 'items')
     setCartItems(getCartItems);
     }
   }
