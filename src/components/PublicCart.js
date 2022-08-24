@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {DeletePublicItem} from './index';
 
 
 const PublicCart = ({isLoggedIn}) => {
@@ -14,12 +15,15 @@ const PublicCart = ({isLoggedIn}) => {
         }
         
       }, []);
+
+  
 console.log(guestCart, 'guest')
 
       const myCart = guestCart.map((cartItem) => {
    
 
         return(
+
           <div key={cartItem.id} className=" select-none">
           <div className="mt-12">
             <div className="flow-root">
@@ -47,10 +51,13 @@ console.log(guestCart, 'guest')
                 </li>
               </ul>
             </div>
+
           </div>
         </div>
       );
     });
+
+
 
     return (
         <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 ">
