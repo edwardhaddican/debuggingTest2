@@ -68,7 +68,7 @@ const navigate = useNavigate()
 
           <NavLink to='/OrderHistory' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >OrderHistory
       </NavLink>
-          <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1">Log Out</button>
+  
 
       </div>
       ) : (
@@ -89,10 +89,10 @@ const navigate = useNavigate()
 
       )}
 
-         {isLoggedIn ?  <button onClick={handleLogout} className="relative bg-yellow-600 px-6 py-2 border-2 rounded-md border-black font-medium ">Log Out</button> : <button  className="relative bg-yellow-600 px-6 py-2 border-2 rounded-md border-black font-medium "><Link to="/register">Register</Link></button>}
+         {isLoggedIn ?  <button onClick={handleLogout} className="relative bg-yellow-600 px-6 py-2 border-2 rounded-md border-black font-medium ">Log Out</button> : null}
 
       
-
+  
           
         
       

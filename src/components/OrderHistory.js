@@ -32,31 +32,23 @@ const OrderHistory = ({isLoggedIn}) => {
 
 
 
-  const item = cart.map((order, index) => {
+  const item = cart.map((order) => { 
     return (
-      <div key={order.id} className=" select-none">
+      <div key={order.id} className="select-none">
         <div className="mt-12">
           <div className="flow-root">
-            <ul className="-my-4 rounded-lg border-2 border-black shadow-xl ">
-              <li className="flex items-center justify-between py-4">
-                <div className="flex items-start ">
-                  <img
-                    className="flex-shrink-0 object-cover w-16 h-16 rounded-lg shadow-lg "
-                    src={require("./Logo/coffeeBag.jpg")}
-                  />
-                  <div className="ml-4">
-                    <p className="text-md">
-                    Order # {order.id}
+            <ul className=" rounded-lg border-2 border-black shadow-xl bg-slate-600 bg-opacity-20">
+              <li className="flex items-center py-4 ">
+                <div className="  w-full basis-1/6">
+                <div className=" ">
+                    <p className="text-xl font-semibold text-center">
+                    Order {order.id}
                     </p>
-                  </div>
-                <OrderHistoryItems orderId={order.id}/>
                 </div>
-                  
-                <div>
-                  <p className="text-xl font-medium">Order User:{cartItem.userId}</p>
                 </div>
-
-
+                <div className=" basis-5/6">
+                  <OrderHistoryItems orderId={order.id}/>
+                </div>
               </li>
             </ul>
           </div>
@@ -66,10 +58,10 @@ const OrderHistory = ({isLoggedIn}) => {
   });
 
   return (
-    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 select-none">
-      <div className="relative w-full max-w-screen-2xl shadow-2xl  ">
-        <div className="grid grid-cols-1 md:grid-cols-2 ">
-          <div className="py-12 bg-gray-100 bg-opacity-80 md:py-24 rounded-l-lg  ">
+    <section className=" flex justify-center items-center h-screen  bg-gradient-to-t from-rose-300 to-yellow-600 select-none px-4">
+      <div className=" w-full shadow-2xl border bg-gray-300 rounded-lg">
+        <div className="grid grid-cols-1">
+          <div className="  bg-opacity-80 md:py-24 container mx-auto ">
             <div className="max-w-full px-4 mx-auto lg:px-4 ">
               <div className="flex items-center justify-center">
                
@@ -79,7 +71,7 @@ const OrderHistory = ({isLoggedIn}) => {
 
               <div className="mt-8">
                 
-                <p className="mt-1 text-lg text-black">For the purchase of</p>
+                <p className="mt-1 text-lg text-black">Purchase History:</p>
               </div>
               {item}
 

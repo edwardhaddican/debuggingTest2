@@ -53,8 +53,8 @@ console.log(guestCart, 'guest')
 
  const item = cartItems.map((cartItem) => {
    return (
-     <div key={cartItem.id} className=" select-none">
-       <div className="mt-12">
+     <div key={cartItem.id} className=" select-none ">
+       <div className="mt-12 mb-10">
          <div className="flow-root">
            <ul className="-my-4 rounded-lg border-2 border-black shadow-xl ">
              <li className="flex items-center justify-between py-4">
@@ -90,11 +90,11 @@ console.log(guestCart, 'guest')
 
 
   return (
-    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 select-none">
+    <section className=" flex shrink-0 justify-center items-center h-screen bg-gradient-to-t from-rose-300 to-yellow-600 select-none overflow-auto">
 
       <div className="relative w-full max-w-screen-2xl shadow-2xl  ">
         <div className="grid grid-cols-1 md:grid-cols-2 ">
-          <div className="py-12 bg-gray-100 bg-opacity-80 md:py-24 rounded-l-lg  ">
+          <div className="py-12 bg-gray-100 bg-opacity-80 md:py-24 rounded-l-lg ">
             <div className="max-w-full px-4 mx-auto lg:px-4 ">
               <div className="flex items-center justify-center">
                 <img
@@ -111,17 +111,10 @@ console.log(guestCart, 'guest')
                   For the purchase of  
                 </p>
               </div> 
-            {item}
-           
-
-                
-
+                {item}
                 <CartCheckout/>
-                
-
             </div>
           </div>
-
           <div className="py-12 bg-white bg-opacity-80 md:py-24 rounded-r-lg">
             <div className="max-w-lg px-4 mx-auto lg:px-8">
               <form className="grid grid-cols-6 gap-4">

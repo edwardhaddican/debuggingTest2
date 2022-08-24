@@ -42,10 +42,10 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
       }
 
   return (
-    <div className="flex flex-col absolute  bg-white">
-      <button onClick={buttonClick2}>EDIT PRODUCT</button>
+    <div>
+      <button className="max-w-fit text-center font-medium mt-2 px-4 py-1 border-zinc-900 border-solid border-2 rounded-md bg-orange-300 hover:bg-rose-900 hover:text-yellow-600 transition duration-500" onClick={buttonClick2}>EDIT PRODUCT</button>
       {isShown2 &&
-      <form className="flex flex-row" onSubmit={handleSubmit}>
+      <form className="flex flex-col " onSubmit={handleSubmit}>
         <label>
           Name:
           <input
@@ -57,7 +57,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
             }}
           />
         </label>
-        <label className="flex flex-col">
+        <label className="">
           Description:
           <input
             type="text"
@@ -67,7 +67,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
             }}
           />
         </label>
-        <label className="flex flex-col">
+        <label className="">
           Price:
           <input
             type="text"
@@ -77,7 +77,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
             }}
           />
         </label>
-        <label className="flex flex-col">
+        <label className="l">
           Weight:
           <input
             value={weight}
@@ -88,10 +88,9 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
           />
         </label>
         <label className="my-2">
-          Roast:
           <select
             id="roast"
-            className="flex w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
+            className=" w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
             type="text"
             value={roast}
             onChange={(event) => {
@@ -106,10 +105,9 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
           </select>
         </label>
         <label className="my-2">
-          Grind:
           <select
             id="grind"
-            className="flex w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
+            className="w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
             type="text"
             value={grind}
             onChange={(event) => {
@@ -123,10 +121,9 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
           </select>
         </label>
         <label className="my-2">
-          Country:
           <select
             id="Country"
-            className="flex w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
+            className=" w-full text-center rounded-md focus:ring-rose-900 focus:border-rose-900 focus:z-10"
             type="text"
             value={country}
             onChange={(event) => {
@@ -139,7 +136,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
             <option value="Colombia">Colombia</option>
             <option value="Indonesia">Indonesia</option>
             <option value="Ethiopia">Ethiopia</option>
-            <option value="Hondurus">Honduras</option>
+            <option value="Honduras">Honduras</option>
             <option value="India">India</option>
             <option value="Uganda">Uganda</option>
           </select>
@@ -149,7 +146,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
             Country: 
             <input type='text' value={country} onChange={(event)=> {setCountry(event.target.value)}}/>
         </label> */}
-        <label className="flex flex-col">
+        <label className="">
             Inventory:
             <input value={inventory} type='text' onChange={(event)=> {setInventory(event.target.value)}}/>
 
@@ -158,9 +155,7 @@ const UpdateProducts = ({myProducts, setMyProducts, productId })=> {
           UPDATE
         </button>
       </form>
-      }
-            
-            
+      } 
     </div>
   );
 };

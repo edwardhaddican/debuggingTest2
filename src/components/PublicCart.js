@@ -92,7 +92,7 @@ console.log(guestCart, 'guest')
             </div>
           </div>
 
-          <div className="py-12 bg-white bg-opacity-80 md:py-24 rounded-r-lg">
+          <div className="py-12 bg-white bg-opacity-80 md:py-24 rounded-r-lg ">
             <div className="max-w-lg px-4 mx-auto lg:px-8">
               <form className="grid grid-cols-6 gap-4">
                 <div className="col-span-3">
