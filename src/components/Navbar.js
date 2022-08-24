@@ -49,11 +49,11 @@ const navigate = useNavigate()
       {isAdmin && isLoggedIn ?  (<div className="flex flex-col sm:flex-row md:flex-row gap-x-60 sm:gap-x-8 md:mx-6 lg:gap-x-20 xl:gap-x-20 justify-center ">
       <NavLink to='/createProduct' className=" my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0 " >Create Product
       </NavLink>
-      <NavLink to='/merchantproduct' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
+      <NavLink to='/merchantProduct' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
       </NavLink>
       {/* <NavLink to='/sellerProducts' className="my-1 text-3xl text-gray-200 font-medium  hover:text-yellow-600 hover:scale-125 transition duration-400 md:my-0" >My Products
       </NavLink>  */}
-      <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1">Log Out</button>
+  
       </div>): !isAdmin && isLoggedIn ? (
         <div className="flex justify-center ">
         <Link to='/cart' className="relative text-gray-200 hover:text-yellow-600">
@@ -65,7 +65,7 @@ const navigate = useNavigate()
           <span className="absolute top-0 left-0 rounded-full bg-indigo-500 text-white p-1 text-xs"></span>
 
           </Link>
-          <button onClick={handleLogout} className="relative bg-yellow-600 px-2 border-2 rounded-md border-black truncate sm:left-1">Log Out</button>
+
       </div>
       ) : (
 <div className="inline-flex flex-col md:flex-row md:mx-6 gap-x-60  xl:gap-x-20 sm:flex-row justify-center sm:gap-x-20 ">
@@ -85,12 +85,12 @@ const navigate = useNavigate()
 
       )}
 
-          <button onClick={handleLogout} className="relative bg-yellow-600 px-6 py-2 border-2 rounded-md border-black font-medium "> {isLoggedIn ? "Log Out":"Sign up"}</button>
+         {isLoggedIn ?  <button onClick={handleLogout} className="relative bg-yellow-600 px-6 py-2 border-2 rounded-md border-black font-medium ">Log Out</button> : <button  className="relative bg-yellow-600 px-6 py-2 border-2 rounded-md border-black font-medium "><Link to="/register">Register</Link></button>}
 
       
 
           
-        {/* This is the cart icon */}
+        
       
 
     </div>
