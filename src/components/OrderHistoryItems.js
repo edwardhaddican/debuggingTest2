@@ -17,11 +17,11 @@ const OrderHistoryItems = ({orderId}) => {
         }
     
       
- const orderItems = orderItem.map((product, index) => {
+ const orderItems = orderItem.map((product) => {
     return(
 <div key={product.id}>
     <div>
-       <ProductById productId={product.id}/>
+       <ProductById productId={product.productId}/>
     </div>
     <div>
         {product.price}
