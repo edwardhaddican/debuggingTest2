@@ -47,7 +47,7 @@ console.log(guestCart, 'guest')
                     </p>
                   </div>
                       
-                      {/* <DeleteCartItem cartItemId={cartItem.id} setCartItems={setCartItems} cartItems={cartItems}/> */}
+                      <DeletePublicItem cartItemId={cartItem.id} setGuestCart={setGuestCart} guestCart={guestCart}/>
                 </li>
               </ul>
             </div>
