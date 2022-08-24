@@ -46,7 +46,7 @@ useEffect(() => {
 // })
 
   return (
-    <div className="bg-gradient-to-t from-rose-300 to-yellow-600 h-screen flex flex-col justify-center items-center   ">
+    <div className="bg-gradient-to-t from-rose-300 to-yellow-600 h-screen flex flex-col justify-center items-center select-none">
        
     <h1 className=' text-center text-6xl mt-24'>{brand}</h1>
     <div className=" mx-0 py-16 px-4 sm:py-24 sm:px-12 lg:w-full lg:h-full lg:px-9 sm:h-full ">

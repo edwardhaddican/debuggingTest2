@@ -34,10 +34,10 @@ const OrderHistory = ({isLoggedIn}) => {
 
   const item = cart.map((order) => { 
     return (
-      <div key={order.id} className="select-none">
-        <div className="mt-12">
+      <div key={order.id} className="select-none bg-gray-400">
+        <div className="mt-12 ">
           <div className="flow-root">
-            <ul className=" rounded-lg border-2 border-black shadow-xl bg-slate-600 bg-opacity-20">
+            <ul className="rounded-lg border-2 border-black shadow-xl bg-opacity-20">
               <li className="flex items-center py-4 ">
                 <div className="  w-full basis-1/6">
                 <div className=" ">
@@ -58,31 +58,9 @@ const OrderHistory = ({isLoggedIn}) => {
   });
 
   return (
-    <section className=" flex justify-center items-center h-screen  bg-gradient-to-t from-rose-300 to-yellow-600 select-none px-4">
-      <div className=" w-full shadow-2xl border bg-gray-300 rounded-lg">
-        <div className="grid grid-cols-1">
-          <div className="  bg-opacity-80 md:py-24 container mx-auto ">
-            <div className="max-w-full px-4 mx-auto lg:px-4 ">
-              <div className="flex items-center justify-center">
-               
-
-                <h2 className="ml-4 font-medium">Warp Coffee</h2>
-              </div>
-
-              <div className="mt-8">
-                
-                <p className="mt-1 text-lg text-black">Purchase History:</p>
-              </div>
+    <section className=" flex flex-col bg-gradient-to-t from-rose-300 to-yellow-600 select-none px-4 h-screen justify-center">
+      <div className="h-4/6 shadow-2xl border bg-gray-500 rounded-lg overflow-y-scroll">
               {item}
-
-            
-            </div>
-          </div>
-
-          <div className="col-span-6">
-           
-          </div>
-        </div>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import { getCartItemsbyUserId,getUsersMe2 } from "../apiAdapter";
 import { useState,useEffect } from "react";
 
 const Navbar = ({setIsLoggedIn,setIsAdmin,isLoggedIn,isAdmin}) => {
+ 
 const navigate = useNavigate()
    function handleLogout (){
     localStorage.removeItem("token")
