@@ -40,7 +40,7 @@ console.log(guestCart, 'guest')
                       </p>
                     </div>
                   </div>
-                  <UpdatePublicItem cartItemId={cartItem.id} setGuestCart={setGuestCart} guestCart={guestCart}/>
+                  <UpdatePublicItem cartItemId={cartItem.id} setGuestCart={setGuestCart} guestCart={guestCart} isLoggedIn={isLoggedIn}/>
                   <div>
                     <p className="text-xl font-medium">
                       ${cartItem.price} 

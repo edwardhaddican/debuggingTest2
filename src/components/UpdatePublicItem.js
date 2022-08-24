@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-const UpdatePublicItem = ({setGuestCart, guestCart, cartItemId}) => {
+const UpdatePublicItem = ({setGuestCart, guestCart, cartItemId, isLoggedIn}) => {
 
     const [cartQuantity,setCartQuantity] = useState(1);
 console.log(cartQuantity, 'cart quant')
@@ -19,7 +19,13 @@ console.log(cartQuantity, 'cart quant')
       
       
       
-      useEffect(() => {}, []);
+      useEffect(() => {
+        if (!isLoggedIn) {
+            console.log(guestCart, 'guest')
+                  localStorage.setItem('cart', JSON.stringify(guestCart))
+        }            
+
+      }, [guestCart]);
       
       return(
           <div className="select-none ">
