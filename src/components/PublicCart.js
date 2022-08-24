@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {DeletePublicItem} from './index';
+import {DeletePublicItem, PublicSum, UpdatePublicItem} from './index';
 
 
 const PublicCart = ({isLoggedIn}) => {
@@ -40,7 +40,7 @@ console.log(guestCart, 'guest')
                       </p>
                     </div>
                   </div>
-                  {/* <UpdateCartItem cartItemId={cartItem.id} setCartItems={setCartItems}/> */}
+                  <UpdatePublicItem cartItemId={cartItem.id} setGuestCart={setGuestCart} guestCart={guestCart}/>
                   <div>
                     <p className="text-xl font-medium">
                       ${cartItem.price} 
@@ -76,10 +76,11 @@ console.log(guestCart, 'guest')
               </div>
 
               <div className="mt-8">
-               
+              <PublicSum guestCart={guestCart}/>
                 <p className="mt-1 text-lg text-black">
                   For the purchase of  
                 </p>
+                
               </div> 
             {myCart}
            
