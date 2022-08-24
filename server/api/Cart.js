@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCart, getCartById, cartCheckout } = require('../db/Cart');
+const { getCartById, cartCheckout, getOrderHistorybyId } = require('../db/Cart');
 const { requireUser } = require('./utils');
 const router = express.Router()
 
@@ -35,5 +35,12 @@ const router = express.Router()
       } catch ({name,message}) {
           next({name, message})
       }
+  })
+
+  router.get('/:userId/orderHistory',requireUser, async (req,res,next)=> {
+    const {userId} = req.params
+    console.log("Getting OrderHistory")
+    const cartUser = await getOrderHistorybyId(userId)
+    res.send(cartUser)
   })
   module.exports = router
