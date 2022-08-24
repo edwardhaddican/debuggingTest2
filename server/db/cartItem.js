@@ -1,23 +1,6 @@
 const client = require("./client");
 const {createCart} = require("./Cart")
 
-async function getcartItem(userId){
-  try{
-  const {
-    rows: [cart],
-  } = await client.query(
-    `
-    SELECT * FROM Cart
-    WHERE userId =$1
-  `,
-    [userId]
-  );
-  return cart;
-} catch (error) {
-  throw error;
-}}
-
-//
 async function addProductToCart({
   productId,
   cartId,
@@ -45,19 +28,6 @@ async function addProductToCart({
   }
 }
 
-// async function getcartItemByCartId({ id }) {
-//   try {
-//     const { rows } = await client.query(`
-//     SELECT *
-//     FROM cartItem
-//     WHERE "cartId"=${id}
-//     `);
-
-//     return rows;
-//   } catch (error) {
-//     console.error;
-//   }
-// }
 
 async function getcartItemById(Id) {
   try {
@@ -93,30 +63,6 @@ async function getcartItemByCartItemId(cartItemId) {
 
 
 
-
-async function updatecartItem({ id, ...fields }) {
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
-
-  try {
-    if (setString.length > 0) {
-      await client.query(
-        `
-        UPDATE cartItem
-        SET ${setString}
-        WHERE id=${id}
-        RETURNING *;
-      `,
-        Object.values(fields)
-      );
-    }
-    return await getcartItemById(id);
-  } catch (error) {
-    throw error;
-  }
-}
-
 async function destroycartItem(id) {
   try {
     const {
@@ -135,24 +81,6 @@ async function destroycartItem(id) {
   }
 }
 
-// async function canEditcartItem(cartItemId, userId) {
-//   const {
-//     rows: [cartItem],
-//   } = await client.query(
-//     `
-//   SELECT * FROM cartItem
-//   JOIN Cart ON cartItem."cartId" = Cart.id
-//   AND cartItem.id = $1
-//   `,
-//     [cartItemId]
-//   );
-
-//   if (cartItem.cartId === userId) {
-//     return cartItem;
-//   } else {
-//     return false;
-//   }
-// }
 async function editItemQuantity ({cartItemId, quantity}) {
   console.log(cartItemId, quantity,"INITIATING editItemQuantity")
   const {
@@ -179,10 +107,8 @@ module.exports = {
 
   addProductToCart,
   destroycartItem,
-  updatecartItem,
   editItemQuantity,
   getcartItemById,
-  getcartItem,
   getcartItemByCartItemId
 
 };

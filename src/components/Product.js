@@ -72,7 +72,6 @@ const Products = ({ productsList, setProductsList, isLoggedIn, isAdmin }) => {
                 setProductsList={setProductsList}
                 productId={element.id}
                 productPrice={element.price}
-                isLoggedIn={isLoggedIn}
               />
               : null }
               </div>

@@ -4,9 +4,6 @@ const { requireUser } = require('./utils')
 const { 
     addProductToCart,
     destroycartItem,
-    updatecartItem,
-    canEditcartItem,
-    getcartItem,
     getcartItemById,
     getcartItemByCartItemId,
     editItemQuantity,

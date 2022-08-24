@@ -104,29 +104,7 @@ async function getProductsByName(name) {
   }
 }
 
-// async function getProductsByBrand({ username }) {
-//   try {
-//     const seller = await getMerchantByUsername(username);
-//     console.log(seller, "GETTING  USERNAME ")
-//     const { rows: [Products]} = await client.query(
-//       `
-//     SELECT Product.*
-//     FROM Product
-//     JOIN merchants ON Product."creatorId" = merchants.id
-//     WHERE "creatorId" =$1;
-//     `,
-//       [seller.id]
-//     );
-//     if (!Products) {
-//       return null;
-//     };
-//     // const allproducts = attachProductsUserOrder(Products)
-//     console.log(Products,"3 BRAND")
-//     return Products;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+
 
 async function destroyProduct(id) {
   try {

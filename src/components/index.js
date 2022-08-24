@@ -23,5 +23,10 @@ export {default as DeleteCartItem} from './DeleteCartItem'
 export {default as Sum} from './Sum'
 export {default as PublicCart} from './PublicCart'
 export {default as DeletePublicItem} from './DeletePublicItem'
+
 export {default as PublicSum} from './PublicSum'
 export {default as UpdatePublicItem} from './UpdatePublicItem'
+
+export {default as OrderHistory} from './OrderHistory'
+export {default as OrderHistoryItems} from './OrderHistoryItems'
+

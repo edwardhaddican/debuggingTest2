@@ -333,3 +333,19 @@ export const userCartCheckout = async (token, cartId) => {
     throw error;
   }
 };
+
+export const getOrderHistorybyUserId = async (token, userId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/Cart/${userId}/orderHistory`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+console.log(result, 'user id result')
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
