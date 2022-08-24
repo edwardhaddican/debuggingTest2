@@ -80,6 +80,10 @@ newcart.push(info)
 
 // cart.push(newGuestP)
 console.log(newcart, 'push')
+newcart.forEach(object => {
+  object.quantity = 1;
+})
+console.log(newcart, 'the new')
   setGuestCart(newcart)
   console.log(guestCart, 'guest cart')
   }
