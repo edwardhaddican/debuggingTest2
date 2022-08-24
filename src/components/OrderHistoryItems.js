@@ -19,12 +19,10 @@ const OrderHistoryItems = ({orderId}) => {
       
  const orderItems = orderItem.map((product) => {
     return(
-<div key={product.id}>
-    <div>
+<div key={product.id} className="border-b-2">
+    <div className="">
        <ProductById productId={product.productId}/>
-    </div>
-    <div>
-        {product.price}
+        <h1 className='font-semibold underline'>Price:</h1> ${product.price}
     </div>
 </div>
     )

@@ -20,8 +20,8 @@ const ProductById= ({productId}) => {
 
     return (
         <div>
-            <h1>{getProduct.name}</h1>
-            <h1>{getProduct.description}</h1>
+            <h1 className='font-semibold underline' >Name:</h1> {getProduct.name}
+            <h1 className='font-semibold underline'>Description:</h1> {getProduct.description}
         </div>
     )
 
