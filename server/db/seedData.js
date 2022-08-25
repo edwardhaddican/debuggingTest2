@@ -8,6 +8,7 @@ const { addProductToCart } = require("./cartItem");
 async function dropTables() {
   try {
     await client.query(`
+      DROP TABLE IF EXISTS userOrders;
        DROP TABLE IF EXISTS cartItem;
        DROP TABLE IF EXISTS cartOrder;
       DROP TABLE IF EXISTS Cart;
