@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "capstone project for FSA",
   "scripts": {
-    "test": "test",
+    "postinstall": "npm run client:build",
+    "client:dev": "react-scripts start",
+    "client:build": "react-scripts build",
     "seed:dev": "nodemon ./server/db/seed.js",
     "seed": "node ./server/db/seed.js",
     "start:dev": "nodemon ./server/app.js",

@@ -20,7 +20,7 @@ app.use((req, res, next) => {
     next();
   });
 
-const router = require('./api')
+const router = require('./server/api')
 app.use('/api', router)
 
 app.get('*', (req, res) => {
