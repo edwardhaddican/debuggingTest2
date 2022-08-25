@@ -33,8 +33,15 @@ app.use((error, req, res, next) => {
   res.send({error: error.message, name: error.name, message: error.message});
 });
 
-app.listen(3001,async () => {
-  console.log("Server is listening on 3001")
-} )
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.use((req, res, next) => {
+  console.log('hi')
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// app.listen(3001,async () => {
+//   console.log("Server is listening on 3001")
+// } )
 
 module.exports = app;
