@@ -2,7 +2,7 @@ import { getAllCartsByUserId, getUsersMe2, userCartCheckout} from "../apiAdapter
 import React, { useEffect } from "react";
 
 
-const CartCheckout = ({ carts, setCarts}) => {
+const CartCheckout = ({ setCartItems}) => {
     async function handleCheckout(event) {
       event.preventDefault();
       const token = localStorage.getItem("token");
@@ -10,7 +10,8 @@ const CartCheckout = ({ carts, setCarts}) => {
       console.log(getUser, "Show me the user for Cart Checkout")
       const getCart = await getAllCartsByUserId(token, getUser.id)
       console.log("New Cart", getCart)
-       await userCartCheckout(token, getCart.id);
+       await userCartCheckout(token, getCart.id)
+      location.reload()
     }
  
     useEffect(() => {handleCheckout}, []);

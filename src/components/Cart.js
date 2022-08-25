@@ -38,18 +38,6 @@ const Cart = ({ carts, setCarts, isLoggedIn}) => {
 
 console.log(guestCart, 'guest')
 
-
-  
-
-  // const sumAll = cartItems.map(item => item.price).reduce((prev, curr) => prev + curr*quantity, 0);
-  // console.log(sumAll);
-
-  // const handleChange=(e,id) => {
-  //     id=e.target.id
-  //     console.log(id)
-    
-  //     setQuantity(e.target.value)
-  // }
   
 
  const item = cartItems.map((cartItem) => {
@@ -113,7 +101,7 @@ console.log(guestCart, 'guest')
                 </p>
               </div> 
                 {item}
-                <CartCheckout/>
+                {/* <CartCheckout/> */}
             </div>
           </div>
           <div className="py-12 bg-white bg-opacity-80 md:py-24 rounded-r-lg">
@@ -277,9 +265,8 @@ console.log(guestCart, 'guest')
                 <div className="col-span-6">
                   <button
                     className="rounded-lg bg-black text-sm p-2.5 text-white w-full block animate-bounce"
-                    type="submit"
                   >
-                    Pay Now
+                    <CartCheckout setCartItems={setCartItems}/>
                   </button>
                 </div>
               </form>
