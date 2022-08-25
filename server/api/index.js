@@ -8,7 +8,7 @@ const { JWT_SECRET } = process.env;
 router.use(async (req,res,next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
-
+    console.log('asdfasdfasdfs')
     if (!auth) {
         next()
     } else if (auth.startsWith(prefix)) {
@@ -31,37 +31,6 @@ router.use(async (req,res,next) => {
         })
     }
 })
-
-router.use(async (req,res,next) => {
-    const prefix = 'Bearer ';
-    const auth = req.header('Authorization');
-
-    if (!auth) {
-        next()
-    } else if (auth.startsWith(prefix)) {
-        const token = auth.slice(prefix.length);
-
-        try {
-            const parsedToken = jwt.verify(token, JWT_SECRET);
-            const id = parsedToken && parsedToken.id
-            if (id) {
-                req.merchant = await getMerchantById(id)
-                next()
-            }
-        } catch (error) {
-            next(error)
-        }
-    } else {
-        next({
-            name: 'AuthorizationHeaderError',
-            message: `Authorization token must start with ${ prefix }`
-        })
-    }
-})
-
-
-
-
 
 
 const usersRouter = require('./users');

@@ -8,8 +8,8 @@
     "client:build": "react-scripts build",
     "seed:dev": "nodemon ./server/db/seed.js",
     "seed": "node ./server/db/seed.js",
-    "start:dev": "nodemon ./server/app.js",
-    "start": "react-scripts start",
+    "start:dev": "nodemon ./server.js",
+    "start": "node ./server.js",
     "build": "NODE_ENV=production"
   },
   "author": "Michael Lopez, Garrett Truong, Jacob Morris, Brandon Covarrubias",

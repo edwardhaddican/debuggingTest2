@@ -1,5 +1,6 @@
-const BASE_URL = "https://fast-atoll-24490.herokuapp.com/api";
-// const BASE_URL = "http://localhost:3001/api";
+// const BASE_URL = "https://fast-atoll-24490.herokuapp.com/api";
+const BASE_URL = "http://localhost:3001/api";
+// const BASE_URL = "/api";
 export const userLogin = async (username, password) => {
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
@@ -40,7 +41,7 @@ export const registerUser = async (username, password) => {
 
 export const getProducts = async () => {
   try {
-    console.log("Hello");
+
     const response = await fetch(`${BASE_URL}/products`, {
       headers: {
         "Content-Type": "application/json",
