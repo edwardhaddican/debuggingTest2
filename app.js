@@ -23,6 +23,13 @@ app.use((req, res, next) => {
 const router = require('./server/api')
 app.use('/api', router)
 
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.use((req, res, next) => {
+  console.log('hi')
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 app.get('*', (req, res) => {
   res.status(404).send({error: '404 - Not Found', message: 'No route found for the requested URL'});
 });
@@ -33,12 +40,7 @@ app.use((error, req, res, next) => {
   res.send({error: error.message, name: error.name, message: error.message});
 });
 
-app.use(express.static(path.join(__dirname, 'build')));
 
-app.use((req, res, next) => {
-  console.log('hi')
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 // app.listen(3001,async () => {
 //   console.log("Server is listening on 3001")
