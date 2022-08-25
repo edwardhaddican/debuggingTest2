@@ -8,15 +8,16 @@ const { addProductToCart } = require("./cartItem");
 async function dropTables() {
   try {
     await client.query(`
+      DROP TYPE IF EXISTS coffeeRoast;
+       DROP TYPE IF EXISTS coffeeGrind;
+       DROP TYPE IF EXISTS order_status;
+       DROP TYPE IF EXISTS coffeeCountry;
        DROP TABLE IF EXISTS cartItem;
       DROP TABLE IF EXISTS Cart;
        DROP TABLE IF EXISTS Product;
        DROP TABLE IF EXISTS Merchants;
        DROP TABLE IF EXISTS users;
-       DROP TYPE IF EXISTS coffeeRoast;
-       DROP TYPE IF EXISTS coffeeGrind;
-       DROP TYPE IF EXISTS order_status;
-       DROP TYPE IF EXISTS coffeeCountry;
+       
       `);
     console.log("Dropping All Tables...");
   } catch (error) {
