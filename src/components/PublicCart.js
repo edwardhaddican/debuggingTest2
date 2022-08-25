@@ -34,6 +34,14 @@ console.log(guestCart, 'guest')
                       className="flex-shrink-0 object-cover w-16 h-16 rounded-lg shadow-lg "
                       src={require("./Logo/coffeeBag.jpg")}
                     />
+                    <div>
+                    <p className="text-md">
+                    <h1 className='font-semibold underline' >Name:</h1> {cartItem.name}
+                    
+                    
+            <h1 className='font-semibold underline'>Description:</h1> {cartItem.description}
+            </p>
+            </div>
                     <div className="ml-4">
                       <p className="text-md">
                         {/* <ProductById productId={cartItem.productId} /> */}
